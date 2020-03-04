@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="GreenApps.model.Servicio" table="Servicio" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idServicio" type="java.lang.Integer">
+            <column name="idServicio" />
+            <generator class="identity" />
+        </id>
+        <property name="numeroServicio" type="string">
+            <column name="numeroServicio" length="30" not-null="true" />
+        </property>
+        <property name="placa" type="string">
+            <column name="placa" length="30" not-null="true" />
+        </property>
+        <property name="idMoto" type="int">
+            <column name="idMoto" not-null="true" />
+        </property>
+        <property name="idMecanico" type="int">
+            <column name="idMecanico" not-null="true" />
+        </property>
+        <property name="observacionServicio" type="string">
+            <column name="observacionServicio" not-null="true" />
+        </property>
+        <property name="idEmpleado" type="int">
+            <column name="idEmpleado" not-null="true" />
+        </property>
+        <property name="idPersona" type="int">
+            <column name="idPersona" not-null="true" />
+        </property>
+        <property name="totalServicio" type="float">
+            <column name="totalServicio" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="totalDescuentoServicio" type="string">
+            <column name="totalDescuentoServicio" length="45" />
+        </property>
+        <property name="idTipoTransaccion" type="int">
+            <column name="idTipoTransaccion" not-null="true" />
+        </property>
+        <property name="fechaServicio" type="timestamp">
+            <column name="fechaServicio" length="19" not-null="true" />
+        </property>
+        <property name="estadoServicio" type="java.lang.Byte">
+            <column name="estadoServicio" />
+        </property>
+    </class>
+</hibernate-mapping>

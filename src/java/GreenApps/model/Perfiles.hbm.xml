@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="GreenApps.model.Perfiles" table="Perfiles" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idPerfiles" type="java.lang.Integer">
+            <column name="idPerfiles" />
+            <generator class="identity" />
+        </id>
+        <property name="codigoPerfil" type="string">
+            <column name="codigoPerfil" length="50" not-null="true" />
+        </property>
+        <property name="nombrePefil" type="string">
+            <column name="nombrePefil" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

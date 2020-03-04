@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/HomeTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1></h1>
+                <h3>MECANICOS</h3>
+                <h3></h3>
+                <h:form>
+                    <p:commandButton value="Nuevo Mecanico" actionListener="#{mecanicoBean.nuevoMecanico()}" oncomplete="PF('dialogNuevoMecanico').show();" update=":formNuevoMecanico" style="text-align:center; font-size:15px"/>
+                </h:form>
+                <h1></h1>
+                <h:form id="formMostrarMecanicos">
+                    <p:dataTable id="tableMecanicos" value="#{mecanicoBean.listaMecanicos}" var="mec" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Identificación" filterBy="#{mec.identificacionMecanico}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width:180px">
+                            <h:outputText value="#{mec.identificacionMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Nombres" style="text-align:center">
+                            <h:outputText value="#{mec.nombresMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Apellidos" style="text-align:center">
+                            <h:outputText value="#{mec.apellidosMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Departamento" style="text-align:center">
+                            <h:outputText value="#{mecanicoBean.getmostrarDepartamento(mec.idDepartamento)}"/>
+                        </p:column>
+                        <p:column headerText="Ciudad" style="text-align:center">
+                            <h:outputText value="#{mecanicoBean.getmostrarCiudad(mec.idCiudad)}"/>
+                        </p:column>
+                        <p:column headerText="Dirección" style="text-align:center">
+                            <h:outputText value="#{mec.direccionMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Teléfono" style="text-align:center">
+                            <h:outputText value="#{mec.telefonoMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Email" style="text-align:center">
+                            <h:outputText value="#{mec.correoMecanico}"/>
+                        </p:column>
+                        <p:column headerText="Modificar" style="text-align:center; font-size:13px">
+                            <p:commandButton value="Modificar" oncomplete="PF('dialogModificarMecanico').show();" update=":formModificarMecanico" style="text-align:center; font-size:11px" >
+                                <f:setPropertyActionListener target="#{mecanicoBean.mecanico}" value="#{mec}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Eliminar" style="text-align:center; font-size:13px">
+                            <p:commandButton value="Eliminar" oncomplete="PF('dialogEliminarMecanico').show();" update=":formEliminarMecanico" style="text-align: center; font-size:11px" >
+                                <f:setPropertyActionListener target="#{mecanicoBean.mecanico}" value="#{mec}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="formNuevoMecanico">
+                    <p:dialog id="dlgNuevoMecanico" header="Información Mecanico" widgetVar="dialogNuevoMecanico" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="Identificación"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.identificacionMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Nombres"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.nombresMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Apellidos"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.apellidosMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Departamento"/>
+                            <p:selectOneMenu value="#{mecanicoBean.mecanico.idDepartamento}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{departamentoBean.listaDepartamentos}" var="dep" itemLabel="#{dep.nombreDepartamento}" itemValue="#{dep.idDepartamento}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{mecanicoBean.mecanico.idCiudad}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{ciudadBean.listaCiudades}" var="ciu" itemLabel="#{ciu.nombreCiudad}" itemValue="#{ciu.idCiudad}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Dirección"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.direccionMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Teléfono"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.telefonoMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Email"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.correoMecanico}" style="text-align: center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" actionListener="#{mecanicoBean.ingresarMecanico()}" oncomplete="PF('dialogNuevoMecanico').hide();" update=":formMostrarMecanicos:tableMecanicos"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogNuevoMecanico').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formModificarMecanico">
+                    <p:dialog id="dlgNuevoMecanico" header="Información Mecanico" widgetVar="dialogModificarMecanico" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="Identificación"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.identificacionMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Nombres"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.nombresMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Apellidos"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.apellidosMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Departamento"/>
+                            <p:selectOneMenu value="#{mecanicoBean.mecanico.idDepartamento}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{departamentoBean.listaDepartamentos}" var="dep" itemLabel="#{dep.nombreDepartamento}" itemValue="#{dep.idDepartamento}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{mecanicoBean.mecanico.idCiudad}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{ciudadBean.listaCiudades}" var="ciu" itemLabel="#{ciu.nombreCiudad}" itemValue="#{ciu.idCiudad}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Dirección"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.direccionMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Teléfono"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.telefonoMecanico}" style="text-align: center"/>
+                            <p:outputLabel value="Email"/>
+                            <p:inputText value="#{mecanicoBean.mecanico.correoMecanico}" style="text-align: center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Modificar" actionListener="#{mecanicoBean.actualizarMecanico()}" oncomplete="PF('dialogModificarMecanico').hide();" update=":formMostrarMecanicos:tableMecanicos"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogModificarMecanico').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formEliminarMecanico">
+                    <p:dialog id="dlgEliminarMecanico" header="Información Mecanico" widgetVar="dialogEliminarMecanico" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <h:outputText value="¿Desea Eliminar este Mecanico? "/>
+                        <p:commandButton value="Si" actionListener="#{mecanicoBean.eliminarMecanico()}" oncomplete="PF('dialogEliminarMecanico').hide();" update=":formMostrarMecanicos:tableMecanicos"/>
+                        <p:commandButton value="No" onclick="PF('dialogEliminarMecanico').hide();"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

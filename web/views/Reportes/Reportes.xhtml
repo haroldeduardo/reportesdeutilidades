@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/HomeTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1></h1>
+                <h3>REPORTES</h3>
+                <h3></h3>
+                <h1></h1>
+                <h:form style=" text-align: center">
+                    <h:commandLink id="linkImprimirProductos" actionListener="#{productoBean.reporteImpresionProductos()}" target="_blank">
+                        <p:graphicImage url="/imgs/imprimirIconoProductos.png"/>
+                    </h:commandLink>
+                    <h1></h1>    
+                    <p:commandButton value="Crear Reporte de Cotizaciones" oncomplete="PF('dialogNuevoReporteCotizaciones').show();" update=":formNuevoReporteCotizaciones" style="text-align:center; font-size:15px"/>
+                    <p:commandButton value="Crear Reporte de Compras" oncomplete="PF('dialogNuevoReporteCompras').show();" update=":formNuevoReporteCompras" style="text-align:center; font-size:15px"/>
+                    <p:commandButton value="Crear Reporte de Servicios" oncomplete="PF('dialogNuevoReporteServicios').show();" update=":formNuevoReporteServicios" style="text-align:center; font-size:15px"/>
+                    <p:commandButton value="Crear Reporte de Ventas" oncomplete="PF('dialogNuevoReporteVentas').show();" update=":formNuevoReporteVentas" style="text-align:center; font-size:15px"/>
+                    <p:commandButton value="Crear Reporte de Devoluciones" oncomplete="PF('dialogNuevoReporteDevoluciones').show();" update=":formNuevoReporteDevoluciones" style="text-align:center; font-size:15px"/>
+                </h:form>
+                <h:form id="formNuevoReporteCotizaciones">
+                    <p:dialog id="dlgNuevoReporteCotizacion" header="Reporte de Cotizaciones" widgetVar="dialogNuevoReporteCotizaciones" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel for="idfechaInicialCotizacion" value="Fecha Inicial:"/>
+                            <h:inputText id="idfechaInicialCotizacion" value="#{cotizacionBean.fechaInicialCotizacion}" style="text-align: center"/>
+                            <p:outputLabel for="idfechaFinalCotizacion" value="Fecha Final:"/>
+                            <h:inputText id="idfechaFinalCotizacion" value="#{cotizacionBean.fechaFinalCotizacion}" style="text-align: center"/>
+                            <h:commandLink id="linkImprimirCotizaciones" actionListener="#{cotizacionBean.reportesCotizaciones()}" target="_blank">
+                                <p:graphicImage url="/imgs/imprimirIcono.png"/>
+                            </h:commandLink>
+                            <p:commandButton value="Salir" onclick="PF('dialogNuevoReporteCotizaciones').hide();"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formNuevoReporteCompras">
+                    <p:dialog id="dlgNuevoReporteCompra" header="Reporte de Compras" widgetVar="dialogNuevoReporteCompras" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel for="idfechaInicialCompra" value="Fecha Inicial:"/>
+                            <h:inputText id="idfechaInicialCompra" value="#{compraBean.fechaInicialCompra}" style="text-align: center"/>
+                            <p:outputLabel for="idfechaFinalCompra" value="Fecha Final:"/>
+                            <h:inputText id="idfechaFinalCompra" value="#{compraBean.fechaFinalCompra}" style="text-align: center"/>
+                            <h:commandLink id="linkImprimirCompras" actionListener="#{compraBean.reportesCompras()}" target="_blank">
+                                <p:graphicImage url="/imgs/imprimirIcono.png"/>
+                            </h:commandLink>
+                            <p:commandButton value="Salir" onclick="PF('dialogNuevoReporteCompras').hide();"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formNuevoReporteServicios">
+                    <p:dialog id="dlgNuevoReporteServicio" header="Reporte de Servicios" widgetVar="dialogNuevoReporteServicios" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel for="idfechaInicialServicio" value="Fecha Inicial:"/>
+                            <h:inputText id="idfechaInicialServicio" value="#{servicioBean.fechaInicialServicio}" style="text-align: center"/>
+                            <p:outputLabel for="idfechaFinalServicio" value="Fecha Final:"/>
+                            <h:inputText id="idfechaFinalServicio" value="#{servicioBean.fechaFinalServicio}" style="text-align: center"/>
+                            <h:commandLink id="linkImprimirServicios" actionListener="#{servicioBean.reportesServicios()}" target="_blank">
+                                <p:graphicImage url="/imgs/imprimirIcono.png"/>
+                            </h:commandLink>
+                            <p:commandButton value="Salir" onclick="PF('dialogNuevoReporteServicios').hide();"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formNuevoReporteVentas">
+                    <p:dialog id="dlgNuevoReporteVenta" header="Reporte de Ventas" widgetVar="dialogNuevoReporteVentas" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel for="idfechaInicialVenta" value="Fecha Inicial:"/>
+                            <h:inputText id="idfechaInicialVenta" value="#{ventaBean.fechaInicialVenta}" style="text-align: center"/>
+                            <p:outputLabel for="idfechaFinalVenta" value="Fecha Final:"/>
+                            <h:inputText id="idfechaFinalVenta" value="#{ventaBean.fechaFinalVenta}" style="text-align: center"/>
+                            <h:commandLink id="linkImprimirVentas" actionListener="#{ventaBean.reportesVentas()}" target="_blank">
+                                <p:graphicImage url="/imgs/imprimirIcono.png"/>
+                            </h:commandLink>
+                            <p:commandButton value="Salir" onclick="PF('dialogNuevoReporteVentas').hide();"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formNuevoReporteDevoluciones">
+                    <p:dialog id="dlgNuevoReporteDevolucion" header="Reporte de Devoluciones" widgetVar="dialogNuevoReporteDevoluciones" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel for="idfechaInicialDevolucion" value="Fecha Inicial:"/>
+                            <h:inputText id="idfechaInicialDevolucion" value="#{devolucionBean.fechaInicialDevolucion}" style="text-align: center"/>
+                            <p:outputLabel for="idfechaFinalDevolucion" value="Fecha Final:"/>
+                            <h:inputText id="idfechaFinalDevolucion" value="#{devolucionBean.fechaFinalDevolucion}" style="text-align: center"/>
+                            <h:commandLink id="linkImprimirDevoluciones" actionListener="#{devolucionBean.reportesDevoluciones()}" target="_blank">
+                                <p:graphicImage url="/imgs/imprimirIcono.png"/>
+                            </h:commandLink>
+                            <p:commandButton value="Salir" onclick="PF('dialogNuevoReporteDevoluciones').hide();"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

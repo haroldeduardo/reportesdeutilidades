@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5dc40422-2f97-432d-8041-c606be436ed0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaCompraInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaCompraFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT numeroCompra, nombresEmpleado, identificacionPersona, CONCAT(Persona.nombresPersona," ",Persona.apellidosPersona) AS datosPersona, totalCompra, fechaCompra FROM Compra inner join Empleado on Compra.idEmpleado = Empleado.idEmpleado inner join Persona on Compra.idPersona = Persona.idPersona WHERE fechaCompra between $P{fechaCompraInicial} AND $P{fechaCompraFinal};]]>
+	</queryString>
+	<field name="numeroCompra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombresEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="identificacionPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datosPersona" class="java.lang.String"/>
+	<field name="totalCompra" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaCompra" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalCompras" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalCompra}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="129" y="18" width="303" height="34" uuid="eb38dbea-5d74-48ab-9f3e-a2740aca7bc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTO 10 RACING]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="9" width="100" height="20" uuid="5889ce33-0710-415b-908d-36befaf914fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="9" width="78" height="20" uuid="c497894d-de96-4164-87c9-4e2c1e9b94f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="9" width="108" height="20" uuid="74deba93-2f2c-4455-824f-fb61fa32f3cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="9" width="100" height="20" uuid="c6ffa28c-311c-4044-8698-6b9914864ed2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="9" width="100" height="20" uuid="9c0c1cd6-3acd-4437-b6b2-fe107b5bfa93"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Persona]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="10" width="100" height="20" uuid="4d84708f-54fe-4730-804e-175ad183f115"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroCompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0">
+				<reportElement x="469" y="10" width="67" height="20" uuid="b6fc7691-1bde-4662-91fc-e118846e76d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalCompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="10" width="83" height="20" uuid="cd78852e-1ccc-4dbf-b209-78d52bec7a91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="10" width="100" height="20" uuid="b1a02e9d-f1a0-4a49-9174-dd7927350f57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datosPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="10" width="100" height="20" uuid="bfd43eb7-abb7-4fe9-92f1-41da62e1ddbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombresEmpleado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="4" width="119" height="20" uuid="69ee8d68-01ff-4f1b-b43f-759ac635d8e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total Compras:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0">
+				<reportElement x="356" y="4" width="100" height="20" uuid="799e7521-822e-4bc6-b717-fe82b081ef0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalCompras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

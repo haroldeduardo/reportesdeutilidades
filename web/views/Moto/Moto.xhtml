@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/HomeTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1></h1>
+                <h3>MOTOS</h3>
+                <h3></h3>
+                <h:form>
+                    <p:commandButton value="Nueva Moto" actionListener="#{motoBean.nuevaMoto()}" oncomplete="PF('dialogNuevaMoto').show();" update=":formNuevaMoto" style="text-align:center; font-size:15px"/>
+                </h:form>
+                <h1></h1>
+                <h:form id="formMostrarMotos">
+                    <p:dataTable id="tableMotos" value="#{motoBean.listaMotos}" var="mot" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Moto" filterBy= "#{mot.nombreMoto}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width: 180px">
+                            <h:outputText value="#{mot.nombreMoto}"/>
+                        </p:column>
+                        <p:column headerText="Modificar" style="text-align:center; font-size:15px">
+                            <p:commandButton value="Modificar" oncomplete="PF('dialogModificarMoto').show();" update=":formModificarMoto">
+                                <f:setPropertyActionListener target="#{motoBean.moto}" value="#{mot}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Eliminar" style="text-align:center; font-size:15px">
+                            <p:commandButton value="Eliminar" oncomplete="PF('dialogEliminarMoto').show();" update=":formEliminarMoto">
+                                <f:setPropertyActionListener target="#{motoBean.moto}" value="#{mot}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="formNuevaMoto">
+                    <p:dialog id="dlgNuevaMoto" header="Información Moto" widgetVar="dialogNuevaMoto" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel value="Moto"/>
+                            <p:inputText value="#{motoBean.moto.nombreMoto}" style="text-align: center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" actionListener="#{motoBean.ingresarMoto()}" oncomplete="PF('dialogNuevaMoto').hide();" update=":formMostrarMotos:tableMotos"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogNuevaMoto').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formModificarMoto">
+                    <p:dialog id="dlgNuevaMoto" header="Información Moto" widgetVar="dialogModificarMoto" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="1" style="margin: 0 auto;">
+                            <p:outputLabel value="Moto"/>
+                            <p:inputText value="#{motoBean.moto.nombreMoto}" style="text-align: center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Modificar" actionListener="#{motoBean.actualizarMoto()}" oncomplete="PF('dialogModificarMoto').hide();" update=":formMostrarMotos:tableMotos"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogModificarMoto').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formEliminarMoto">
+                    <p:dialog id="dlgEliminarMoto" header="Información Moto" widgetVar="dialogEliminarMoto" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <h:outputText value="¿Desea Eliminar esta Moto? "/>
+                        <p:commandButton value="Si" actionListener="#{motoBean.eliminarMoto()}" oncomplete="PF('dialogEliminarMoto').hide();" update=":formMostrarMotos:tableMotos"/>
+                        <p:commandButton value="No" onclick="PF('dialogEliminarMoto').hide();"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

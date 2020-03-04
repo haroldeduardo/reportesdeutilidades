@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="GreenApps.model.Mecanico" table="Mecanico" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idMecanico" type="java.lang.Integer">
+            <column name="idMecanico" />
+            <generator class="identity" />
+        </id>
+        <property name="identificacionMecanico" type="int">
+            <column name="identificacionMecanico" not-null="true" unique="true" />
+        </property>
+        <property name="nombresMecanico" type="string">
+            <column name="nombresMecanico" length="100" not-null="true" />
+        </property>
+        <property name="apellidosMecanico" type="string">
+            <column name="apellidosMecanico" length="100" not-null="true" />
+        </property>
+        <property name="idDepartamento" type="int">
+            <column name="idDepartamento" not-null="true" />
+        </property>
+        <property name="idCiudad" type="int">
+            <column name="idCiudad" not-null="true" />
+        </property>
+        <property name="direccionMecanico" type="string">
+            <column name="direccionMecanico" length="100" not-null="true" />
+        </property>
+        <property name="telefonoMecanico" type="string">
+            <column name="telefonoMecanico" length="100" not-null="true" />
+        </property>
+        <property name="correoMecanico" type="string">
+            <column name="correoMecanico" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

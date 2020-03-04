@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="GreenApps.model.Devolucion" table="Devolucion" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idDevolucion" type="java.lang.Integer">
+            <column name="idDevolucion" />
+            <generator class="identity" />
+        </id>
+        <property name="numeroDevolucion" type="string">
+            <column name="numeroDevolucion" length="30" not-null="true" />
+        </property>
+        <property name="idEmpleado" type="int">
+            <column name="idEmpleado" not-null="true" />
+        </property>
+        <property name="idPersona" type="int">
+            <column name="idPersona" not-null="true" />
+        </property>
+        <property name="totalDevolucion" type="float">
+            <column name="totalDevolucion" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="idTipoTransaccion" type="int">
+            <column name="idTipoTransaccion" not-null="true" />
+        </property>
+        <property name="fechaDevolucion" type="timestamp">
+            <column name="fechaDevolucion" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

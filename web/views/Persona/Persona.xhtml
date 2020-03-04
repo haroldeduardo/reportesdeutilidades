@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/HomeTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1></h1>
+                <h3>PERSONAS</h3>
+                <h3></h3>
+                <h:form>
+                    <p:commandButton value="Nueva Persona" actionListener="#{personaBean.nuevaPersona()}" oncomplete="PF('dialogNuevoPersona').show();" update=":formNuevoPersona" style="text-align:center; font-size:15px"/>
+                </h:form>
+                <h1></h1>
+                
+                <f:event type="preRenderView" listener="#{tipoPersonaBean.reportePersonas()}"/>
+                <f:event type="preRenderView" listener="#{tipoDocumentoBean.reporteTipoDocumentos()}"/>
+                <f:event type="preRenderView" listener="#{departamentoBean.reporteDepartamentos()}"/>
+                <f:event type="preRenderView" listener="#{ciudadBean.reporteCiudades()}"/>
+                
+                <h:form id="formMostrarPersonas">
+                    <p:dataTable id="tablePersonas" value="#{personaBean.listaPersonas}" var="per" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Clase" style="text-align:center">
+                            <h:outputText value="#{personaBean.getmostrarTipoPersona(per.idTipoPersona)}"/>
+                        </p:column>
+                        <p:column headerText="Documento" style="text-align:center">
+                            <h:outputText value="#{personaBean.getmostrarTipoDocumento(per.idTipoDocumento)}"/>
+                        </p:column>
+                        <p:column headerText="Identificación" filterBy= "#{per.identificacionPersona}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width: 180px">
+                            <h:outputText value="#{per.identificacionPersona}"/>
+                        </p:column>
+                        <p:column headerText="Nombres" style="text-align:center">
+                            <h:outputText value="#{per.nombresPersona}"/>
+                        </p:column>
+                        <p:column headerText="Apellidos" style="text-align:center">
+                            <h:outputText value="#{per.apellidosPersona}"/>
+                        </p:column>
+                        <p:column headerText="Departamento" style="text-align:center">
+                            <h:outputText value="#{empleadoBean.getmostrarDepartamento(per.idDepartamento)}"/>
+                        </p:column>
+                        <p:column headerText="Ciudad" style="text-align:center">
+                            <h:outputText value="#{empleadoBean.getmostrarCiudad(per.idCiudad)}"/>
+                        </p:column>
+                        <p:column headerText="Dirección" style="text-align:center">
+                            <h:outputText value="#{per.direccionPersona}"/>
+                        </p:column>
+                        <p:column headerText="Teléfono" style="text-align:center">
+                            <h:outputText value="#{per.telefonoPersona}"/>
+                        </p:column>
+                        <p:column headerText="Email" style="text-align:center">
+                            <h:outputText value="#{per.correoPersona}"/>
+                        </p:column>
+                        <p:column headerText="Modificar" style="text-align:center; font-size:13px">
+                            <p:commandButton value="Modificar" oncomplete="PF('dialogModificarPersona').show();" update=":formModificarPersona">
+                                <f:setPropertyActionListener target="#{personaBean.persona}" value="#{per}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Eliminar" style="text-align:center; font-size:13px">
+                            <p:commandButton value="Eliminar" oncomplete="PF('dialogEliminarPersona').show();" update=":formEliminarPersona">
+                                <f:setPropertyActionListener target="#{personaBean.persona}" value="#{per}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="formNuevoPersona">
+                    <p:dialog id="dlgNuevoPersona" header="Información Persona" widgetVar="dialogNuevoPersona" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="Clase"/>
+                            <p:selectOneMenu value="#{personaBean.persona.idTipoPersona}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoPersonaBean.listaTipoPersonas}" var="tipPer" itemLabel="#{tipPer.descripcionPersona}" itemValue="#{tipPer.idTipoPersona}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Documento"/>
+                            <p:selectOneMenu value="#{personaBean.persona.idTipoDocumento}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoDocumentoBean.listaTipoDocumentos}" var="tipDoc" itemLabel="#{tipDoc.descripcionDocumento}" itemValue="#{tipDoc.idTipoDocumento}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Identificación"/>
+                                <p:inputText value="#{personaBean.persona.identificacionPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Nombres"/>
+                                <p:inputText value="#{personaBean.persona.nombresPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Apellidos"/>
+                                <p:inputText value="#{personaBean.persona.apellidosPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Departamento"/>
+                                <p:selectOneMenu value="#{personaBean.persona.idDepartamento}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{departamentoBean.listaDepartamentos}" var="dep" itemLabel="#{dep.nombreDepartamento}" itemValue="#{dep.idDepartamento}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Ciudad"/>
+                                <p:selectOneMenu value="#{personaBean.persona.idCiudad}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{ciudadBean.listaCiudades}" var="ciu" itemLabel="#{ciu.nombreCiudad}" itemValue="#{ciu.idCiudad}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Dirección"/>
+                                <p:inputText value="#{personaBean.persona.direccionPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Teléfono"/>
+                                <p:inputText value="#{personaBean.persona.telefonoPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Email"/>
+                                <p:inputText value="#{personaBean.persona.correoPersona}" style="text-align:center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" actionListener="#{personaBean.ingresarPersona()}" oncomplete="PF('dialogNuevoPersona').hide();" update=":formMostrarPersonas:tablePersonas"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogNuevoPersona').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formModificarPersona">
+                    <p:dialog id="dlgNuevoPersona" header="Información Persona" widgetVar="dialogModificarPersona" resizable="false" showEffect="explode" hideEffect="explode" modal="true" style="text-align: center">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="Clase"/>
+                            <p:selectOneMenu value="#{personaBean.persona.idTipoPersona}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoPersonaBean.listaTipoPersonas}" var="tipPer" itemLabel="#{tipPer.descripcionPersona}" itemValue="#{tipPer.idTipoPersona}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Documento"/>
+                            <p:selectOneMenu value="#{personaBean.persona.idTipoDocumento}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoDocumentoBean.listaTipoDocumentos}" var="tipDoc" itemLabel="#{tipDoc.descripcionDocumento}" itemValue="#{tipDoc.idTipoDocumento}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Identificación"/>
+                                <p:inputText value="#{personaBean.persona.identificacionPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Nombres"/>
+                                <p:inputText value="#{personaBean.persona.nombresPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Apellidos"/>
+                                <p:inputText value="#{personaBean.persona.apellidosPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Departamento"/>
+                                <p:selectOneMenu value="#{personaBean.persona.idDepartamento}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{departamentoBean.listaDepartamentos}" var="dep" itemLabel="#{dep.nombreDepartamento}" itemValue="#{dep.idDepartamento}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Ciudad"/>
+                                <p:selectOneMenu value="#{personaBean.persona.idCiudad}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{ciudadBean.listaCiudades}" var="ciu" itemLabel="#{ciu.nombreCiudad}" itemValue="#{ciu.idCiudad}"/>
+                                </p:selectOneMenu>
+                            <p:outputLabel value="Dirección"/>
+                                <p:inputText value="#{personaBean.persona.direccionPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Teléfono"/>
+                                <p:inputText value="#{personaBean.persona.telefonoPersona}" style="text-align:center"/>
+                            <p:outputLabel value="Email"/>
+                                <p:inputText value="#{personaBean.persona.correoPersona}" style="text-align:center"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Modificar" actionListener="#{personaBean.actualizarPersona()}" oncomplete="PF('dialogModificarPersona').hide();" update=":formMostrarPersonas:tablePersonas"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dialogModificarPersona').hide();"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formEliminarPersona">
+                    <p:dialog id="dlgEliminarPersona" header="Información Persona" widgetVar="dialogEliminarPersona" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+                        <h:outputText value="¿Desea Eliminar esta Persona? "/>
+                        <p:commandButton value="Si" actionListener="#{personaBean.eliminarPersona()}" oncomplete="PF('dialogEliminarPersona').hide();" update=":formMostrarPersonas:tablePersonas"/>
+                        <p:commandButton value="No" onclick="PF('dialogEliminarPersona').hide();"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

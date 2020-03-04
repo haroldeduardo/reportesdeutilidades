@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/HomeTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1></h1>
+                <h3>FACTURAS</h3>
+                <h1></h1>
+                <h6>date format | sin Factura sin Impresora | lock data</h6>
+                <h1></h1>
+
+                <h:form id="formMostrarServicios">
+                    <p:dataTable id="tableServicios" value="#{servicioBean.listaServicios}" var="ser" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="PLaca" filterBy="#{ser.placa}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width:180px">
+                            <h:outputText value="#{ser.placa}"/>
+                        </p:column>
+                        <p:column headerText="C.C CLiente" filterBy="#{ser.identificacionPersona}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width:180px">
+                            <h:outputText value="#{servicioBean.getmostrarPersona(ser.idPersona)}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" style="text-align:center">
+                            <h:outputText value="#{ser.fechaServicio}"/>
+                        </p:column>
+                        <p:column headerText="VaLor" style="text-align:center">
+                            <p:outputLabel value="#{ser.totalServicio}">
+                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Imprimir" style="text-align:center; font-size:13px">
+                            <p:commandButton value="#{ser.estadoServicio eq '0' ? 'Factura' : 'Sin Factura'}" action="#{servicioBean.enableModificarServicio()}" oncomplete="PF('dialogModificarServicio').show();" update=":formModificarServicio" style="text-align:center; font-size:11px">
+                                <f:param name="idServicioi" value="#{ser.idServicio}"/>
+                                <f:param name="estServicioi" value="#{ser.estadoServicio}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formModificarServicio">
+                    <p:growl id="mensajesServicio" autoUpdate="true" showDetail="true" life="1500"/>
+                    <p:dialog id="dlgModificarServicio" header="Información Servicio" widgetVar="dialogModificarServicio" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="text-align:center">
+                        <p:layout id="layoutFacturaServicio" style="width: 100%; height: 52px">
+                            <p:layoutUnit id="layoutServicio" position="center" style="padding: 5px; text-align: justify; font-size: 15px; size: 300px">
+                                <h:panelGrid id="gridBuscarCliPro" columns="8">
+                                    <p:outputLabel value="Cliente:" style="font-size: 16px; font-weight: bold"/>
+                                    <p:selectOneMenu value="#{servicioBean.servicio.idPersona}" disabled="#{!servicioBean.enabled}" style="width: 212px">
+                                        <f:selectItem noSelectionOption="true" itemLabel="SELECCIONE" itemValue="#{null}"/>
+                                        <f:selectItems value="#{personaBean.listaPersonas}" var="ser" itemLabel="#{ser.nombresPersona}" itemValue="#{ser.idPersona}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Mecánico:" style="font-size: 16px; font-weight: bold"/>
+                                    <p:selectOneMenu value="#{servicioBean.servicio.idMecanico}" disabled="#{!servicioBean.enabled}" style="width: 212px">
+                                        <f:selectItem noSelectionOption="true" itemLabel="SELECCIONE" itemValue="#{null}"/>
+                                        <f:selectItems value="#{mecanicoBean.listaMecanicos}" var="ser" itemLabel="#{ser.nombresMecanico}" itemValue="#{ser.idMecanico}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Moto:" style="font-size: 16px; font-weight: bold"/>
+                                    <p:selectOneMenu value="#{servicioBean.servicio.idMoto}" disabled="#{!servicioBean.enabled}" style="width: 202px">
+                                        <f:selectItem noSelectionOption="true" itemLabel="SELECCIONE" itemValue="#{null}"/>
+                                        <f:selectItems value="#{motoBean.listaMotos}" var="ser" itemLabel="#{ser.nombreMoto}" itemValue="#{ser.idMoto}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Placa:" style="font-size: 16px; font-weight: bold"/>
+                                    <p:inputText value="#{servicioBean.servicio.placa}" disabled="#{!servicioBean.enabled}" style="width: 111px; text-align: center; text-transform: uppercase"/>
+                                </h:panelGrid>
+                            </p:layoutUnit>
+                            <p:layoutUnit id="layoutNumeroFactura" position="east" style="text-align: center; padding-top: 4px; font-size: 15px" size="151">
+                                <h:panelGrid columns="1" style="font-size: 22px; font-weight: bold; margin: 0 auto">
+                                    <h6>SERVICIO</h6>
+                                </h:panelGrid>
+                            </p:layoutUnit>
+                        </p:layout>
+                        <h1></h1>
+                        <h:panelGrid id="gridBuscarServicio" columns="1">
+                            <p:outputLabel value="Observación" style="font-size: 16px; font-weight: bold"/>
+                            <p:inputText id="inpTexObservacion" value="#{servicioBean.servicio.observacionServicio}" size="118" placeholder="Ingrese Observación" disabled="#{!servicioBean.enabled}" style="text-align: center; text-transform: uppercase"></p:inputText>
+                            <p:commandButton value="Valido SÓLO para Imprimir Facturas" disabled="#{!servicioBean.enabled}"/>
+                        </h:panelGrid>
+                        <p:dataTable id="tableProductoFacturaModificada" editable="true" value="#{servicioBean.listaDetalleServicio}" var="pro" rowIndexVar="rowIndex">
+                            <p:column headerText="Código">
+                                <h:outputText value="#{pro.codigoProducto}"/>
+                            </p:column>
+                            <p:column headerText="Producto">
+                                <h:outputText value="#{pro.nombreProducto}"/>
+                            </p:column>
+                            <p:column headerText="Valor Venta">
+                                <p:outputLabel value="#{pro.valorVentaProducto}">
+                                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="IVA">
+                                <h:outputText value="#{pro.iva}"/>
+                            </p:column>
+                            <p:column headerText="Unidades">
+                                <h:outputText value="#{pro.unidadesVendidas}"/>
+                            </p:column>
+                            <p:column headerText="Total">
+                                <p:outputLabel value="#{pro.totalDetalleServicio}">
+                                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                                </p:outputLabel>
+                            </p:column>
+                        </p:dataTable>
+                        <h:panelGrid id="gridTotalFactura" columns="2" style="font-size: 15px; margin: 0 auto">
+                            <h6>TOTAL SERVICIO</h6>
+                            <p:outputLabel value="#{servicioBean.totalServicioFacturaServicio}" style="font-size: 27px; margin: 0 auto">
+                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+                        <h6></h6>                        
+                        <h:commandLink id="linkImprimir" actionListener="#{servicioBean.reporteImpresionFacturaServicioModificado(servicioBean.servicio.idServicio)}" target="_blank"><p:graphicImage url="/imgs/imprimirIcono.png"/></h:commandLink>
+                    </p:dialog>
+                    
+                </h:form>    
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+    
+</html>

@@ -1,0 +1,67 @@
+body {
+    background-color: #ffffff;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: normal;
+    color: #045491;  
+    margin: 15px;
+}
+
+h1 {
+    font-family: sans-serif;
+    border-bottom: 0px; 
+    font-size: 50px;
+    font-weight: bold;
+    margin: 5px;
+    padding: 5px;
+    color: #045491;
+}
+
+h3 {
+    font-family: sans-serif;
+    border-bottom: 0px; 
+    font-size: 33px;
+    font-weight: bold;
+    margin: 5px;
+    padding: 5px;
+    color: #045491;
+    text-align: center;
+}
+
+h6 {
+    font-family: monospace;
+    border-bottom: 0px; 
+    font-size: 22px;
+    font-weight: bold;
+    margin: 3px;
+    padding: 1px;
+    color: coral;
+    text-align: center;
+}
+
+h9 {
+    font-family: monospace;
+    border-bottom: 0px; 
+    font-size: 55px;
+    font-weight: bold;
+    margin: 3px;
+    padding: 1px;
+    color: coral;
+    text-align: center;
+}
+
+.ui-datatable .ui-row-editor .ui-icon-pencil {
+    
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:default, a:visited:default  {
+  color: #045491;
+  font-weight: bold;
+  text-decoration: none;
+}

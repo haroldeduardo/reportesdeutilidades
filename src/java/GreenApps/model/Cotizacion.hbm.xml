@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="GreenApps.model.Cotizacion" table="Cotizacion" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idCotizacion" type="java.lang.Integer">
+            <column name="idCotizacion" />
+            <generator class="identity" />
+        </id>
+        <property name="numeroCotizacion" type="string">
+            <column name="numeroCotizacion" length="30" not-null="true" />
+        </property>
+        <property name="idEmpleado" type="int">
+            <column name="idEmpleado" not-null="true" />
+        </property>
+        <property name="idPersona" type="int">
+            <column name="idPersona" not-null="true" />
+        </property>
+        <property name="totalCotizacion" type="float">
+            <column name="totalCotizacion" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="totalDescuentoVenta" type="java.lang.Float">
+            <column name="totalDescuentoVenta" precision="12" scale="0" />
+        </property>
+        <property name="fechaCotizacion" type="timestamp">
+            <column name="fechaCotizacion" length="19" not-null="true" />
+        </property>
+        <property name="estadoCotizacion" type="java.lang.Byte">
+            <column name="estadoCotizacion" />
+        </property>
+    </class>
+</hibernate-mapping>

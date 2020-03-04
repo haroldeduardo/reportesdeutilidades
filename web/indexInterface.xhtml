@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      
+    <h:head>
+        <title>Green Apps</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="/css/indexInterfaceSTL.css"/>
+        <!--<link rel="shortcut icon" href="/.ico" />!-->
+    </h:head>
+    
+      <h:body>
+        
+        <h1></h1>
+        <h1></h1>
+        
+        <h1><img src="./imgs/GreenApps.png" alt="Green Apps logo start" height="151" width="181"/></h1>
+        
+        <div class="indexInterface">
+                                                                                                                    
+        <h:form id="formUsuario">            
+            <p:growl id="growlMensajes" autoUpdate="true" showDetail="true" life="1500"/>
+
+            <p:panel header="Green Apps" widgetVar="pnl" style="font-family: sans-serif; text-align: center; font-size: 15px">
+                <h:panelGrid columns="1" cellpadding="7">
+                    
+                    <p:inputText id="username" value="#{interfaceUsuarioBean.usuario.userEmp}" required="true" label="username" placeholder="Ingresa Tu Usuario" requiredMessage="Ingrese Su Usuario" style="text-align: center"/>
+
+                    <p:password id="password" value="#{interfaceUsuarioBean.usuario.passEmp}" required="true" label="password" placeholder="Ingresa Tu Contraseña" requiredMessage="Ingrese Su Contraseña" style="text-align: center"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Aceptar" update="formUsuario" actionListener="#{interfaceUsuarioBean.loginUsuario(event)}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                    </f:facet>
+                    
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        </div>
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) 
+                {
+                    jQuery('#formUsuario').effect('shake', {times: 3}, 350);
+                } else {
+                    location.href = args.Ruta;
+                }
+            }
+        </script>
+        
+        <h1></h1>
+        <h1></h1>
+        <h1></h1>
+        
+        <div id="bottom" style="text-align: center">
+            <h1></h1>
+            <ui:insert name="copy">&copy;</ui:insert>
+            <br></br>
+            <ui:insert name="company">Demo 2018</ui:insert>
+            <br></br>
+            <ui:insert name="developers">by Green Apps S.A.S</ui:insert>
+        </div>
+
+    </h:body>
+</html>

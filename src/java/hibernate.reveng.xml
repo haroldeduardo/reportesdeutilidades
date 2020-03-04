@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="GreenAppsDemo"/>
+  <table-filter match-name="Roles"/>
+  <table-filter match-name="Menu"/>
+  <table-filter match-name="detalleCotizacion"/>
+  <table-filter match-name="TipoTransaccion"/>
+  <table-filter match-name="Servicio"/>
+  <table-filter match-name="Cotizacion"/>
+  <table-filter match-name="Mecanico"/>
+  <table-filter match-name="empleado_Usuarios"/>
+  <table-filter match-name="detalleCompra"/>
+  <table-filter match-name="Devolucion"/>
+  <table-filter match-name="Departamento"/>
+  <table-filter match-name="empleado_Modulos"/>
+  <table-filter match-name="detalleCreditoCompra"/>
+  <table-filter match-name="PresentacionProducto"/>
+  <table-filter match-name="Compra"/>
+  <table-filter match-name="empleado_Roles"/>
+  <table-filter match-name="creditoVenta"/>
+  <table-filter match-name="Producto"/>
+  <table-filter match-name="detalleVenta"/>
+  <table-filter match-name="creditoCompra"/>
+  <table-filter match-name="Modulos"/>
+  <table-filter match-name="Venta"/>
+  <table-filter match-name="Moto"/>
+  <table-filter match-name="Empleado"/>
+  <table-filter match-name="detalleDevolucion"/>
+  <table-filter match-name="Persona"/>
+  <table-filter match-name="Ciudad"/>
+  <table-filter match-name="detalleServicio"/>
+  <table-filter match-name="detalleCreditoVenta"/>
+  <table-filter match-name="Perfiles"/>
+  <table-filter match-name="UbicacionProducto"/>
+  <table-filter match-name="Usuario"/>
+  <table-filter match-name="TipoPersona"/>
+  <table-filter match-name="Categoria"/>
+  <table-filter match-name="TipoDocumento"/>
+</hibernate-reverse-engineering>

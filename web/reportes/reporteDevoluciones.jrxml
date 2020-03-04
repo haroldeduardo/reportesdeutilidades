@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="73a87fad-d36f-4b2d-890b-c9125f408945">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaDevolucionInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaDevolucionFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT numeroDevolucion, nombresEmpleado, identificacionPersona, CONCAT(Persona.nombresPersona," ",Persona.apellidosPersona) AS datosPersona, totalDevolucion, fechaDevolucion FROM Devolucion inner join Empleado on Devolucion.idEmpleado = Empleado.idEmpleado inner join Persona on Devolucion.idPersona = Persona.idPersona WHERE fechaDevolucion between $P{fechaDevolucionInicial} AND $P{fechaDevolucionFinal};]]>
+	</queryString>
+	<field name="numeroDevolucion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombresEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="identificacionPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datosPersona" class="java.lang.String"/>
+	<field name="totalDevolucion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaDevolucion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalDevoluciones" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDevolucion}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="144" y="20" width="262" height="38" uuid="79476b33-1f43-479d-a871-ef6eade8144d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTO 10 RACING]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="7" width="114" height="20" uuid="d4edcc99-680c-41b6-9ea9-d7139c8c99cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de Devolución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="7" width="82" height="20" uuid="e9b38686-0d75-4080-a5a3-2b53907bde19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="7" width="100" height="20" uuid="1bb912c5-a08e-4581-a84a-bdec417d9f64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="7" width="69" height="20" uuid="cc1bd888-3890-40d4-aa85-0c78fcee2e36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="7" width="100" height="20" uuid="a5241047-752f-4dca-8c26-854f1a6ee739"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Devolución]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="50">
+			<textField>
+				<reportElement x="13" y="9" width="100" height="20" uuid="24044be8-f460-4eee-9688-5e3b7df29e44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="9" width="82" height="20" uuid="a87f5105-71a6-40e1-996c-93db898bb8a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombresEmpleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="9" width="100" height="20" uuid="25501af9-cafb-42c0-9e67-fc3efa007ad7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="9" width="100" height="20" uuid="3250672e-aee9-4d72-88eb-62b5a9cf9379"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datosPersona}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0">
+				<reportElement x="444" y="9" width="100" height="20" uuid="256194f4-c4bc-40b3-97cf-5e0cc0e5703b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalDevolucion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="196" y="13" width="146" height="20" uuid="ad550dad-5472-43bc-af2b-8caf44122309"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total Devoluciones:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0">
+				<reportElement x="342" y="13" width="140" height="20" uuid="1365a5dd-09b9-41cc-be18-0fc9f74d67ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalDevoluciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="44b20ca1-108e-4324-8fc9-e4baeb982652">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaCotizacionInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaCotizacionFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT numeroCotizacion, nombresEmpleado, identificacionPersona, CONCAT(Persona.nombresPersona," ",Persona.apellidosPersona) AS datosPersona, totalCotizacion, fechaCotizacion FROM Cotizacion inner join Empleado on Cotizacion.idEmpleado = Empleado.idEmpleado inner join Persona on Cotizacion.idPersona = Persona.idPersona WHERE fechaCotizacion between $P{fechaCotizacionInicial} AND $P{fechaCotizacionFinal};]]>
+	</queryString>
+	<field name="numeroCotizacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombresEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="identificacionPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datosPersona" class="java.lang.String"/>
+	<field name="totalCotizacion" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaCotizacion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalCotizaciones" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalCotizacion}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="152" y="19" width="253" height="43" uuid="30be6440-167c-46e4-85ba-9ae48d800270"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTO 10 RACING]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="8" width="111" height="20" uuid="eb17e953-cc03-4486-a61c-c14475e7054d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de Cotización]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="8" width="78" height="20" uuid="1bc80649-ac1c-4dd6-a746-55e4920e997b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="8" width="68" height="20" uuid="ccd60cd6-0322-4f24-8f10-23e27e66f2b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="8" width="86" height="20" uuid="33edb061-d67f-40fe-bacf-919f777db9b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="8" width="32" height="20" uuid="37a57fbd-c4f2-40e6-9c79-d35d73f0c0fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="8" width="88" height="20" uuid="8dd4877a-82b4-4dab-80fc-051b2df7ee65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Cotización]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="50">
+			<textField>
+				<reportElement x="13" y="11" width="100" height="20" uuid="8da06006-3e2f-4bdf-8940-27776eab4a9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroCotizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="11" width="78" height="20" uuid="7e788b3c-fcd3-4c0c-913e-0290839830d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombresEmpleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="11" width="68" height="20" uuid="48ebe5a3-6f22-49b1-8edb-8ff0c1d9e787"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="11" width="86" height="20" uuid="b285442c-2ba8-46ef-b4cc-a0526dc51a25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datosPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="11" width="77" height="20" uuid="440b608f-f594-45b3-a846-b02691d92455"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaCotizacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0">
+				<reportElement x="455" y="11" width="88" height="20" uuid="9b5dcbc2-3c47-4a16-8689-ae04d5281971"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalCotizacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="183" y="11" width="146" height="20" uuid="3f1cf5e5-ecd3-4337-a5ff-c243fdc00315"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total Cotizaciones:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0">
+				<reportElement x="333" y="11" width="133" height="20" uuid="b6bf2585-fe5f-4481-a76f-2ffdc4294928"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalCotizaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Green Apps</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" align="center">
+            <span>
+                <h1></h1>
+                <h:form>
+                    <a href="/GreenApps-Demo/faces/views/HomePage/HomePage.xhtml"> <img src="../../imgs/GreenApps.png" alt="Green Apps logo front" height="200" width="252"/> </a>
+                </h:form>
+                <h1></h1>
+            </span>
+        </div>
+        <div id="usuarioLoggeado">
+            <span>
+                <h:form>
+                    <p:outputLabel value="Activo: " style="color: #045491"/>
+                    <p:outputLabel value="#{interfaceUsuarioBean.usuario.userEmp} " style="color: black"/>
+                    <p:commandButton id="btnSalir" value="Salir" action="#{interfaceUsuarioBean.finalizarSesion()}"/>
+                </h:form>
+            </span>
+        </div>
+        <h:form>
+            <p:menubar style="align-content:center; width:1238px; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px">
+                <p:submenu label="Inicio" icon="ui-icon-home">
+                    <p:menuitem value="Home" outcome="/views/HomePage/HomePage" icon="ui-icon-home" />
+                    <p:menuitem value="Salir" action="#{interfaceUsuarioBean.finalizarSesion()}" icon="ui-icon-trash" />
+                </p:submenu>
+
+                <p:submenu label="Empleados" icon="ui-icon-gear">
+                    <p:menuitem value="Empleado" outcome="/views/Empleado/Empleado" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Compras" icon="ui-icon-gear">
+                    <p:menuitem value="Compra" outcome="/views/Compra/Compra" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Productos" icon="ui-icon-gear">
+                    <p:menuitem value="Producto" outcome="/views/Producto/Producto" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Ventas" icon="ui-icon-gear">
+                    <p:menuitem value="Venta" outcome="/views/Venta/Venta" icon="ui-icon-refresh" />
+                    <p:menuitem value="Facturas" outcome="/views/Venta/Fac-Ventas" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Personas" icon="ui-icon-gear">
+                    <p:menuitem value="Persona" outcome="/views/Persona/Persona" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Cotizaciones" icon="ui-icon-gear">
+                    <p:menuitem value="Cotización" outcome="/views/Cotizacion/Cotizacion" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Reportes" icon="ui-icon-gear">
+                    <p:menuitem value="Reportes" outcome="/views/Reportes/Reportes" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Devoluciones" icon="ui-icon-gear">
+                    <p:menuitem value="Devolución" outcome="/views/Devolucion/Devolucion" icon="ui-icon-refresh" />
+                </p:submenu>
+
+                <p:submenu label="Servicios" icon="ui-icon-gear">
+                    <p:menuitem value="Motos" outcome="/views/Moto/Moto" icon="ui-icon-refresh" />
+                    <p:menuitem value="Servicio" outcome="/views/Servicio/Servicio" icon="ui-icon-refresh" />
+                    <p:menuitem value="Mecanicos" outcome="/views/Mecanico/Mecanico" icon="ui-icon-refresh" />
+                    <p:menuitem value="Facturas" outcome="/views/Servicio/Fac-Servicios" icon="ui-icon-refresh" />
+                </p:submenu>
+                
+                <p:submenu label="Categorias" icon="ui-icon-gear">
+                    <p:menuitem value="Categoria" outcome="/views/Categoria/Categoria" icon="ui-icon-refresh" />
+                </p:submenu>
+
+            </p:menubar>
+        </h:form>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <h1></h1>
+            <ui:insert name="copy">&copy;</ui:insert>
+            <br></br>
+            <ui:insert name="company">Demo 2018</ui:insert>
+            <br></br>
+            <ui:insert name="developers">by Green Apps S.A.S</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

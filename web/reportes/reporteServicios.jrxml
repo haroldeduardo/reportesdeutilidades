@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2b1fa002-6525-4c24-9b09-00935d5ad762">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaServicioFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaServicioInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT numeroServicio, nombresEmpleado, identificacionPersona, CONCAT(Persona.nombresPersona," ",Persona.apellidosPersona) AS datosPersona, totalServicio, fechaServicio FROM Servicio inner join Empleado on Servicio.idEmpleado = Empleado.idEmpleado inner join Persona on Servicio.idPersona = Persona.idPersona WHERE fechaServicio between $P{fechaServicioInicial} AND $P{fechaServicioFinal};]]>
+	</queryString>
+	<field name="numeroServicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombresEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="identificacionPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datosPersona" class="java.lang.String"/>
+	<field name="totalServicio" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaServicio" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalServicios" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalServicio}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="151" y="17" width="260" height="35" uuid="43bf97c9-eea2-462f-a1cc-c74d48d35b78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTO 10 RACING]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="4" width="100" height="20" uuid="c79ae7f0-3d75-49d1-9f4d-29568628c27b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="4" width="100" height="20" uuid="4a30eefd-1c5d-4256-9ac7-a3f0f449ae63"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="4" width="100" height="20" uuid="d88b77ca-7c3f-4588-a7c5-0c896144e6bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="4" width="100" height="20" uuid="b6eac985-d92e-4360-a5dc-67fb121cf2af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="4" width="69" height="20" uuid="a995ff70-9467-41ff-acca-e5878c6e636e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Servicio]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="7" width="100" height="20" uuid="d8a9f02a-bb51-429f-8c0a-5ccf6a743379"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroServicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="7" width="110" height="20" uuid="a6fe9491-2409-47c0-90bc-5522e75f394b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombresEmpleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="7" width="128" height="20" uuid="fb6b1ea6-558e-46da-8d12-6f48db5ade17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="7" width="142" height="20" uuid="fc01b4d1-f425-4076-89bf-8d0e523ba0de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{datosPersona}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="469" y="7" width="82" height="20" uuid="0b66ad39-93ee-4256-9e7b-7888e4e85172"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalServicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="213" y="11" width="114" height="20" uuid="a5e47cd7-75b5-400f-9ade-5e874bda3454"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total Servicios:]]></text>
+			</staticText>
+			<textField pattern="$ #,##0">
+				<reportElement x="343" y="11" width="100" height="20" uuid="f403028b-da28-43e2-9f8f-ccace94f648c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalServicios}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
