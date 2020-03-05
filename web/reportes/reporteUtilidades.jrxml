@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed150658-2dd9-4dfe-9a47-8996109db19e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="41"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="Fechainicial" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select  GreenAppsDemo.Producto.codigoProducto,descripcionProducto,GreenAppsDemo.Producto.valorVentaProducto,GreenAppsDemo.Producto.valorCompraProducto  from Producto inner join detalleVenta
+		<![CDATA[select  GreenAppsDemo.Producto.codigoProducto,descripcionProducto,GreenAppsDemo.detalleVenta.valorVentaProducto,GreenAppsDemo.Producto.valorCompraProducto  from Producto inner join detalleVenta
 on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVenta.idVenta=Venta.idVenta 
  where fechaVenta between  $P{Fechainicial} and $P{Fechafinal}]]>
 	</queryString>
@@ -35,13 +35,16 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 	<variable name="utilidad" class="java.lang.Double">
 		<variableExpression><![CDATA[$V{totalVenta}-$V{totalCompra}]]></variableExpression>
 	</variable>
+	<variable name="utilidad_unitaria" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{valorCompraProducto}-$F{valorVentaProducto}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="139" y="28" width="303" height="34" uuid="d4b502f4-361a-4eca-9d31-a75a083d1948"/>
+				<reportElement x="135" y="23" width="303" height="34" uuid="d4b502f4-361a-4eca-9d31-a75a083d1948"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -66,18 +69,22 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 				<text><![CDATA[descripcionProducto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="205" y="16" width="100" height="20" uuid="63291449-e924-4768-99d4-f2f3a65682c1"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[valorVentaProducto]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="328" y="16" width="114" height="20" uuid="3a022e7b-d8c9-475d-bece-5ef0d2ef39cd"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[valorCompraProducto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="16" width="114" height="20" uuid="0fec8128-6419-4370-9a66-59724cee24cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Utilidad Unitaría]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="16" width="100" height="20" uuid="55a8a533-718b-471c-a300-b21b999ab4cb"/>
+				<text><![CDATA[valorVentaProducto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -92,12 +99,12 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="219" y="0" width="100" height="20" uuid="3b1c28fe-1fdf-47b1-bbce-e00b7602b401"/>
-				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="342" y="0" width="100" height="20" uuid="519f1d5b-47ec-404f-ac00-05e16c25fdf0"/>
 				<textFieldExpression><![CDATA[$F{valorCompraProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="100" height="20" uuid="00c414cf-d15b-438d-9b5b-55ef418af886"/>
+				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -123,7 +130,7 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 				<textFieldExpression><![CDATA[$V{totalCompra}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="408" y="37" width="100" height="20" uuid="b81b8ff3-8e7d-4f87-be45-ee84da3e3081"/>
+				<reportElement x="408" y="37" width="100" height="20" forecolor="#00CC33" uuid="b81b8ff3-8e7d-4f87-be45-ee84da3e3081"/>
 				<textFieldExpression><![CDATA[$V{utilidad}]]></textFieldExpression>
 			</textField>
 		</band>
