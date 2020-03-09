@@ -2,22 +2,23 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed150658-2dd9-4dfe-9a47-8996109db19e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="64"/>
-	<parameter name="Fechainicial" class="java.lang.String">
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicialUtilidad" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="Fechafinal" class="java.lang.String">
+	<parameter name="fechaFinalUtilidad" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select  GreenAppsDemo.Producto.codigoProducto,descripcionProducto,GreenAppsDemo.detalleVenta.*,GreenAppsDemo.Producto.valorCompraProducto  from Producto inner join detalleVenta
-on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVenta.idVenta=Venta.idVenta 
- where fechaVenta between  $P{Fechainicial} and $P{Fechafinal}]]>
+		<![CDATA[SELECT GreenAppsDemo.Producto.codigoProducto,valorCompraProducto, GreenAppsDemo.detalleVenta.* FROM Producto 
+INNER JOIN detalleVenta ON Producto.idProducto = detalleVenta.idProducto 
+INNER JOIN Venta ON detalleVenta.idVenta=Venta.idVenta 
+WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 	</queryString>
 	<field name="codigoProducto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="descripcionProducto" class="java.lang.String">
+	<field name="valorCompraProducto" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="iddetalleVenta" class="java.lang.Integer">
@@ -32,40 +33,37 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 	<field name="nombreProducto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="valorVentaProducto" class="java.lang.Double">
+	<field name="valorVentaProducto" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="IVA" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="unidadesVendidas" class="java.lang.Double">
+	<field name="unidadesVendidas" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="totaldetalleVenta" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="valorCompraProducto" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<variable name="totalVenta" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{valorVentaProducto}]]></variableExpression>
+		<variableExpression><![CDATA[$F{valorVentaProducto}*$F{unidadesVendidas}]]></variableExpression>
 	</variable>
 	<variable name="totalCompra" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{valorCompraProducto}]]></variableExpression>
+		<variableExpression><![CDATA[$F{valorCompraProducto}*$F{unidadesVendidas}]]></variableExpression>
 	</variable>
 	<variable name="utilidad" class="java.lang.Double">
 		<variableExpression><![CDATA[$V{totalVenta}-$V{totalCompra}]]></variableExpression>
 	</variable>
-	<variable name="utilidad_unitaria" class="java.lang.Double">
+	<variable name="utilidadUnitaria" class="java.lang.Double">
 		<variableExpression><![CDATA[($F{valorVentaProducto}-$F{valorCompraProducto})*$F{unidadesVendidas}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement x="135" y="23" width="303" height="34" uuid="d4b502f4-361a-4eca-9d31-a75a083d1948"/>
+				<reportElement x="155" y="7" width="247" height="34" uuid="d4b502f4-361a-4eca-9d31-a75a083d1948"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -74,90 +72,114 @@ on Producto.idProducto = detalleVenta.idProducto inner join Venta on detalleVent
 		</band>
 	</title>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="12" y="16" width="70" height="20" uuid="ec0293b7-81bf-4b4b-a917-37999f6dcbf8"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[codigoProducto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="86" y="16" width="100" height="20" uuid="1e30a4c4-bbc8-452c-9f7a-969e5a304ce1"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[descripcionProducto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="328" y="16" width="114" height="20" uuid="3a022e7b-d8c9-475d-bece-5ef0d2ef39cd"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[valorCompraProducto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="435" y="16" width="114" height="20" uuid="0fec8128-6419-4370-9a66-59724cee24cc"/>
+				<reportElement x="2" y="5" width="93" height="20" uuid="ec0293b7-81bf-4b4b-a917-37999f6dcbf8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Utilidad Unitaría]]></text>
+				<text><![CDATA[Código Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="16" width="100" height="20" uuid="55a8a533-718b-471c-a300-b21b999ab4cb"/>
-				<text><![CDATA[valorVentaProducto]]></text>
+				<reportElement x="321" y="5" width="124" height="20" uuid="3a022e7b-d8c9-475d-bece-5ef0d2ef39cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Compra Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="5" width="108" height="20" uuid="0fec8128-6419-4370-9a66-59724cee24cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Utilidad Unitaria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="5" width="118" height="20" uuid="55a8a533-718b-471c-a300-b21b999ab4cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Venta Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="5" width="100" height="20" uuid="63fc591a-7072-441d-a602-52da51ce885c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Producto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="0" width="48" height="20" uuid="772ba271-fb96-4fed-b8ae-c0181fdb13cb"/>
+				<reportElement x="-5" y="4" width="103" height="20" uuid="772ba271-fb96-4fed-b8ae-c0181fdb13cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{codigoProducto}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="100" y="0" width="100" height="20" uuid="c732221f-0475-45af-9fc8-f5e45bcb3c2b"/>
-				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="342" y="0" width="100" height="20" uuid="519f1d5b-47ec-404f-ac00-05e16c25fdf0"/>
+			<textField pattern="$ #,##0">
+				<reportElement x="265" y="4" width="134" height="20" uuid="519f1d5b-47ec-404f-ac00-05e16c25fdf0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valorCompraProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="218" y="0" width="100" height="20" uuid="00c414cf-d15b-438d-9b5b-55ef418af886"/>
-				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
+				<reportElement x="96" y="4" width="100" height="20" uuid="85302d2a-b3af-4188-b293-0b47a9ae1484"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="476" y="2" width="100" height="20" uuid="15dd6a15-6474-40b2-9136-90a85184ac01"/>
-				<textFieldExpression><![CDATA[$V{utilidad_unitaria}]]></textFieldExpression>
+			<textField pattern="$ #,##0">
+				<reportElement x="422" y="4" width="100" height="20" forecolor="#00CC00" uuid="d5f63765-7333-4426-ba79-1eaa72d57f62"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{utilidadUnitaria}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="135" y="4" width="142" height="20" uuid="35c4a635-453f-4b8f-adff-44a2912a6ace"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="25" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="74" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<staticText>
-				<reportElement x="292" y="3" width="100" height="20" uuid="cd432de5-14a2-4b97-9940-f942d3956b4f"/>
-				<text><![CDATA[total venta]]></text>
+				<reportElement x="316" y="3" width="100" height="20" uuid="cd432de5-14a2-4b97-9940-f942d3956b4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Venta:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="292" y="23" width="100" height="20" uuid="0338faf4-f5d5-47c6-8d76-de89244653f9"/>
-				<text><![CDATA[total compra]]></text>
+				<reportElement x="316" y="23" width="100" height="20" uuid="0338faf4-f5d5-47c6-8d76-de89244653f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Compra:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="404" y="5" width="100" height="20" uuid="775a30ce-2da2-452c-9e1d-a7e2cd36b190"/>
+			<textField pattern="$ #,##0">
+				<reportElement x="422" y="3" width="100" height="20" uuid="775a30ce-2da2-452c-9e1d-a7e2cd36b190"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{totalVenta}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="406" y="21" width="100" height="20" uuid="ce1b42a6-c77d-40b9-ba49-832e4352b72e"/>
+			<textField pattern="$ #,##0">
+				<reportElement x="422" y="23" width="100" height="20" uuid="ce1b42a6-c77d-40b9-ba49-832e4352b72e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{totalCompra}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="408" y="37" width="100" height="20" forecolor="#00CC33" uuid="b81b8ff3-8e7d-4f87-be45-ee84da3e3081"/>
+			<textField pattern="$ #,##0">
+				<reportElement x="422" y="41" width="100" height="20" forecolor="#00CC33" uuid="b81b8ff3-8e7d-4f87-be45-ee84da3e3081"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{utilidad}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="316" y="41" width="100" height="20" uuid="37204436-85ce-411e-968f-d75d3bd90db1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Utilidad:]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

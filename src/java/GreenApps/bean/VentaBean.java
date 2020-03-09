@@ -17,6 +17,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import GreenApps.auxiliares.reporteFacturaVenta;
+import GreenApps.auxiliares.reportesUtilidades;
 import GreenApps.auxiliares.reportesVentas;
 import GreenApps.dao.VentaDao;
 import GreenApps.dao.PersonaDao;
@@ -86,6 +87,10 @@ public class VentaBean implements Serializable {
     private String fechaInicialVenta;
 
     private String fechaFinalVenta;
+    
+    private String fechaInicialUtilidad;
+
+    private String fechaFinalUtilidad;
 
     public VentaBean() {
         
@@ -240,6 +245,22 @@ public class VentaBean implements Serializable {
 
     public void setFechaFinalVenta(String fechaFinalVenta) {
         this.fechaFinalVenta = fechaFinalVenta;
+    }
+
+    public String getFechaInicialUtilidad() {
+        return fechaInicialUtilidad;
+    }
+
+    public void setFechaInicialUtilidad(String fechaInicialUtilidad) {
+        this.fechaInicialUtilidad = fechaInicialUtilidad;
+    }
+
+    public String getFechaFinalUtilidad() {
+        return fechaFinalUtilidad;
+    }
+
+    public void setFechaFinalUtilidad(String fechaFinalUtilidad) {
+        this.fechaFinalUtilidad = fechaFinalUtilidad;
     }
 
     public boolean isEnabled() {
@@ -808,6 +829,27 @@ public class VentaBean implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
         String ruta = servletContext.getRealPath("/reportes/reporteVentas.jasper");
+
+        System.out.println("Fecha Inicial: " + fechaInicial);
+        System.out.println("Fecha Final: " + fechaFinal);
+
+        rReporte.getReporte(ruta, fechaInicial, fechaFinal);
+        FacesContext.getCurrentInstance().responseComplete();
+
+    }
+    
+    public void reportesUtilidades() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        System.out.println("+++++ Test Reporte Utilidades +++++");
+
+        String fechaInicial = this.getFechaInicialUtilidad();
+        String fechaFinal = this.getFechaFinalUtilidad();
+
+        reportesUtilidades rReporte = new reportesUtilidades();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/reporteUtilidades.jasper");
 
         System.out.println("Fecha Inicial: " + fechaInicial);
         System.out.println("Fecha Final: " + fechaFinal);
