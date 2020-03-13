@@ -146,7 +146,7 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="IVA">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Unidades">
                                 <p:cellEditor>
@@ -274,7 +274,7 @@
                                 </p:outputLabel>
                             </p:column>
                             <p:column headerText="IVA" style="text-align:center">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Categoría" style="text-align:center">
                                 <h:outputText value="#{productoBean.getmostrarCategoria(pro.idCategoria)}"/>
@@ -361,7 +361,7 @@
                                 </p:outputLabel>
                             </p:column>
                             <p:column headerText="IVA">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Unidades">
                                 <h:outputText value="#{pro.unidadesVendidas}"/>
@@ -419,7 +419,7 @@
                                 </p:outputLabel>
                             </p:column>
                             <p:column headerText="IVA" style="text-align:center">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Categoría" style="text-align:center">
                                 <h:outputText value="#{productoBean.getmostrarCategoria(pro.idCategoria)}"/>
@@ -463,8 +463,8 @@
                             </p:inputText>
                             <p:outputLabel value="IVA"/>
                             <p:selectOneMenu value="#{servicioBean.detalleServicio.iva}">
-                                <f:selectItem itemLabel="SI" itemValue="SI"/>
-                                <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                <f:selectItem itemLabel="Si" itemValue="true"/>
+                                <f:selectItem itemLabel="No" itemValue="false"/>
                             </p:selectOneMenu>
                             <!--<p:outputLabel value="Unidades"/>
                             <p:inputText value="#{servicioBean.detalleServicio.unidadesVendidas}" size="3"/>-->

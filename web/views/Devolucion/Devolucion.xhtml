@@ -171,7 +171,7 @@
                                 </p:outputLabel>
                             </p:column>
                             <p:column headerText="IVA" style="text-align:center">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Categoría" style="text-align:center">
                                 <h:outputText value="#{productoBean.getmostrarCategoria(pro.idCategoria)}"/>
