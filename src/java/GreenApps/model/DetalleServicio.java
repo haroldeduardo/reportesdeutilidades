@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Jan 18, 2020 10:18:03 PM by Hibernate Tools 4.3.1
+// Generated Mar 12, 2020 8:33:30 PM by Hibernate Tools 4.3.1
 
 
 
@@ -15,14 +15,14 @@ public class DetalleServicio  implements java.io.Serializable {
      private String codigoProducto;
      private String nombreProducto;
      private float valorVentaProducto;
-     private String iva;
+     private boolean iva;
      private int unidadesVendidas;
      private float totalDetalleServicio;
 
     public DetalleServicio() {
     }
 
-    public DetalleServicio(int idServicio, int idProducto, String codigoProducto, String nombreProducto, float valorVentaProducto, String iva, int unidadesVendidas, float totalDetalleServicio) {
+    public DetalleServicio(int idServicio, int idProducto, String codigoProducto, String nombreProducto, float valorVentaProducto, boolean iva, int unidadesVendidas, float totalDetalleServicio) {
        this.idServicio = idServicio;
        this.idProducto = idProducto;
        this.codigoProducto = codigoProducto;
@@ -75,11 +75,11 @@ public class DetalleServicio  implements java.io.Serializable {
     public void setValorVentaProducto(float valorVentaProducto) {
         this.valorVentaProducto = valorVentaProducto;
     }
-    public String getIva() {
+    public boolean isIva() {
         return this.iva;
     }
     
-    public void setIva(String iva) {
+    public void setIva(boolean iva) {
         this.iva = iva;
     }
     public int getUnidadesVendidas() {

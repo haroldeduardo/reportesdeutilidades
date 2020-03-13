@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Jan 18, 2020 10:18:03 PM by Hibernate Tools 4.3.1
+// Generated Mar 12, 2020 8:33:30 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 12, 2020 8:33:30 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="GreenApps.model.DetalleServicio" table="detalleServicio" catalog="GreenAppsDemo" optimistic-lock="version">
         <id name="idDetalleServicio" type="java.lang.Integer">
@@ -23,8 +23,8 @@
         <property name="valorVentaProducto" type="float">
             <column name="valorVentaProducto" precision="12" scale="0" not-null="true" />
         </property>
-        <property name="iva" type="string">
-            <column name="IVA" length="30" not-null="true" />
+        <property name="iva" type="boolean">
+            <column name="IVA" not-null="true" />
         </property>
         <property name="unidadesVendidas" type="int">
             <column name="unidadesVendidas" not-null="true" />

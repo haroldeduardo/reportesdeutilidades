@@ -538,7 +538,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidas = "";
 
@@ -593,7 +593,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidas) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(unidadesVendidas), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidas), Total);
 
                 boolean isValidate = false;
 
@@ -609,7 +609,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidas = "";
 
@@ -749,7 +749,7 @@ public class ServicioBean implements Serializable {
 
             if (isValidate) {
 
-                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                 this.unidadesVendidasPorCodigo = "";
 
@@ -787,7 +787,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(unidadesVendidasPorCodigo), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidasPorCodigo), Total);
 
                 boolean isValidate = false;
 
@@ -803,7 +803,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidasPorCodigo = "";
 
