@@ -50,7 +50,7 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 	<field name="valorVentaProducto" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="IVA" class="java.lang.String">
+	<field name="IVA" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="unidadesVendidas" class="java.lang.Integer">
@@ -60,13 +60,16 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="subTotal" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalDetalleVenta}*0.81]]></variableExpression>
+		<variableExpression><![CDATA[$F{totalDetalleVenta}-$F{IVA}*$F{totalDetalleVenta}*0.19]]></variableExpression>
 	</variable>
 	<variable name="totalIva" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalDetalleVenta}*0.19]]></variableExpression>
+		<variableExpression><![CDATA[$F{totalDetalleVenta}*0.19*$F{IVA}]]></variableExpression>
 	</variable>
-	<variable name="totalVenta" class="java.lang.Number">
-		<variableExpression><![CDATA[$V{subTotal}+$V{totalIva}]]></variableExpression>
+	<variable name="totalVenta" class="java.lang.Number" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDetalleVenta}]]></variableExpression>
+	</variable>
+	<variable name="ivaUnitario" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{IVA}*$F{totalDetalleVenta}*0.19]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -127,9 +130,9 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<textFieldExpression><![CDATA[$F{referenciasPersona}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="70" y="78" width="55" height="15" uuid="67750e2a-5077-4028-81d1-e47019d2dfe5"/>
+				<reportElement x="54" y="78" width="55" height="15" uuid="67750e2a-5077-4028-81d1-e47019d2dfe5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
@@ -155,16 +158,16 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="78" width="53" height="15" uuid="b4e39254-03f5-4389-807b-c26031f74685"/>
+				<reportElement x="2" y="78" width="53" height="15" uuid="b4e39254-03f5-4389-807b-c26031f74685"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidades]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="78" width="33" height="15" uuid="77df00bf-6865-4eff-b2ec-edd57be2b8c6"/>
+				<reportElement x="224" y="78" width="33" height="15" uuid="77df00bf-6865-4eff-b2ec-edd57be2b8c6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
@@ -176,9 +179,9 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[Dirección & Teléfono:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="134" y="78" width="77" height="15" uuid="de95d648-149a-4382-a707-974e3522cd1a"/>
+				<reportElement x="108" y="78" width="77" height="15" uuid="de95d648-149a-4382-a707-974e3522cd1a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor Unitario]]></text>
 			</staticText>
@@ -189,35 +192,49 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="159" y="78" width="77" height="15" uuid="533cec37-3451-492a-81fe-a4b21c2c2dfa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iva]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="29" splitType="Stretch">
 			<textField>
-				<reportElement x="24" y="5" width="21" height="13" uuid="d109b7d7-5ce4-4686-8620-badb16aa16c9"/>
+				<reportElement x="15" y="5" width="21" height="13" uuid="d109b7d7-5ce4-4686-8620-badb16aa16c9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{unidadesVendidas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="53" y="-2" width="87" height="28" uuid="e623d34d-311e-4f75-a653-bb27c89a55be"/>
+				<reportElement x="37" y="-2" width="87" height="28" uuid="e623d34d-311e-4f75-a653-bb27c89a55be"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="146" y="6" width="53" height="13" uuid="33ea9f19-f91b-4c91-aaff-7865e0e53505"/>
+				<reportElement x="117" y="6" width="53" height="13" uuid="33ea9f19-f91b-4c91-aaff-7865e0e53505"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="210" y="5" width="55" height="15" uuid="0e9444d5-f3f9-4278-a600-6b1a0979030b"/>
+				<reportElement x="212" y="5" width="55" height="15" uuid="0e9444d5-f3f9-4278-a600-6b1a0979030b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalDetalleVenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="164" y="6" width="66" height="13" uuid="f035533e-3e87-4e67-b9a8-9fc7ac6d3500"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ivaUnitario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
