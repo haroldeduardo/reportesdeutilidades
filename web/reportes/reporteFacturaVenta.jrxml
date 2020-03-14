@@ -60,10 +60,10 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="subTotal" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalDetalleVenta}]]></variableExpression>
+		<variableExpression><![CDATA[$F{totalDetalleVenta}*0.81]]></variableExpression>
 	</variable>
-	<variable name="totalIva" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{subTotal}*0.19]]></variableExpression>
+	<variable name="totalIva" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDetalleVenta}*0.19]]></variableExpression>
 	</variable>
 	<variable name="totalVenta" class="java.lang.Number">
 		<variableExpression><![CDATA[$V{subTotal}+$V{totalIva}]]></variableExpression>
@@ -262,18 +262,18 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<textFieldExpression><![CDATA[$V{totalVenta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="165" y="-2" width="72" height="15" uuid="55a5a775-a66d-47ab-82df-45f1de55d6c5"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{subTotal}]]></textFieldExpression>
-			</textField>
-			<textField pattern="$ #,##0">
 				<reportElement x="165" y="14" width="72" height="15" uuid="5394d952-e430-4cc0-979d-b317a058cb2e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalIva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="165" y="-1" width="72" height="14" uuid="5834ecb3-510b-4219-904d-30bfb83c241c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{subTotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
