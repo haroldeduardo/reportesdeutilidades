@@ -83,10 +83,6 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				</textElement>
 				<text><![CDATA[REGIMEN SIMPLIFICADO]]></text>
 			</staticText>
-			<image>
-				<reportElement x="63" y="1" width="140" height="114" uuid="7e449e91-610f-47f8-ba49-4a8c5420947d"/>
-				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/reportesdeutilidades/web/imgs/GreenApps.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<columnHeader>

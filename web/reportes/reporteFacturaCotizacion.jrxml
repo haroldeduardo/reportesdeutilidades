@@ -71,10 +71,6 @@ FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P
 				</textElement>
 				<text><![CDATA[COTIZACIÓN]]></text>
 			</staticText>
-			<image>
-				<reportElement x="80" y="10" width="108" height="98" uuid="aecf87e2-9d60-423a-b218-c706a56f73b9"/>
-				<imageExpression><![CDATA["/Users/csrsto/Documents/Apps/GreenApps-Demo/web/imgs/GreenApps.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<columnHeader>

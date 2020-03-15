@@ -18,7 +18,7 @@ public class reporteFacturaVenta {
     public void getReporte(String ruta, Integer idP, Integer idE, Integer idV) throws ClassNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Connection conexion;
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/greenappsdemo?zeroDateTimeBehavior=convertToNull", "root", "root");
+        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/GreenAppsDemo?zeroDateTimeBehavior=convertToNull", "root", "root");
 
         Map parameter = new HashMap();
         parameter.put("identificacionPersona", idP);
