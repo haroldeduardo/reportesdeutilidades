@@ -23,4 +23,6 @@ public interface VentaDao {
     
     public void imprimirVenta(Venta venta);
     
+    public Venta obtenerUltimoRegistroNumeraciónVenta(Session sessionUltimoRegistroNumeracionVenta) throws Exception;
+    
 }

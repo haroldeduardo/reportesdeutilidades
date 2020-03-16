@@ -83,6 +83,8 @@ public class VentaBean implements Serializable {
     private boolean enabled;
 
     private String fechaSistema;
+    
+    private String numeroFactura;
 
     private String fechaInicialVenta;
 
@@ -325,6 +327,17 @@ public class VentaBean implements Serializable {
         this.fechaSistema = ((dia) + "/" + (mes + 1) + "/" + ano);
 
         return fechaSistema;
+    }
+    
+    public String getNumeroFactura() {
+
+        Calendar dateS = new GregorianCalendar();
+
+        int ano = dateS.get(Calendar.YEAR);
+
+        this.numeroFactura = ( ""+ano);
+
+        return numeroFactura;
     }
 
     public void numeracionVenta() {

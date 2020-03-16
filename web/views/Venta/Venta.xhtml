@@ -25,19 +25,23 @@
                     <p:panel style="width: 1111px; margin: 0 auto; text-align: center">
                         <p:layout id="layoutFacturaVenta" style="width: 100%; height: 85px">
                             <p:layoutUnit id="layoutVenta" position="center" style="padding: 5px; text-align: justify; font-size: 15px; size: 300px">
-                                <h:panelGrid id="gridBuscarEmpPro" columns="8">
+                                <h:panelGrid id="gridBuscarEmpPro" columns="12">
                                     <p:outputLabel value="Comprador: " style="font-size: 16px; font-weight: bold"/>
-                                    <p:inputText id="inpTexCliente" value="#{ventaBean.identificacionPersona}" size="23" placeholder="Ingrese C.C o Nit"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!ventaBean.enabled}" style="text-align: center">
+                                    <p:inputText id="inpTexCliente" value="#{ventaBean.identificacionPersona}" size="15" placeholder="Ingrese C.C o Nit"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!ventaBean.enabled}" style="text-align: center">
                                         <p:ajax event="keyup" delay="500" listener="#{ventaBean.agregarDatosPersonaPorIdentificacion()}" update=":formFacturaVenta:gridDatosCliente :formFacturaVenta:inpTexCliente"/>
                                     </p:inputText> 
                                     <p:commandButton value="+" oncomplete="PF('dialogDatosClientes').show();" update=":formFacturaVenta:dialogClientes" disabled="#{!ventaBean.enabled}"/>
                                     <p:outputLabel value="Pago: " style="font-size: 16px; font-weight: bold"/>
-                                    <p:inputText id="inpTexFormaPago" size="20" placeholder="Credito/Contado"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!ventaBean.enabled}" style="text-align: center">
+                                    <p:inputText id="inpTexFormaPago" size="15" placeholder="Credito/Contado"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!ventaBean.enabled}" style="text-align: center">
                                         <p:ajax event="keyup" delay="500" update=":formFacturaVenta:gridDatosCliente :formFacturaVenta:inpTexFormaPago"/>
-                                    </p:inputText> 
+                                    </p:inputText>
                                     <p:commandButton value="+" oncomplete="PF('dialogDatosClientes').show();" update=":formFacturaVenta:dialogClientes" disabled="#{!ventaBean.enabled}"/>
                                     <p:outputLabel value="Fecha: " style="font-size: 16px; font-weight: bold"/>
-                                    <p:outputLabel value="#{ventaBean.fechaSistema}"/>        
+                                    <p:outputLabel value="#{ventaBean.fechaSistema}"/>
+                                    <p:commandButton value="Si" disabled="#{!ventaBean.enabled}"/>
+                                    <p:commandButton value="No" disabled="#{!ventaBean.enabled}"/>
+                                    <p:outputLabel id="inpTexNumFactura" value="#{ventaBean.numeroFactura}" style="text-align: center"/>
+                                    <p:outputLabel id="inpTexSumatoria" value="#{ventaBean.numeroFactura}" style="text-align: center"/>
                                 </h:panelGrid>
                                 <h:panelGrid id="gridDatosCliente" columns="10">
                                     <p:outputLabel value="Nombres: " style="font-size: 16px; font-weight: bold"/>
