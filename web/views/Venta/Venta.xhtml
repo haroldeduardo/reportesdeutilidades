@@ -35,13 +35,14 @@
                                     <p:inputText id="inpTexFormaPago" size="15" placeholder="Credito/Contado"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!ventaBean.enabled}" style="text-align: center">
                                         <p:ajax event="keyup" delay="500" update=":formFacturaVenta:gridDatosCliente :formFacturaVenta:inpTexFormaPago"/>
                                     </p:inputText>
-                                    <p:commandButton value="+" oncomplete="PF('dialogDatosClientes').show();" update=":formFacturaVenta:dialogClientes" disabled="#{!ventaBean.enabled}"/>
+                                    <p:commandButton value="+" disabled="#{!ventaBean.enabled}"/>
                                     <p:outputLabel value="Fecha: " style="font-size: 16px; font-weight: bold"/>
                                     <p:outputLabel value="#{ventaBean.fechaSistema}"/>
-                                    <p:commandButton value="Si" disabled="#{!ventaBean.enabled}"/>
+                                    <p:commandButton value="Si" update=":formFacturaVenta:gridNumeracionFactura" actionListener="#{ventaBean.obtenerUltimoRegistroNumeracionVentaSumatoria()}" disabled="#{!ventaBean.enabled}"/>
                                     <p:commandButton value="No" disabled="#{!ventaBean.enabled}"/>
-                                    <p:outputLabel id="inpTexNumFactura" value="#{ventaBean.numeroFactura}" style="text-align: center"/>
-                                    <p:outputLabel id="inpTexSumatoria" value="#{ventaBean.numeroFactura}" style="text-align: center"/>
+                                    <h:panelGrid id="gridNumeracionFactura" columns="2">
+                                        <p:outputLabel id="numeracionFactura" value="#{ventaBean.venta.sumatoria}" style="text-align: center"/>
+                                    </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid id="gridDatosCliente" columns="10">
                                     <p:outputLabel value="Nombres: " style="font-size: 16px; font-weight: bold"/>
