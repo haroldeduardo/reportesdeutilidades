@@ -91,7 +91,7 @@ public class VentaImp implements VentaDao{
 
     @Override
     public Venta obtenerUltimoRegistroNumeraciónVenta(Session sessionUltimoRegistroNumeracionVenta) throws Exception {
-        String hql = "FROM Venta SUM(sumatoria)"; /// SELECT SUM(sumatoria) FROM GreenAppsDemo.Venta ///
+        String hql = "SELECT SUM(sumatoria) AS numeracionFactura FROM Venta"; /// SELECT SUM(sumatoria) FROM GreenAppsDemo.Venta ///
         Query q = sessionUltimoRegistroNumeracionVenta.createQuery(hql).setMaxResults(1);
         return (Venta) q.uniqueResult();
     }

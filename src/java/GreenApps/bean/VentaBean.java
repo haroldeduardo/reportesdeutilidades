@@ -83,8 +83,6 @@ public class VentaBean implements Serializable {
     private boolean enabled;
 
     private String fechaSistema;
-    
-    private String numeroFactura;
 
     private String fechaInicialVenta;
 
@@ -327,17 +325,6 @@ public class VentaBean implements Serializable {
         this.fechaSistema = ((dia) + "/" + (mes + 1) + "/" + ano);
 
         return fechaSistema;
-    }
-    
-    public String getNumeroFactura() {
-
-        Calendar dateS = new GregorianCalendar();
-
-        int ano = dateS.get(Calendar.YEAR);
-
-        this.numeroFactura = ( ""+ano);
-
-        return numeroFactura;
     }
 
     public void numeracionVenta() {
@@ -869,6 +856,31 @@ public class VentaBean implements Serializable {
 
         rReporte.getReporte(ruta, fechaInicial, fechaFinal);
         FacesContext.getCurrentInstance().responseComplete();
+
+    }
+    
+    public void obtenerUltimoRegistroNumeracionVentaSumatoria() {
+        this.sessionVenta = null;
+        this.transactionVenta = null;
+
+        try {
+            this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
+            VentaDao vDao = new VentaImp();
+            this.transactionVenta = this.sessionVenta.beginTransaction();
+            this.venta = vDao.obtenerUltimoRegistroNumeraciónVenta(sessionVenta);
+            this.transactionVenta.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Sumatoria"));
+        } catch (Exception e) {
+            if (this.transactionVenta != null) {
+                System.out.println(e.getMessage());
+                transactionVenta.rollback();
+            }
+        } finally {
+            if (this.sessionVenta != null) {
+                this.sessionVenta.close();
+            }
+
+        }
 
     }
 
