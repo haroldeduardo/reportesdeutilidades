@@ -38,10 +38,15 @@
                                     <p:commandButton value="+" disabled="#{!ventaBean.enabled}"/>
                                     <p:outputLabel value="Fecha: " style="font-size: 16px; font-weight: bold"/>
                                     <p:outputLabel value="#{ventaBean.fechaSistema}"/>
-                                    <p:commandButton value="Si" update=":formFacturaVenta:gridNumeracionFactura" actionListener="#{ventaBean.obtenerUltimoRegistroNumeracionVentaSumatoria()}" disabled="#{!ventaBean.enabled}"/>
-                                    <p:commandButton value="No" disabled="#{!ventaBean.enabled}"/>
+                                    <p:commandButton value="Si" update=":formFacturaVenta:gridNumeracionFactura" actionListener="#{ventaBean.sumatoriaFacturada()}" disabled="#{!ventaBean.enabled}"/>
+                                    <p:commandButton value="No" update=":formFacturaVenta:gridNumeracionFactura" actionListener="#{ventaBean.sumatoriaNoFacturada()}" disabled="#{!ventaBean.enabled}"/>
                                     <h:panelGrid id="gridNumeracionFactura" columns="2">
-                                        <p:outputLabel id="numeracionFactura" value="#{ventaBean.venta.sumatoria}" style="text-align: center"/>
+                                        <p:outputLabel id="numeracionFactura" value="#{ventaBean.sumatoriaNumeracion}" style="text-align: center">
+                                            <f:convertNumber type="number" minFractionDigits="0"/>
+                                        </p:outputLabel>
+                                        <p:outputLabel id="sumatoria" value="#{ventaBean.sumatoriaBase}" style="text-align: center">
+                                            <f:convertNumber type="number" minFractionDigits="0"/>
+                                        </p:outputLabel>
                                     </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid id="gridDatosCliente" columns="10">
@@ -117,7 +122,7 @@
                         <h:panelGrid id="gridTotalFactura" columns="2" style="font-size: 15px; margin: 0 auto">
                             <h3>Total Venta</h3> 
                             <p:outputLabel value="#{ventaBean.totalVentaFacturaVenta}" style="font-size: 27px; margin: 0 auto">
-                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
                             </p:outputLabel>
                         </h:panelGrid>
                         <h6></h6>

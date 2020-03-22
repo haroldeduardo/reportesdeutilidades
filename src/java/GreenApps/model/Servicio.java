@@ -147,9 +147,6 @@ public class Servicio  implements java.io.Serializable {
         this.estadoServicio = estadoServicio;
     }
 
-
-
-
 }
 
 

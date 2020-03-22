@@ -80,9 +80,6 @@ public class Devolucion  implements java.io.Serializable {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-
-
-
 }
 
 

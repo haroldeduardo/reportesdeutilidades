@@ -129,9 +129,13 @@
                             <p:outputLabel value="Stock"/>
                             <p:inputText value="#{productoBean.producto.stockProducto}" style="text-align:center"/>
                             <p:outputLabel value="Valor Compra"/>
-                            <p:inputText value="#{productoBean.producto.valorCompraProducto}" style="text-align:center"/>
+                            <p:inputText value="#{productoBean.producto.valorCompraProducto}" style="text-align:center">
+                                <f:convertNumber type="number" minFractionDigits="0"/>
+                            </p:inputText>    
                             <p:outputLabel value="Valor Venta"/>
-                            <p:inputText value="#{productoBean.producto.valorVentaProducto}" style="text-align:center"/>
+                            <p:inputText value="#{productoBean.producto.valorVentaProducto}" style="text-align:center">
+                                <f:convertNumber type="number" minFractionDigits="0"/>
+                            </p:inputText>
                             <p:outputLabel value="Stock Minimo"/>
                             <p:inputText value="#{productoBean.producto.stockMinimo}" style="text-align:center"/>
                             <p:outputLabel value="IVA"/>

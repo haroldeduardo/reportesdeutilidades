@@ -49,7 +49,7 @@ public class VentaImp implements VentaDao{
         Query q = sessionUltimoRegistroVenta.createQuery(hql).setMaxResults(1);
         return (Venta) q.uniqueResult();
     }
-
+    
     @Override
     public Long obtenerTotalRegistrosVenta(Session sessionRegistrosVenta) {
         String hql = "SELECT COUNT(*) FROM Venta";
@@ -57,6 +57,13 @@ public class VentaImp implements VentaDao{
         return (Long) q.uniqueResult();
     }
 
+    @Override
+    public Double obtenerSumatoriaRegistrosNumeracionVenta(Session sessionSumatoriaRegistrosNumeracionVenta) {
+        String hql = "select sum(sumatoria) from Venta";
+        Query q = sessionSumatoriaRegistrosNumeracionVenta.createQuery(hql).setMaxResults(1);
+        return (Double) q.uniqueResult();
+    }
+    
     @Override
     public long ingresarVenta(Session sessionIngresarVenta, Venta venta) throws Exception {
         
@@ -87,13 +94,6 @@ public class VentaImp implements VentaDao{
                 sessionProducto.close();
             }
         }
-    }
-
-    @Override
-    public Venta obtenerUltimoRegistroNumeraciónVenta(Session sessionUltimoRegistroNumeracionVenta) throws Exception {
-        String hql = "SELECT SUM(sumatoria) AS numeracionFactura FROM Venta"; /// SELECT SUM(sumatoria) FROM GreenAppsDemo.Venta ///
-        Query q = sessionUltimoRegistroNumeracionVenta.createQuery(hql).setMaxResults(1);
-        return (Venta) q.uniqueResult();
     }
     
 }
