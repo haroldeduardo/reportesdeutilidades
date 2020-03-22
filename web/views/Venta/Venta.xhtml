@@ -62,7 +62,7 @@
                             </p:layoutUnit>
                             <p:layoutUnit id="layoutNumeroFactura" position="east" style=" padding: 15px; text-align: center; font-size: 33px" size="150">
                                 <h:panelGrid columns="1" style="font-size: 30px; font-weight: normal; margin-top: 30px; margin: 0 auto">
-                                    <h6>GreenApps</h6>
+                                    <p:outputLabel value="#{ventaBean.numeroVenta}"></p:outputLabel>
                                 </h:panelGrid>
                             </p:layoutUnit>
                         </p:layout>
@@ -126,7 +126,7 @@
                             </p:outputLabel>
                         </h:panelGrid>
                         <h6></h6>
-                        <p:commandButton value="Aceptar" style="width: 100px; height: 38px" actionListener="#{ventaBean.ingresarVentaFULL()}" update=":formFacturaVenta" disabled="#{!ventaBean.enabled}" action="#{ventaBean.disableBoton()}"/>
+                        <p:commandButton value="Aceptar" style="width: 100px; height: 38px" actionListener="#{ventaBean.numeracionVenta()}" update=":formFacturaVenta" disabled="#{!ventaBean.enabled}" action="#{ventaBean.disableBoton()}"/>
                         <h:commandLink id="linkImprimir" actionListener="#{ventaBean.reporteImpresionFacturaVenta()}" target="_blank" disabled="#{!ventaBean.enabled}" action="#{ventaBean.disableBoton()}">
                             <p:graphicImage url="/imgs/imprimirIcono.png"/>
                         </h:commandLink>
