@@ -15,25 +15,16 @@ public class Venta  implements java.io.Serializable {
      private int idEmpleado;
      private int idPersona;
      private float totalVenta;
-     private Float sumatoria;
+     private float sumatoria;
      private int idTipoTransaccion;
      private Date fechaVenta;
      private Byte estadoVenta;
-     private Float numeracionFactura;
+     private float numeracionFactura;
 
     public Venta() {
     }
 
-	
-    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, int idTipoTransaccion, Date fechaVenta) {
-        this.numeroVenta = numeroVenta;
-        this.idEmpleado = idEmpleado;
-        this.idPersona = idPersona;
-        this.totalVenta = totalVenta;
-        this.idTipoTransaccion = idTipoTransaccion;
-        this.fechaVenta = fechaVenta;
-    }
-    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, Float sumatoria, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta, Float numeracionFactura) {
+    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, float sumatoria, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta, float numeracionFactura) {
        this.numeroVenta = numeroVenta;
        this.idEmpleado = idEmpleado;
        this.idPersona = idPersona;
@@ -80,11 +71,11 @@ public class Venta  implements java.io.Serializable {
     public void setTotalVenta(float totalVenta) {
         this.totalVenta = totalVenta;
     }
-    public Float getSumatoria() {
+    public float getSumatoria() {
         return this.sumatoria;
     }
     
-    public void setSumatoria(Float sumatoria) {
+    public void setSumatoria(float sumatoria) {
         this.sumatoria = sumatoria;
     }
     public int getIdTipoTransaccion() {
@@ -108,16 +99,13 @@ public class Venta  implements java.io.Serializable {
     public void setEstadoVenta(Byte estadoVenta) {
         this.estadoVenta = estadoVenta;
     }
-    public Float getNumeracionFactura() {
+    public float getNumeracionFactura() {
         return this.numeracionFactura;
     }
     
-    public void setNumeracionFactura(Float numeracionFactura) {
+    public void setNumeracionFactura(float numeracionFactura) {
         this.numeracionFactura = numeracionFactura;
     }
-
-
-
 
 }
 
