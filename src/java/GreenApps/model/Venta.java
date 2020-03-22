@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Mar 12, 2020 8:33:30 PM by Hibernate Tools 4.3.1
+// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,32 +15,25 @@ public class Venta  implements java.io.Serializable {
      private int idEmpleado;
      private int idPersona;
      private float totalVenta;
-     private Float totalDescuentoVenta;
+     private float sumatoria;
      private int idTipoTransaccion;
      private Date fechaVenta;
      private Byte estadoVenta;
+     private float numeracionFactura;
 
     public Venta() {
     }
 
-	
-    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, int idTipoTransaccion, Date fechaVenta) {
-        this.numeroVenta = numeroVenta;
-        this.idEmpleado = idEmpleado;
-        this.idPersona = idPersona;
-        this.totalVenta = totalVenta;
-        this.idTipoTransaccion = idTipoTransaccion;
-        this.fechaVenta = fechaVenta;
-    }
-    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, Float totalDescuentoVenta, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta) {
+    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, float sumatoria, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta, float numeracionFactura) {
        this.numeroVenta = numeroVenta;
        this.idEmpleado = idEmpleado;
        this.idPersona = idPersona;
        this.totalVenta = totalVenta;
-       this.totalDescuentoVenta = totalDescuentoVenta;
+       this.sumatoria = sumatoria;
        this.idTipoTransaccion = idTipoTransaccion;
        this.fechaVenta = fechaVenta;
        this.estadoVenta = estadoVenta;
+       this.numeracionFactura = numeracionFactura;
     }
    
     public Integer getIdVenta() {
@@ -78,12 +71,12 @@ public class Venta  implements java.io.Serializable {
     public void setTotalVenta(float totalVenta) {
         this.totalVenta = totalVenta;
     }
-    public Float getTotalDescuentoVenta() {
-        return this.totalDescuentoVenta;
+    public float getSumatoria() {
+        return this.sumatoria;
     }
     
-    public void setTotalDescuentoVenta(Float totalDescuentoVenta) {
-        this.totalDescuentoVenta = totalDescuentoVenta;
+    public void setSumatoria(float sumatoria) {
+        this.sumatoria = sumatoria;
     }
     public int getIdTipoTransaccion() {
         return this.idTipoTransaccion;
@@ -106,9 +99,13 @@ public class Venta  implements java.io.Serializable {
     public void setEstadoVenta(Byte estadoVenta) {
         this.estadoVenta = estadoVenta;
     }
-
-
-
+    public float getNumeracionFactura() {
+        return this.numeracionFactura;
+    }
+    
+    public void setNumeracionFactura(float numeracionFactura) {
+        this.numeracionFactura = numeracionFactura;
+    }
 
 }
 

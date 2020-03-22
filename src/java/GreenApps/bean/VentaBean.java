@@ -74,6 +74,8 @@ public class VentaBean implements Serializable {
     private String unidadesVendidasPorCodigo;
 
     private Long numeroVenta;
+    private Double sumatoriaNumeracion;
+    private Double sumatoriaBase;
     private BigDecimal totalVentaFactura;
     private float totalVentaFacturaVenta;
 
@@ -197,6 +199,22 @@ public class VentaBean implements Serializable {
 
     public void setNumeroVenta(Long numeroVenta) {
         this.numeroVenta = numeroVenta;
+    }
+
+    public Double getSumatoriaNumeracion() {
+        return sumatoriaNumeracion;
+    }
+
+    public void setSumatoriaNumeracion(Double sumatoriaNumeracion) {
+        this.sumatoriaNumeracion = sumatoriaNumeracion;
+    }
+
+    public Double getSumatoriaBase() {
+        return sumatoriaBase;
+    }
+
+    public void setSumatoriaBase(Double sumatoriaBase) {
+        this.sumatoriaBase = sumatoriaBase;
     }
 
     public BigDecimal getTotalVentaFactura() {
@@ -336,7 +354,7 @@ public class VentaBean implements Serializable {
             this.transactionVenta = this.sessionVenta.beginTransaction();
             VentaDao vDao = new VentaImp();
             this.numeroVenta = vDao.obtenerTotalRegistrosVenta(this.sessionVenta);
-
+            
             if (this.numeroVenta <= 0 || this.numeroVenta == null) {
                 this.numeroVenta = Long.valueOf("1");
             } else {
@@ -358,6 +376,58 @@ public class VentaBean implements Serializable {
         }
     }
 
+    public void sumatoriaFacturada() {
+        this.sessionVenta = null;
+        this.transactionVenta = null;
+
+        try {
+            this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
+            this.transactionVenta = this.sessionVenta.beginTransaction();
+            VentaDao vDao = new VentaImp();
+            this.sumatoriaNumeracion = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaNumeracion = sumatoriaNumeracion+1;
+            this.sumatoriaBase = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaBase = sumatoriaNumeracion-sumatoriaBase;
+            this.transactionVenta.commit();
+        } catch (Exception e) {
+            if (this.transactionVenta != null) {
+                this.transactionVenta.rollback();
+            }
+            System.out.println(e.getMessage());
+        } finally {
+            if (this.sessionVenta != null) {
+                this.sessionVenta.close();
+            }
+            
+        }
+    }
+    
+    public void sumatoriaNoFacturada() {
+        this.sessionVenta = null;
+        this.transactionVenta = null;
+
+        try {
+            this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
+            this.transactionVenta = this.sessionVenta.beginTransaction();
+            VentaDao vDao = new VentaImp();
+            this.sumatoriaNumeracion = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaNumeracion = sumatoriaNumeracion-sumatoriaNumeracion;
+            this.sumatoriaBase = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaBase = sumatoriaBase-sumatoriaBase;
+            this.transactionVenta.commit();
+        } catch (Exception e) {
+            if (this.transactionVenta != null) {
+                this.transactionVenta.rollback();
+            }
+            System.out.println(e.getMessage());
+        } finally {
+            if (this.sessionVenta != null) {
+                this.sessionVenta.close();
+            }
+            
+        }
+    }
+    
     public void agregarDatosPersona(Integer idPersona) {
         this.sessionVenta = null;
         this.transactionVenta = null;
