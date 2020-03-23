@@ -701,6 +701,8 @@ public class VentaBean implements Serializable {
         this.listaDetalleVenta = new ArrayList<>();
         this.numeroVenta = null;
         this.totalVentaFacturaVenta = 0;
+        this.sumatoriaBase = null;
+        this.sumatoriaNumeracion = null;
 
         this.disableBoton();
     }
@@ -776,6 +778,8 @@ public class VentaBean implements Serializable {
             this.venta.setIdEmpleado(this.empleado.getIdEmpleado());
             this.venta.setIdPersona(this.persona.getIdPersona());
             this.venta.setIdTipoTransaccion(this.tipoTransaccion.getIdTipoTransaccion());
+            this.venta.setSumatoria(Float.parseFloat(String.valueOf(this.sumatoriaBase)));
+            this.venta.setNumeracionFactura(Float.parseFloat(String.valueOf(this.sumatoriaNumeracion)));
 
             vDao.ingresarVenta(this.sessionVenta, this.venta);
 
