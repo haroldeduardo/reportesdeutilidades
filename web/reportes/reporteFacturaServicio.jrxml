@@ -72,11 +72,11 @@ WHERE  ds.idServicio=$P{idServicio}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[REGIMEN SIMPLIFICADO]]></text>
+				<text><![CDATA[SERVICIOS]]></text>
 			</staticText>
 			<image>
-				<reportElement x="71" y="9" width="116" height="101" uuid="f09f8e43-ab78-4a3a-8f46-80dc72a2eda5"/>
-				<imageExpression><![CDATA["/Users/csrsto/Documents/Apps/GreenApps-Demo/web/imgs/GreenApps.png"]]></imageExpression>
+				<reportElement x="64" y="3" width="132" height="113" uuid="842255c5-c9eb-4bd9-b6b9-278c409106b2"/>
+				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/reportesdeutilidades/web/imgs/GreenApps.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -186,7 +186,7 @@ WHERE  ds.idServicio=$P{idServicio}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="15" y="0" width="28" height="19" uuid="05be36fe-bfa5-407d-9714-ee5c3327fb72"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -195,7 +195,7 @@ WHERE  ds.idServicio=$P{idServicio}]]>
 				<textFieldExpression><![CDATA[$F{unidadesVendidas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="57" y="0" width="82" height="32" uuid="ded259b7-86fb-4977-813f-7376ba58faa1"/>
+				<reportElement x="55" y="-2" width="82" height="32" uuid="ded259b7-86fb-4977-813f-7376ba58faa1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>

@@ -765,6 +765,7 @@ public class VentaBean implements Serializable {
         this.empleado.setIdEmpleado(Integer.parseInt(idEmpleadoV));
         this.tipoTransaccion.setIdTipoTransaccion(1); /// aún por definir idTipo de Transacción Contado ó Credito ///
         this.venta.setFechaVenta(new Date());
+        this.disableEstadoVenta();
 
         try {
             this.sessionVenta = HibernateUtil.getSessionFactory().openSession();

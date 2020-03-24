@@ -21,7 +21,9 @@
                             <h:outputText value="#{ventaBean.getmostrarPersona(ven.idPersona)}"/>
                         </p:column>
                         <p:column headerText="Fecha" style="text-align:center">
-                            <h:outputText value="#{ven.fechaVenta}"/>
+                            <h:outputText value="#{ven.fechaVenta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Bogota" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="VaLor" style="text-align:center">
                             <p:outputLabel value="#{ven.totalVenta}">
@@ -75,7 +77,7 @@
                             </p:column>
                         </p:dataTable>
                         <h:panelGrid id="gridTotalFactura" columns="2" style="font-size: 15px; margin: 0 auto">
-                            <h6>TOTAL SERVICIO</h6>
+                            <h6>Total Venta</h6>
                             <p:outputLabel value="#{ventaBean.totalVentaFacturaVenta}" style="font-size: 27px; margin: 0 auto">
                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
                             </p:outputLabel>
