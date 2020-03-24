@@ -12,13 +12,23 @@
 
             <ui:define name="content">
                 <h1></h1>
-                <h3>Remisiones</h3>
+                <h3>FACTURAS</h3>
                 <h1></h1>
-
-                <h:form id="formMostrarVentas">
+                <h:form>
+                    <h:panelGrid width="1010px" style="margin: 0 auto;">
+                        <p:commandButton value="Facturas" style="font-family: sans-serif; font-size: 22px; width: 151px; height: 55px; color: coral; align-content: center" update=":formMostrarFacturas" action="#{ventaBean.enableBoton()}"/>
+                    </h:panelGrid>
+                </h:form>
+                <h1></h1>
+                <h:form id="formMostrarFacturas">
                     <p:dataTable id="tableVentas" value="#{ventaBean.listaVentas}" var="ven" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
                         <p:column headerText="C.C CLiente" filterBy="#{ven.identificacionPersona}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width:180px">
                             <h:outputText value="#{ventaBean.getmostrarPersona(ven.idPersona)}"/>
+                        </p:column>
+                        <p:column headerText="Número" style="text-align:center">
+                            <h:outputText value="#{ven.numeracionFactura}">
+                                <f:convertNumber type="number" minFractionDigits="0"/>
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="Fecha" style="text-align:center">
                             <h:outputText value="#{ven.fechaVenta}">
@@ -41,8 +51,8 @@
                 
                 <h:form id="formImprimirFactura">
                     <p:growl id="mensajesVenta" autoUpdate="true" showDetail="true" life="1500"/>
-                    <p:dialog id="dlgModificarVenta" header="Información Venta" widgetVar="dialogModificarVenta" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="align-content: center; text-align:center; align-items:center">
-                        <h9>VENTA</h9>
+                    <p:dialog id="dlgModificarVenta" header="Información Factura" widgetVar="dialogModificarVenta" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="align-content: center; text-align:center; align-items:center">
+                        <h9>FACTURA</h9>
                         <h1></h1>
                         <h:panelGrid id="gridMostrarCliente" columns="2">
                             <p:outputLabel value="Cliente:" style="font-size: 18px; font-weight: bold"/>
@@ -77,7 +87,7 @@
                             </p:column>
                         </p:dataTable>
                         <h:panelGrid id="gridTotalFactura" columns="2" style="font-size: 15px; margin: 0 auto">
-                            <h6>Total Venta</h6>
+                            <h6>Total Factura</h6>
                             <p:outputLabel value="#{ventaBean.totalVentaFacturaVenta}" style="font-size: 27px; margin: 0 auto">
                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
                             </p:outputLabel>
