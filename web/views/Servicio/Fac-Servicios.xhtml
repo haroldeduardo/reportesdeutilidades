@@ -34,7 +34,7 @@
                             </p:outputLabel>
                         </p:column>
                         <p:column headerText="Imprimir" style="text-align:center; font-size:13px">
-                            <p:commandButton value="#{ser.estadoServicio eq '0' ? 'Factura' : 'Sin Factura'}" action="#{servicioBean.enableModificarServicio()}" oncomplete="PF('dialogModificarServicio').show();" update=":formImprimirServicio" style="text-align:center; font-size:11px">
+                            <p:commandButton value="#{ser.estadoServicio eq '0' ? 'Factura' : 'Sin Factura'}" action="#{servicioBean.enableModificarServicio()}" oncomplete="PF('dialogModificarServicio').show();" update=":formImprimirFactura" style="text-align:center; font-size:11px">
                                 <f:param name="idServicioi" value="#{ser.idServicio}"/>
                                 <f:param name="estServicioi" value="#{ser.estadoServicio}"/>
                             </p:commandButton>
@@ -42,7 +42,7 @@
                     </p:dataTable>
                 </h:form>
 
-                <h:form id="formImprimirServicio">
+                <h:form id="formImprimirFactura">
                     <p:growl id="mensajesServicio" autoUpdate="true" showDetail="true" life="1500"/>
                     <p:dialog id="dlgModificarServicio" header="Información Servicio" widgetVar="dialogModificarServicio" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="text-align:center">
                         <p:layout id="layoutFacturaServicio" style="width: 100%; height: 52px">
