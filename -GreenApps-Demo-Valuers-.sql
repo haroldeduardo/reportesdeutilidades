@@ -419,7 +419,7 @@ CREATE TABLE `Persona` (
 
 LOCK TABLES `Persona` WRITE;
 /*!40000 ALTER TABLE `Persona` DISABLE KEYS */;
-INSERT INTO `Persona` VALUES (1,1,1,1,'DEFAULT-PER','DEFAULT-PER',1,1,'DEFAULT-PER','1','@DEFAULT-PER');
+INSERT INTO `Persona` VALUES (1,1,1,1061717515,'DEFAULT-PER','DEFAULT-PER',1,1,'DEFAULT-PER','1','@DEFAULT-PER');
 /*!40000 ALTER TABLE `Persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,7 +464,7 @@ CREATE TABLE `Producto` (
   `valorCompraProducto` float NOT NULL,
   `valorVentaProducto` float NOT NULL,
   `stockMinimo` int(11) NOT NULL,
-  `IVA` enum('SI','NO') COLLATE latin1_spanish_ci NOT NULL,
+  `IVA` TINYINT(1) NOT NULL,
   `idCategoria` int(30) NOT NULL,
   `idPresentacionProducto` int(30) NOT NULL,
   `idUbicacionProducto` int(30) NOT NULL,
@@ -705,10 +705,11 @@ CREATE TABLE `Venta` (
   `idEmpleado` int(30) NOT NULL,
   `idPersona` int(30) NOT NULL,
   `totalVenta` float NOT NULL,
-  `totalDescuentoVenta` float DEFAULT NULL,
+  `sumatoria` float DEFAULT NULL,
   `idTipoTransaccion` int(30) NOT NULL,
   `fechaVenta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `estadoVenta` tinyint(4) DEFAULT NULL,
+  `numeracionFactura` float DEFAULT NULL,
   PRIMARY KEY (`idVenta`),
   UNIQUE KEY `idVenta_UNIQUE` (`idVenta`),
   KEY `idEmpleadoVenta_idx` (`idEmpleado`),
@@ -726,7 +727,7 @@ CREATE TABLE `Venta` (
 
 LOCK TABLES `Venta` WRITE;
 /*!40000 ALTER TABLE `Venta` DISABLE KEYS */;
-INSERT INTO `Venta` VALUES (1,'1',1,1,30000,NULL,1,'2019-04-28 00:16:35',1);
+INSERT INTO `Venta` VALUES (1,'1',1,1,30000,NULL,1,'2019-04-28 00:16:35',1,NULL);
 /*!40000 ALTER TABLE `Venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -842,7 +843,7 @@ CREATE TABLE `detalleCotizacion` (
   `codigoProducto` varchar(100) NOT NULL,
   `nombreProducto` varchar(100) NOT NULL,
   `valorVentaProducto` float NOT NULL,
-  `IVA` varchar(30) NOT NULL,
+  `IVA` TINYINT(1) NOT NULL,
   `unidadesCotizadas` int(30) NOT NULL,
   `totalDetalleCotizacion` float NOT NULL,
   PRIMARY KEY (`idDetalleCotizacion`),
@@ -975,7 +976,7 @@ CREATE TABLE `detalleServicio` (
   `codigoProducto` varchar(100) NOT NULL,
   `nombreProducto` varchar(100) NOT NULL,
   `valorVentaProducto` float NOT NULL,
-  `IVA` varchar(30) NOT NULL,
+  `IVA` TINYINT(1) NOT NULL,
   `unidadesVendidas` int(30) NOT NULL,
   `totalDetalleServicio` float NOT NULL,
   PRIMARY KEY (`idDetalleServicio`),
@@ -1011,7 +1012,7 @@ CREATE TABLE `detalleVenta` (
   `codigoProducto` varchar(100) NOT NULL,
   `nombreProducto` varchar(100) NOT NULL,
   `valorVentaProducto` float NOT NULL,
-  `IVA` varchar(30) NOT NULL,
+  `IVA` TINYINT(1) NOT NULL,
   `unidadesVendidas` int(30) NOT NULL,
   `totalDetalleVenta` float NOT NULL,
   PRIMARY KEY (`idDetalleVenta`),

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 18, 2020 10:18:04 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 15, 2020 9:43:42 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="GreenApps.model.Producto" table="Producto" catalog="GreenAppsDemo" optimistic-lock="version">
         <id name="idProducto" type="java.lang.Integer">
@@ -29,8 +29,8 @@
         <property name="stockMinimo" type="int">
             <column name="stockMinimo" not-null="true" />
         </property>
-        <property name="iva" type="string">
-            <column name="IVA" length="3" not-null="true" />
+        <property name="iva" type="boolean">
+            <column name="IVA" not-null="true" />
         </property>
         <property name="idCategoria" type="int">
             <column name="idCategoria" not-null="true" />

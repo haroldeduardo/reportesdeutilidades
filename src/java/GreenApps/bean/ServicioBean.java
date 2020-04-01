@@ -90,6 +90,8 @@ public class ServicioBean implements Serializable {
     private TipoTransaccion tipoTransaccion;
 
     private boolean enabled;
+    
+    private boolean disabled;
 
     private String fechaSistema;
 
@@ -294,6 +296,14 @@ public class ServicioBean implements Serializable {
         enabled = true;
     }
 
+    public void disableBoton() {
+        enabled = false;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+    
     public void enableModificarServicio() throws Exception {
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -302,7 +312,7 @@ public class ServicioBean implements Serializable {
         int idServicio = Integer.parseInt(params.get("idServicioi"));
         int estServicio = Integer.parseInt(params.get("estServicioi"));
 
-        //Estado Activo
+        /// Estado Activo
         if (estServicio == 1) {
 
             DetalleServicioDao dsd = new DetalleServicioImp();
@@ -314,10 +324,11 @@ public class ServicioBean implements Serializable {
             this.calcularValorTotalServicio();
 
             enabled = true;
+            disabled = false;
 
         } 
         
-        //Estado Inactivo
+        /// Estado Inactivo
         else {
             
             DetalleServicioDao dsd = new DetalleServicioImp();
@@ -329,14 +340,11 @@ public class ServicioBean implements Serializable {
             this.calcularValorTotalServicio();
 
             enabled = false;
+            disabled = true;
 
         }
     }
-
-    public void disableBoton() {
-        enabled = false;
-    }
-
+    
     public String getFechaSistema() {
 
         Calendar dateS = new GregorianCalendar();
@@ -538,7 +546,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidas = "";
 
@@ -593,7 +601,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidas) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(unidadesVendidas), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidas), Total);
 
                 boolean isValidate = false;
 
@@ -609,7 +617,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidas = "";
 
@@ -749,7 +757,7 @@ public class ServicioBean implements Serializable {
 
             if (isValidate) {
 
-                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                 this.unidadesVendidasPorCodigo = "";
 
@@ -787,7 +795,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(unidadesVendidasPorCodigo), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidasPorCodigo), Total);
 
                 boolean isValidate = false;
 
@@ -803,7 +811,7 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidasPorCodigo = "";
 

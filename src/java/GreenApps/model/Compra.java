@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Jan 18, 2020 10:18:03 PM by Hibernate Tools 4.3.1
+// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -22,15 +22,6 @@ public class Compra  implements java.io.Serializable {
     public Compra() {
     }
 
-	
-    public Compra(String numeroCompra, int idEmpleado, int idPersona, float totalCompra, int idTipoTransaccion, Date fechaCompra) {
-        this.numeroCompra = numeroCompra;
-        this.idEmpleado = idEmpleado;
-        this.idPersona = idPersona;
-        this.totalCompra = totalCompra;
-        this.idTipoTransaccion = idTipoTransaccion;
-        this.fechaCompra = fechaCompra;
-    }
     public Compra(String numeroCompra, int idEmpleado, int idPersona, float totalCompra, int idTipoTransaccion, Date fechaCompra, Byte estadoCompra) {
        this.numeroCompra = numeroCompra;
        this.idEmpleado = idEmpleado;
@@ -97,9 +88,6 @@ public class Compra  implements java.io.Serializable {
     public void setEstadoCompra(Byte estadoCompra) {
         this.estadoCompra = estadoCompra;
     }
-
-
-
 
 }
 

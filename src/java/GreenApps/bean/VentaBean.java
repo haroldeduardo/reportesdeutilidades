@@ -17,6 +17,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import GreenApps.auxiliares.reporteFacturaVenta;
+import GreenApps.auxiliares.reportesUtilidades;
 import GreenApps.auxiliares.reportesVentas;
 import GreenApps.dao.VentaDao;
 import GreenApps.dao.PersonaDao;
@@ -73,6 +74,8 @@ public class VentaBean implements Serializable {
     private String unidadesVendidasPorCodigo;
 
     private Long numeroVenta;
+    private Double sumatoriaNumeracion;
+    private Double sumatoriaBase;
     private BigDecimal totalVentaFactura;
     private float totalVentaFacturaVenta;
 
@@ -86,6 +89,10 @@ public class VentaBean implements Serializable {
     private String fechaInicialVenta;
 
     private String fechaFinalVenta;
+    
+    private String fechaInicialUtilidad;
+
+    private String fechaFinalUtilidad;
 
     public VentaBean() {
         
@@ -194,6 +201,22 @@ public class VentaBean implements Serializable {
         this.numeroVenta = numeroVenta;
     }
 
+    public Double getSumatoriaNumeracion() {
+        return sumatoriaNumeracion;
+    }
+
+    public void setSumatoriaNumeracion(Double sumatoriaNumeracion) {
+        this.sumatoriaNumeracion = sumatoriaNumeracion;
+    }
+
+    public Double getSumatoriaBase() {
+        return sumatoriaBase;
+    }
+
+    public void setSumatoriaBase(Double sumatoriaBase) {
+        this.sumatoriaBase = sumatoriaBase;
+    }
+
     public BigDecimal getTotalVentaFactura() {
         return totalVentaFactura;
     }
@@ -240,6 +263,22 @@ public class VentaBean implements Serializable {
 
     public void setFechaFinalVenta(String fechaFinalVenta) {
         this.fechaFinalVenta = fechaFinalVenta;
+    }
+
+    public String getFechaInicialUtilidad() {
+        return fechaInicialUtilidad;
+    }
+
+    public void setFechaInicialUtilidad(String fechaInicialUtilidad) {
+        this.fechaInicialUtilidad = fechaInicialUtilidad;
+    }
+
+    public String getFechaFinalUtilidad() {
+        return fechaFinalUtilidad;
+    }
+
+    public void setFechaFinalUtilidad(String fechaFinalUtilidad) {
+        this.fechaFinalUtilidad = fechaFinalUtilidad;
     }
 
     public boolean isEnabled() {
@@ -315,7 +354,7 @@ public class VentaBean implements Serializable {
             this.transactionVenta = this.sessionVenta.beginTransaction();
             VentaDao vDao = new VentaImp();
             this.numeroVenta = vDao.obtenerTotalRegistrosVenta(this.sessionVenta);
-
+            
             if (this.numeroVenta <= 0 || this.numeroVenta == null) {
                 this.numeroVenta = Long.valueOf("1");
             } else {
@@ -337,6 +376,58 @@ public class VentaBean implements Serializable {
         }
     }
 
+    public void sumatoriaFacturada() {
+        this.sessionVenta = null;
+        this.transactionVenta = null;
+
+        try {
+            this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
+            this.transactionVenta = this.sessionVenta.beginTransaction();
+            VentaDao vDao = new VentaImp();
+            this.sumatoriaNumeracion = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaNumeracion = sumatoriaNumeracion+1;
+            this.sumatoriaBase = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaBase = sumatoriaNumeracion-sumatoriaBase;
+            this.transactionVenta.commit();
+        } catch (Exception e) {
+            if (this.transactionVenta != null) {
+                this.transactionVenta.rollback();
+            }
+            System.out.println(e.getMessage());
+        } finally {
+            if (this.sessionVenta != null) {
+                this.sessionVenta.close();
+            }
+            
+        }
+    }
+    
+    public void sumatoriaNoFacturada() {
+        this.sessionVenta = null;
+        this.transactionVenta = null;
+
+        try {
+            this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
+            this.transactionVenta = this.sessionVenta.beginTransaction();
+            VentaDao vDao = new VentaImp();
+            this.sumatoriaNumeracion = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaNumeracion = sumatoriaNumeracion-sumatoriaNumeracion;
+            this.sumatoriaBase = vDao.obtenerSumatoriaRegistrosNumeracionVenta(this.sessionVenta);
+            this.sumatoriaBase = sumatoriaBase-sumatoriaBase;
+            this.transactionVenta.commit();
+        } catch (Exception e) {
+            if (this.transactionVenta != null) {
+                this.transactionVenta.rollback();
+            }
+            System.out.println(e.getMessage());
+        } finally {
+            if (this.sessionVenta != null) {
+                this.sessionVenta.close();
+            }
+            
+        }
+    }
+    
     public void agregarDatosPersona(Integer idPersona) {
         this.sessionVenta = null;
         this.transactionVenta = null;
@@ -434,7 +525,7 @@ public class VentaBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidas = "";
 
@@ -532,7 +623,7 @@ public class VentaBean implements Serializable {
 
             if (isValidate) {
 
-                this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                 this.unidadesVendidasPorCodigo = "";
 
@@ -610,6 +701,8 @@ public class VentaBean implements Serializable {
         this.listaDetalleVenta = new ArrayList<>();
         this.numeroVenta = null;
         this.totalVentaFacturaVenta = 0;
+        this.sumatoriaBase = null;
+        this.sumatoriaNumeracion = null;
 
         this.disableBoton();
     }
@@ -672,6 +765,7 @@ public class VentaBean implements Serializable {
         this.empleado.setIdEmpleado(Integer.parseInt(idEmpleadoV));
         this.tipoTransaccion.setIdTipoTransaccion(1); /// aún por definir idTipo de Transacción Contado ó Credito ///
         this.venta.setFechaVenta(new Date());
+        this.disableEstadoVenta();
 
         try {
             this.sessionVenta = HibernateUtil.getSessionFactory().openSession();
@@ -685,6 +779,8 @@ public class VentaBean implements Serializable {
             this.venta.setIdEmpleado(this.empleado.getIdEmpleado());
             this.venta.setIdPersona(this.persona.getIdPersona());
             this.venta.setIdTipoTransaccion(this.tipoTransaccion.getIdTipoTransaccion());
+            this.venta.setSumatoria(Float.parseFloat(String.valueOf(this.sumatoriaBase)));
+            this.venta.setNumeracionFactura(Float.parseFloat(String.valueOf(this.sumatoriaNumeracion)));
 
             vDao.ingresarVenta(this.sessionVenta, this.venta);
 
@@ -808,6 +904,27 @@ public class VentaBean implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
         String ruta = servletContext.getRealPath("/reportes/reporteVentas.jasper");
+
+        System.out.println("Fecha Inicial: " + fechaInicial);
+        System.out.println("Fecha Final: " + fechaFinal);
+
+        rReporte.getReporte(ruta, fechaInicial, fechaFinal);
+        FacesContext.getCurrentInstance().responseComplete();
+
+    }
+    
+    public void reportesUtilidades() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        System.out.println("+++++ Test Reporte Utilidades +++++");
+
+        String fechaInicial = this.getFechaInicialUtilidad();
+        String fechaFinal = this.getFechaFinalUtilidad();
+
+        reportesUtilidades rReporte = new reportesUtilidades();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/reporteUtilidades.jasper");
 
         System.out.println("Fecha Inicial: " + fechaInicial);
         System.out.println("Fecha Final: " + fechaFinal);

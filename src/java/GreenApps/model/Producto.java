@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Jan 18, 2020 10:18:03 PM by Hibernate Tools 4.3.1
+// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
 
 
 
@@ -17,7 +17,7 @@ public class Producto  implements java.io.Serializable {
      private float valorCompraProducto;
      private float valorVentaProducto;
      private int stockMinimo;
-     private String iva;
+     private boolean iva;
      private int idCategoria;
      private int idPresentacionProducto;
      private int idUbicacionProducto;
@@ -25,7 +25,7 @@ public class Producto  implements java.io.Serializable {
     public Producto() {
     }
 
-    public Producto(String codigoProducto, String nombreProducto, String descripcionProducto, int stockProducto, float valorCompraProducto, float valorVentaProducto, int stockMinimo, String iva, int idCategoria, int idPresentacionProducto, int idUbicacionProducto) {
+    public Producto(String codigoProducto, String nombreProducto, String descripcionProducto, int stockProducto, float valorCompraProducto, float valorVentaProducto, int stockMinimo, boolean iva, int idCategoria, int idPresentacionProducto, int idUbicacionProducto) {
        this.codigoProducto = codigoProducto;
        this.nombreProducto = nombreProducto;
        this.descripcionProducto = descripcionProducto;
@@ -95,11 +95,11 @@ public class Producto  implements java.io.Serializable {
     public void setStockMinimo(int stockMinimo) {
         this.stockMinimo = stockMinimo;
     }
-    public String getIva() {
+    public boolean isIva() {
         return this.iva;
     }
     
-    public void setIva(String iva) {
+    public void setIva(boolean iva) {
         this.iva = iva;
     }
     public int getIdCategoria() {

@@ -363,7 +363,7 @@ public class CotizacionBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesCotizadas), (Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto())));
+                    this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesCotizadas), (Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto())));
 
                     this.unidadesCotizadas = "";
 
@@ -455,7 +455,7 @@ public class CotizacionBean implements Serializable {
             }
 
             if (isValidate) {
-                this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.getIva(), Integer.parseInt(this.unidadesCotizadasPorCodigo), (Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto())));
+                this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesCotizadasPorCodigo), (Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto())));
 
                 this.unidadesCotizadasPorCodigo = "";
 

@@ -19,6 +19,8 @@ public interface VentaDao {
     
     public Long obtenerTotalRegistrosVenta (Session sessionRegistrosVenta);
     
+    public Double obtenerSumatoriaRegistrosNumeracionVenta(Session sessionSumatoriaRegistrosNumeracionVenta);
+    
     public long ingresarVenta (Session sessionIngresarVenta, Venta venta) throws Exception;
     
     public void imprimirVenta(Venta venta);

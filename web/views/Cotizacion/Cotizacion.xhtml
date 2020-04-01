@@ -85,7 +85,7 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="IVA">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Unidades Cotizadas">
                                 <p:cellEditor>
@@ -110,7 +110,7 @@
                             </p:column>
                         </p:dataTable>
                         <h:panelGrid id="gridTotalFactura" columns="2" style="font-size: 15px; margin: 0 auto">
-                            <h3>Total Cotizacion</h3> 
+                            <h3>Total Cotización</h3> 
                             <p:outputLabel value="#{cotizacionBean.totalCotizacionFacturaCotizacion}" style="font-size: 27px; margin: 0 auto">
                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
                             </p:outputLabel>
@@ -184,7 +184,7 @@
                                 </p:outputLabel>
                             </p:column>
                             <p:column headerText="IVA" style="text-align:center">
-                                <h:outputText value="#{pro.iva}"/>
+                                <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
                             <p:column headerText="Categoría" style="text-align:center">
                                 <h:outputText value="#{productoBean.getmostrarCategoria(pro.idCategoria)}"/>

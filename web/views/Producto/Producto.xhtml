@@ -51,7 +51,7 @@
                             <h:outputText value="#{pro.stockMinimo}"/> Unidades
                         </p:column>
                         <p:column headerText="IVA" style="text-align:center">
-                            <h:outputText value="#{pro.iva}"/>
+                            <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                         </p:column>
                         <p:column headerText="Categoria" style="text-align:center">
                             <h:outputText value="#{productoBean.getmostrarCategoria(pro.idCategoria)}"/>
@@ -94,8 +94,8 @@
                             <p:outputLabel value="IVA"/>
                             <p:selectOneMenu value="#{productoBean.producto.iva}" style="text-align: center">
                                 <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                                <f:selectItem itemLabel="SI" itemValue="SI"/>
-                                <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                <f:selectItem itemLabel="Si" itemValue="true"/>
+                                <f:selectItem itemLabel="No" itemValue="false"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Categoria"/>
                             <p:selectOneMenu value="#{productoBean.producto.idCategoria}" style="width: 1001px">
@@ -129,16 +129,20 @@
                             <p:outputLabel value="Stock"/>
                             <p:inputText value="#{productoBean.producto.stockProducto}" style="text-align:center"/>
                             <p:outputLabel value="Valor Compra"/>
-                            <p:inputText value="#{productoBean.producto.valorCompraProducto}" style="text-align:center"/>
+                            <p:inputText value="#{productoBean.producto.valorCompraProducto}" style="text-align:center">
+                                <f:convertNumber type="number" minFractionDigits="0"/>
+                            </p:inputText>    
                             <p:outputLabel value="Valor Venta"/>
-                            <p:inputText value="#{productoBean.producto.valorVentaProducto}" style="text-align:center"/>
+                            <p:inputText value="#{productoBean.producto.valorVentaProducto}" style="text-align:center">
+                                <f:convertNumber type="number" minFractionDigits="0"/>
+                            </p:inputText>
                             <p:outputLabel value="Stock Minimo"/>
                             <p:inputText value="#{productoBean.producto.stockMinimo}" style="text-align:center"/>
                             <p:outputLabel value="IVA"/>
                             <p:selectOneMenu value="#{productoBean.producto.iva}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                                <f:selectItem itemLabel="SI" itemValue="SI"/>
-                                <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                <f:selectItem itemLabel="Si" itemValue="true"/>
+                                <f:selectItem itemLabel="No" itemValue="false"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Categoria"/>
                             <p:selectOneMenu value="#{productoBean.producto.idCategoria}" style="width: 1008px">
