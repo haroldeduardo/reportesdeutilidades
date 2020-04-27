@@ -82,7 +82,7 @@
                             <p:column headerText="Producto">
                                 <h:outputText value="#{pro.nombreProducto}"/>
                             </p:column>
-                            <p:column headerText="Valor Venta">
+                            <p:column headerText="Valor Producto">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="$ #{pro.valorVentaProducto}"/>
@@ -96,6 +96,11 @@
                             </p:column>
                             <p:column headerText="IVA">
                                 <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
+                            </p:column>
+                            <p:column headerText="Valor Iva">
+                                <p:outputLabel value="#{pro.totalIva}">
+                                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                                </p:outputLabel>
                             </p:column>
                             <p:column headerText="Unidades Vendidas">
                                 <p:cellEditor>

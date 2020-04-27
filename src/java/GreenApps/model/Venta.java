@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
+// Generated Apr 16, 2020 5:17:23 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,16 +15,25 @@ public class Venta  implements java.io.Serializable {
      private int idEmpleado;
      private int idPersona;
      private float totalVenta;
-     private float sumatoria;
+     private Float sumatoria;
      private int idTipoTransaccion;
      private Date fechaVenta;
      private Byte estadoVenta;
-     private float numeracionFactura;
+     private Float numeracionFactura;
 
     public Venta() {
     }
 
-    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, float sumatoria, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta, float numeracionFactura) {
+	
+    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, int idTipoTransaccion, Date fechaVenta) {
+        this.numeroVenta = numeroVenta;
+        this.idEmpleado = idEmpleado;
+        this.idPersona = idPersona;
+        this.totalVenta = totalVenta;
+        this.idTipoTransaccion = idTipoTransaccion;
+        this.fechaVenta = fechaVenta;
+    }
+    public Venta(String numeroVenta, int idEmpleado, int idPersona, float totalVenta, Float sumatoria, int idTipoTransaccion, Date fechaVenta, Byte estadoVenta, Float numeracionFactura) {
        this.numeroVenta = numeroVenta;
        this.idEmpleado = idEmpleado;
        this.idPersona = idPersona;
@@ -71,11 +80,11 @@ public class Venta  implements java.io.Serializable {
     public void setTotalVenta(float totalVenta) {
         this.totalVenta = totalVenta;
     }
-    public float getSumatoria() {
+    public Float getSumatoria() {
         return this.sumatoria;
     }
     
-    public void setSumatoria(float sumatoria) {
+    public void setSumatoria(Float sumatoria) {
         this.sumatoria = sumatoria;
     }
     public int getIdTipoTransaccion() {
@@ -99,13 +108,16 @@ public class Venta  implements java.io.Serializable {
     public void setEstadoVenta(Byte estadoVenta) {
         this.estadoVenta = estadoVenta;
     }
-    public float getNumeracionFactura() {
+    public Float getNumeracionFactura() {
         return this.numeracionFactura;
     }
     
-    public void setNumeracionFactura(float numeracionFactura) {
+    public void setNumeracionFactura(Float numeracionFactura) {
         this.numeracionFactura = numeracionFactura;
     }
+
+
+
 
 }
 

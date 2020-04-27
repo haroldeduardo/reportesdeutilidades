@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
+// Generated Apr 16, 2020 5:17:23 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -79,6 +79,9 @@ public class Devolucion  implements java.io.Serializable {
     public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
+
+
+
 
 }
 

@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Mar 15, 2020 9:43:40 PM by Hibernate Tools 4.3.1
+// Generated Apr 16, 2020 5:17:23 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,14 +15,22 @@ public class Cotizacion  implements java.io.Serializable {
      private int idEmpleado;
      private int idPersona;
      private float totalCotizacion;
-     private float totalDescuentoVenta;
+     private Float totalDescuentoVenta;
      private Date fechaCotizacion;
      private Byte estadoCotizacion;
 
     public Cotizacion() {
     }
-    
-    public Cotizacion(String numeroCotizacion, int idEmpleado, int idPersona, float totalCotizacion, float totalDescuentoVenta, Date fechaCotizacion, Byte estadoCotizacion) {
+
+	
+    public Cotizacion(String numeroCotizacion, int idEmpleado, int idPersona, float totalCotizacion, Date fechaCotizacion) {
+        this.numeroCotizacion = numeroCotizacion;
+        this.idEmpleado = idEmpleado;
+        this.idPersona = idPersona;
+        this.totalCotizacion = totalCotizacion;
+        this.fechaCotizacion = fechaCotizacion;
+    }
+    public Cotizacion(String numeroCotizacion, int idEmpleado, int idPersona, float totalCotizacion, Float totalDescuentoVenta, Date fechaCotizacion, Byte estadoCotizacion) {
        this.numeroCotizacion = numeroCotizacion;
        this.idEmpleado = idEmpleado;
        this.idPersona = idPersona;
@@ -67,11 +75,11 @@ public class Cotizacion  implements java.io.Serializable {
     public void setTotalCotizacion(float totalCotizacion) {
         this.totalCotizacion = totalCotizacion;
     }
-    public float getTotalDescuentoVenta() {
+    public Float getTotalDescuentoVenta() {
         return this.totalDescuentoVenta;
     }
     
-    public void setTotalDescuentoVenta(float totalDescuentoVenta) {
+    public void setTotalDescuentoVenta(Float totalDescuentoVenta) {
         this.totalDescuentoVenta = totalDescuentoVenta;
     }
     public Date getFechaCotizacion() {
@@ -88,6 +96,9 @@ public class Cotizacion  implements java.io.Serializable {
     public void setEstadoCotizacion(Byte estadoCotizacion) {
         this.estadoCotizacion = estadoCotizacion;
     }
+
+
+
 
 }
 
