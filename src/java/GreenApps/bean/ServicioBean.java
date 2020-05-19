@@ -90,6 +90,8 @@ public class ServicioBean implements Serializable {
     private TipoTransaccion tipoTransaccion;
 
     private boolean enabled;
+    
+    private boolean disabled;
 
     private String fechaSistema;
 
@@ -294,6 +296,14 @@ public class ServicioBean implements Serializable {
         enabled = true;
     }
 
+    public void disableBoton() {
+        enabled = false;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+    
     public void enableModificarServicio() throws Exception {
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -302,7 +312,7 @@ public class ServicioBean implements Serializable {
         int idServicio = Integer.parseInt(params.get("idServicioi"));
         int estServicio = Integer.parseInt(params.get("estServicioi"));
 
-        //Estado Activo
+        /// Estado Activo
         if (estServicio == 1) {
 
             DetalleServicioDao dsd = new DetalleServicioImp();
@@ -314,10 +324,11 @@ public class ServicioBean implements Serializable {
             this.calcularValorTotalServicio();
 
             enabled = true;
+            disabled = false;
 
         } 
         
-        //Estado Inactivo
+        /// Estado Inactivo
         else {
             
             DetalleServicioDao dsd = new DetalleServicioImp();
@@ -329,14 +340,11 @@ public class ServicioBean implements Serializable {
             this.calcularValorTotalServicio();
 
             enabled = false;
+            disabled = true;
 
         }
     }
-
-    public void disableBoton() {
-        enabled = false;
-    }
-
+    
     public String getFechaSistema() {
 
         Calendar dateS = new GregorianCalendar();

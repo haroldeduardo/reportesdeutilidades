@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT codigoProducto, nombreProducto, descripcionProducto, stockProducto, valorCompraProducto, valorVentaProducto, stockMinimo FROM m10r.Producto;]]>
+		<![CDATA[SELECT codigoProducto, nombreProducto, descripcionProducto, stockProducto, valorCompraProducto, valorVentaProducto, stockMinimo FROM greenappsdemo.Producto;]]>
 	</queryString>
 	<field name="codigoProducto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

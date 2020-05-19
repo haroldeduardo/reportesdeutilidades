@@ -86,6 +86,13 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				</textElement>
 				<text><![CDATA[REGIMEN SIMPLIFICADO]]></text>
 			</staticText>
+<<<<<<< HEAD
+=======
+			<image>
+				<reportElement x="62" y="1" width="142" height="114" uuid="11f46852-14cf-479d-941c-6f569c7a4329"/>
+				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
+			</image>
+>>>>>>> 382d39e3e2625e86e6593948b1f45eb7a0ad418d
 		</band>
 	</title>
 	<columnHeader>
@@ -101,7 +108,7 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="19" y="22" width="87" height="20" uuid="ec3de950-97e2-46c4-bfeb-a7c5a3d6e8be"/>
+				<reportElement x="11" y="22" width="87" height="20" uuid="ec3de950-97e2-46c4-bfeb-a7c5a3d6e8be"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
@@ -136,14 +143,14 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="2" width="61" height="20" uuid="c7be01e0-3e79-45f3-9586-9e89211bbb56"/>
+				<reportElement x="11" y="2" width="61" height="20" uuid="c7be01e0-3e79-45f3-9586-9e89211bbb56"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificación:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="45" y="62" width="45" height="15" uuid="8907ffed-8617-4f8d-b460-7e36317f25e5"/>
+				<reportElement x="30" y="62" width="45" height="15" uuid="8907ffed-8617-4f8d-b460-7e36317f25e5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
@@ -171,7 +178,7 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="19" y="42" width="87" height="20" uuid="30bdf252-3b46-428f-8a6a-27470f776b59"/>
+				<reportElement x="11" y="42" width="87" height="20" uuid="30bdf252-3b46-428f-8a6a-27470f776b59"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
@@ -185,7 +192,7 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[Valor Unitario]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="84" y="2" width="40" height="19" uuid="dedec60a-188f-45a9-9782-a5cccf432254"/>
+				<reportElement x="71" y="2" width="51" height="19" uuid="dedec60a-188f-45a9-9782-a5cccf432254"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
