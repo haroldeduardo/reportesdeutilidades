@@ -1,3 +1,4 @@
+
 package GreenApps.bean;
 
 import java.io.Serializable;
@@ -629,8 +630,6 @@ public class VentaBean implements Serializable {
 
             if (isValidate) {
 
-                float bigIva = 0.0f;
-
                 boolean varIva = this.producto.isIva();
 
                 if (varIva == true) {
@@ -640,10 +639,6 @@ public class VentaBean implements Serializable {
                 }
 
                 this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
-
-                bigIva = BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje() * booIva).floatValue();
-
-                System.out.println("Boleanooooooooooo: " + this.producto.isIva() + " Variable Iva: " + booIva + " Total Iva: " + bigIva);
 
                 this.unidadesVendidasPorCodigo = "";
 

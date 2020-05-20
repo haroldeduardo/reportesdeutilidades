@@ -87,6 +87,10 @@ public class ServicioBean implements Serializable {
     private BigDecimal totalServicioFactura;
     private float totalServicioFacturaServicio;
 
+    private float booIva = 0.0f;
+    private float nobooIva = 0.0f;
+    private float ivaPorcentaje = 0.19f;
+    
     private TipoTransaccion tipoTransaccion;
 
     private boolean enabled;
@@ -303,8 +307,32 @@ public class ServicioBean implements Serializable {
     public boolean isDisabled() {
         return disabled;
     }
+
+    public float getBooIva() {
+        return booIva;
+    }
+
+    public void setBooIva(float booIva) {
+        this.booIva = booIva;
+    }
+
+    public float getNobooIva() {
+        return nobooIva;
+    }
+
+    public void setNobooIva(float nobooIva) {
+        this.nobooIva = nobooIva;
+    }
+
+    public float getIvaPorcentaje() {
+        return ivaPorcentaje;
+    }
+
+    public void setIvaPorcentaje(float ivaPorcentaje) {
+        this.ivaPorcentaje = ivaPorcentaje;
+    }
     
-    public void enableModificarServicio() throws Exception {
+    /*public void enableModificarServicio() throws Exception {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -849,11 +877,21 @@ public class ServicioBean implements Serializable {
         this.totalServicioFactura = new BigDecimal("0");
 
         try {
-            for (DetalleServicio detalleServicioTotal : listaDetalleServicio) {
-                BigDecimal totalServicioPorProducto = (new BigDecimal(detalleServicioTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleServicioTotal.getUnidadesVendidas())));
-                detalleServicioTotal.setTotalDetalleServicio(totalServicioPorProducto.floatValue());
-                totalServicioFactura = totalServicioFactura.add(totalServicioPorProducto);
-            }
+            listaDetalleServicio.stream().forEach((detalleVentaTotal) -> {
+                float varIva = detalleVentaTotal.getTotalIva();
+                if (varIva>0) {
+                    booIva = 1.0f;
+                    BigDecimal totalIvaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())).multiply(new BigDecimal(this.ivaPorcentaje)).multiply(new BigDecimal(booIva)));
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())));
+                    detalleVentaTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
+                    detalleVentaTotal.setTotalIva(totalIvaPorProducto.floatValue());
+                    totalServicioFactura = totalServicioFactura.add(totalVentaPorProducto);
+                } else {
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())));
+                    detalleVentaTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
+                    totalServicioFactura = totalServicioFactura.add(totalVentaPorProducto);
+                }
+            });
             this.servicio.setTotalServicio(totalServicioFactura.floatValue());
             totalServicioFacturaServicio = (totalServicioFactura.floatValue());
         } catch (Exception e) {
@@ -1260,6 +1298,6 @@ public class ServicioBean implements Serializable {
         rReporte.getReporte(ruta, fechaInicial, fechaFinal);
         FacesContext.getCurrentInstance().responseComplete();
         
-    }
+    }*/
     
 }

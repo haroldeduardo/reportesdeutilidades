@@ -727,7 +727,7 @@ CREATE TABLE `Venta` (
 
 LOCK TABLES `Venta` WRITE;
 /*!40000 ALTER TABLE `Venta` DISABLE KEYS */;
-INSERT INTO `Venta` VALUES (1,'1',1,1,30000,NULL,1,'2020-01-01 00:00:00',1,NULL);
+INSERT INTO `Venta` VALUES (1,'1',1,1,30000,1000,1,'2020-01-01 00:00:00',1,1000);
 /*!40000 ALTER TABLE `Venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -844,6 +844,7 @@ CREATE TABLE `detalleCotizacion` (
   `nombreProducto` varchar(100) NOT NULL,
   `valorVentaProducto` float NOT NULL,
   `IVA` TINYINT(1) NOT NULL,
+  `totalIva` float NOT NULL,
   `unidadesCotizadas` int(30) NOT NULL,
   `totalDetalleCotizacion` float NOT NULL,
   PRIMARY KEY (`idDetalleCotizacion`),
@@ -861,7 +862,7 @@ CREATE TABLE `detalleCotizacion` (
 
 LOCK TABLES `detalleCotizacion` WRITE;
 /*!40000 ALTER TABLE `detalleCotizacion` DISABLE KEYS */;
-INSERT INTO `detalleCotizacion` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,'SI',1,3000);
+INSERT INTO `detalleCotizacion` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,1,5700,10,30000);
 /*!40000 ALTER TABLE `detalleCotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -977,6 +978,7 @@ CREATE TABLE `detalleServicio` (
   `nombreProducto` varchar(100) NOT NULL,
   `valorVentaProducto` float NOT NULL,
   `IVA` TINYINT(1) NOT NULL,
+  `totalIva` float NOT NULL,
   `unidadesVendidas` int(30) NOT NULL,
   `totalDetalleServicio` float NOT NULL,
   PRIMARY KEY (`idDetalleServicio`),
@@ -994,7 +996,7 @@ CREATE TABLE `detalleServicio` (
 
 LOCK TABLES `detalleServicio` WRITE;
 /*!40000 ALTER TABLE `detalleServicio` DISABLE KEYS */;
-INSERT INTO `detalleServicio` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,'SI',5,15000);
+INSERT INTO `detalleServicio` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,1,5700,10,30000);
 /*!40000 ALTER TABLE `detalleServicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1031,7 +1033,7 @@ CREATE TABLE `detalleVenta` (
 
 LOCK TABLES `detalleVenta` WRITE;
 /*!40000 ALTER TABLE `detalleVenta` DISABLE KEYS */;
-INSERT INTO `detalleVenta` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,'SI',5700,10,30000);
+INSERT INTO `detalleVenta` VALUES (1,1,1,'¡DEFAULT!','DEFAULT',3000,1,5700,10,30000);
 /*!40000 ALTER TABLE `detalleVenta` ENABLE KEYS */;
 UNLOCK TABLES;
 

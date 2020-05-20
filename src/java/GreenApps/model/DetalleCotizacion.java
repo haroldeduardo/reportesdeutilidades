@@ -1,5 +1,5 @@
 package GreenApps.model;
-// Generated Apr 16, 2020 5:17:23 PM by Hibernate Tools 4.3.1
+// Generated May 19, 2020 8:20:55 PM by Hibernate Tools 4.3.1
 
 
 
@@ -16,19 +16,21 @@ public class DetalleCotizacion  implements java.io.Serializable {
      private String nombreProducto;
      private float valorVentaProducto;
      private boolean iva;
+     private float totalIva;
      private int unidadesCotizadas;
      private float totalDetalleCotizacion;
 
     public DetalleCotizacion() {
     }
 
-    public DetalleCotizacion(int idCotizacion, int idProducto, String codigoProducto, String nombreProducto, float valorVentaProducto, boolean iva, int unidadesCotizadas, float totalDetalleCotizacion) {
+    public DetalleCotizacion(int idCotizacion, int idProducto, String codigoProducto, String nombreProducto, float valorVentaProducto, boolean iva, float totalIva, int unidadesCotizadas, float totalDetalleCotizacion) {
        this.idCotizacion = idCotizacion;
        this.idProducto = idProducto;
        this.codigoProducto = codigoProducto;
        this.nombreProducto = nombreProducto;
        this.valorVentaProducto = valorVentaProducto;
        this.iva = iva;
+       this.totalIva = totalIva;
        this.unidadesCotizadas = unidadesCotizadas;
        this.totalDetalleCotizacion = totalDetalleCotizacion;
     }
@@ -81,6 +83,13 @@ public class DetalleCotizacion  implements java.io.Serializable {
     
     public void setIva(boolean iva) {
         this.iva = iva;
+    }
+    public float getTotalIva() {
+        return this.totalIva;
+    }
+    
+    public void setTotalIva(float totalIva) {
+        this.totalIva = totalIva;
     }
     public int getUnidadesCotizadas() {
         return this.unidadesCotizadas;
