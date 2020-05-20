@@ -602,7 +602,7 @@ public class VentaBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoPorCodigoProductoRead() {
+    public void agregarDatosProductoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
 
         this.sessionVenta = null;
         this.transactionVenta = null;

@@ -1,4 +1,3 @@
-
 package GreenApps.bean;
 
 import java.io.Serializable;
@@ -90,11 +89,11 @@ public class ServicioBean implements Serializable {
     private float booIva = 0.0f;
     private float nobooIva = 0.0f;
     private float ivaPorcentaje = 0.19f;
-    
+
     private TipoTransaccion tipoTransaccion;
 
     private boolean enabled;
-    
+
     private boolean disabled;
 
     private String fechaSistema;
@@ -331,8 +330,8 @@ public class ServicioBean implements Serializable {
     public void setIvaPorcentaje(float ivaPorcentaje) {
         this.ivaPorcentaje = ivaPorcentaje;
     }
-    
-    /*public void enableModificarServicio() throws Exception {
+
+    public void enableModificarServicio() throws Exception {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -348,23 +347,21 @@ public class ServicioBean implements Serializable {
 
             ServicioDao sd = new ServicioImp();
             this.servicio = sd.obtenerServicioPorIdServicio(idServicio);
-            
+
             this.calcularValorTotalServicio();
 
             enabled = true;
             disabled = false;
 
-        } 
-        
-        /// Estado Inactivo
+        } /// Estado Inactivo
         else {
-            
+
             DetalleServicioDao dsd = new DetalleServicioImp();
             this.listaDetalleServicio = dsd.mostrarDetalleServiciosIdServicio(idServicio);
 
             ServicioDao sd = new ServicioImp();
             this.servicio = sd.obtenerServicioPorIdServicio(idServicio);
-                
+
             this.calcularValorTotalServicio();
 
             enabled = false;
@@ -372,7 +369,7 @@ public class ServicioBean implements Serializable {
 
         }
     }
-    
+
     public String getFechaSistema() {
 
         Calendar dateS = new GregorianCalendar();
@@ -540,7 +537,7 @@ public class ServicioBean implements Serializable {
         this.productoSeleccionado = codigoProducto;
     }
 
-    public void agregarDatosProductoPorCodigoProducto() {
+    public void agregarDatosProductoPorCodigoProducto() { /// verificar Método de EDITAR por Valor de IVA ///
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -574,13 +571,32 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    boolean varIva = this.producto.isIva();
 
-                    this.unidadesVendidas = "";
+                    if (varIva == true) {
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+                        booIva = 1.0f;
 
-                    this.calcularValorTotalServicio();
+                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                        this.nobooIva = 0.0f;
+
+                        this.unidadesVendidas = "";
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalServicio();
+
+                    } else if (varIva == false) {
+
+                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                        this.unidadesVendidas = "";
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalServicio();
+                    }
 
                 } else {
 
@@ -629,7 +645,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidas) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidas), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(unidadesVendidas), Total);
 
                 boolean isValidate = false;
 
@@ -645,15 +661,36 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+                    boolean varIva = this.producto.isIva();
 
-                    this.unidadesVendidas = "";
+                    if (varIva == true) {
 
-                    dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+                        booIva = 1.0f;
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
 
-                    this.calcularValorTotalServicio();
+                        this.nobooIva = 0.0f;
+
+                        this.unidadesVendidas = "";
+
+                        dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalServicio();
+
+                    } else if (varIva == false) {
+
+                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                        this.unidadesVendidas = "";
+
+                        dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalServicio();
+                    }
 
                 } else {
 
@@ -757,7 +794,7 @@ public class ServicioBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoPorCodigoProductoRead() {
+    public void agregarDatosProductoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -785,7 +822,15 @@ public class ServicioBean implements Serializable {
 
             if (isValidate) {
 
-                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                boolean varIva = this.producto.isIva();
+
+                if (varIva == true) {
+                    booIva = 1.0f;
+                } else {
+                    booIva = 0.0f;
+                }
+
+                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                 this.unidadesVendidasPorCodigo = "";
 
@@ -804,7 +849,7 @@ public class ServicioBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoModificadoPorCodigoProductoRead() {
+    public void agregarDatosProductoModificadoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -823,7 +868,7 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(unidadesVendidasPorCodigo), Total);
+                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(unidadesVendidas), Total);
 
                 boolean isValidate = false;
 
@@ -839,7 +884,15 @@ public class ServicioBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                    boolean varIva = this.producto.isIva();
+
+                    if (varIva == true) {
+                        booIva = 1.0f;
+                    } else {
+                        booIva = 0.0f;
+                    }
+
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
                     this.unidadesVendidasPorCodigo = "";
 
@@ -877,18 +930,18 @@ public class ServicioBean implements Serializable {
         this.totalServicioFactura = new BigDecimal("0");
 
         try {
-            listaDetalleServicio.stream().forEach((detalleVentaTotal) -> {
-                float varIva = detalleVentaTotal.getTotalIva();
-                if (varIva>0) {
+            listaDetalleServicio.stream().forEach((detalleServicioTotal) -> {
+                float varIva = detalleServicioTotal.getTotalIva();
+                if (varIva > 0) {
                     booIva = 1.0f;
-                    BigDecimal totalIvaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())).multiply(new BigDecimal(this.ivaPorcentaje)).multiply(new BigDecimal(booIva)));
-                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())));
-                    detalleVentaTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
-                    detalleVentaTotal.setTotalIva(totalIvaPorProducto.floatValue());
+                    BigDecimal totalIvaPorProducto = (new BigDecimal(detalleServicioTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleServicioTotal.getUnidadesVendidas())).multiply(new BigDecimal(this.ivaPorcentaje)).multiply(new BigDecimal(booIva)));
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleServicioTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleServicioTotal.getUnidadesVendidas())));
+                    detalleServicioTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
+                    detalleServicioTotal.setTotalIva(totalIvaPorProducto.floatValue());
                     totalServicioFactura = totalServicioFactura.add(totalVentaPorProducto);
                 } else {
-                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())));
-                    detalleVentaTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleServicioTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleServicioTotal.getUnidadesVendidas())));
+                    detalleServicioTotal.setTotalDetalleServicio(totalVentaPorProducto.floatValue());
                     totalServicioFactura = totalServicioFactura.add(totalVentaPorProducto);
                 }
             });
@@ -1155,7 +1208,7 @@ public class ServicioBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Eliminado"));
 
     }
-    
+
     public String getmostrarMoto(Integer id) {
 
         if (id == null) {
@@ -1185,7 +1238,7 @@ public class ServicioBean implements Serializable {
         }
 
     }
-    
+
     public String getmostrarMecanico(Integer id) {
 
         if (id == null) {
@@ -1200,31 +1253,29 @@ public class ServicioBean implements Serializable {
         }
 
     }
-    
+
     public void reporteImpresionFacturaServicio() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         String idEmpleadoS = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString();
 
         this.empleado.setIdEmpleado(Integer.parseInt(idEmpleadoS));
-        
+
         System.out.println("+++++ Test Factura Servicio +++++");
-        
+
         int idP = this.persona.getIdentificacionPersona();
-        
+
         int idE = this.empleado.getIdEmpleado();
-        
+
         this.ingresarServicioFULL();
 
-        
         Object objServicio = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numServicio");
-        
+
         int numImprimirServicio = ((Number) objServicio).intValue();
 
         this.servicio.setIdServicio(numImprimirServicio);
 
-        
         int idS = this.servicio.getIdServicio();
-        
+
         reporteFacturaServicio rFactura = new reporteFacturaServicio();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1243,27 +1294,27 @@ public class ServicioBean implements Serializable {
     public void reporteImpresionFacturaServicioModificado(Integer idServicio) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         System.out.println("+++++ Test Factura Servicio +++++");
-        
+
         String idEmpleadoS = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString();
 
         this.empleado.setIdEmpleado(Integer.parseInt(idEmpleadoS));
-        
-        System.out.println("+++++ Test Factura Servicio +++++"+ " idEmpleadoS: "+idEmpleadoS);
-        
+
+        System.out.println("+++++ Test Factura Servicio +++++" + " idEmpleadoS: " + idEmpleadoS);
+
         int idP = this.persona.getIdentificacionPersona();
-        
+
         int idE = this.empleado.getIdEmpleado();
 
-        System.out.println("+++++ Test Factura Servicio +++++"+" Persona: "+idP+" Empleado: "+idE);
-        
+        System.out.println("+++++ Test Factura Servicio +++++" + " Persona: " + idP + " Empleado: " + idE);
+
         this.guardarServicioModificado();
-        
+
         this.servicio.setIdServicio(idServicio);
-        
+
         int idS = this.servicio.getIdServicio();
 
-        System.out.println("+++++ Test Factura Servicio +++++"+" Servicio: "+idS);
-        
+        System.out.println("+++++ Test Factura Servicio +++++" + " Servicio: " + idS);
+
         reporteFacturaServicio rFactura = new reporteFacturaServicio();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1278,7 +1329,7 @@ public class ServicioBean implements Serializable {
         FacesContext.getCurrentInstance().responseComplete();
 
     }
-    
+
     public void reportesServicios() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         System.out.println("+++++ Test Reporte Servicios +++++");
@@ -1297,7 +1348,7 @@ public class ServicioBean implements Serializable {
 
         rReporte.getReporte(ruta, fechaInicial, fechaFinal);
         FacesContext.getCurrentInstance().responseComplete();
-        
-    }*/
-    
+
+    }
+
 }

@@ -480,7 +480,7 @@ public class CotizacionBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoPorCodigoProductoRead() {
+    public void agregarDatosProductoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
 
         this.sessionCotizacion = null;
         this.transactionCotizacion = null;
