@@ -654,7 +654,7 @@ public class ServicioBean implements Serializable {
                     booIva = 1.0f;
 
                     DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidas), Total);
-                    
+
                     boolean isValidate = false;
 
                     try {
@@ -708,16 +708,14 @@ public class ServicioBean implements Serializable {
 
                     }
 
-                }
-                
-                else if (varIvas == false){
-                
+                } else if (varIvas == false) {
+
                     System.out.println("No TIENE IVASSSSSSSSSSSSSSSSS");
-                    
+
                     booIva = 0.0f;
 
                     DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidas), Total);
-                    
+
                     boolean isValidate = false;
 
                     try {
@@ -770,9 +768,9 @@ public class ServicioBean implements Serializable {
                         this.unidadesVendidas = "";
 
                     }
-                    
+
                 }
-                
+
             }
 
         } catch (Exception e) {
@@ -867,7 +865,7 @@ public class ServicioBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
+    public void agregarDatosProductoPorCodigoProductoRead() {
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -898,20 +896,31 @@ public class ServicioBean implements Serializable {
                 boolean varIva = this.producto.isIva();
 
                 if (varIva == true) {
+
                     booIva = 1.0f;
-                } else {
-                    booIva = 0.0f;
+
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.nobooIva = 0.0f;
+
+                    this.unidadesVendidasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalServicio();
+
+                } else if (varIva == false) {
+
+                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.unidadesVendidasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalServicio();
                 }
 
-                this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
-
-                this.unidadesVendidasPorCodigo = "";
-
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
-
-                this.calcularValorTotalServicio();
-
-            } else {
+            }  else {
 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
 
@@ -922,7 +931,7 @@ public class ServicioBean implements Serializable {
 
     }
 
-    public void agregarDatosProductoModificadoPorCodigoProductoRead() { ////// verificar Funcionamiento agregando Productos con Código //////
+    public void agregarDatosProductoModificadoPorCodigoProductoRead() {
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -941,45 +950,129 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(unidadesVendidas), Total);
+                boolean varIvas = this.producto.isIva();
 
-                boolean isValidate = false;
+                System.out.println("Ivasssssssssssssssssssssssssssssss" + varIvas);
 
-                try {
+                if (varIvas == true) {
 
-                    isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidasPorCodigo));
+                    booIva = 1.0f;
 
-                } catch (Exception ex) {
+                    DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidasPorCodigo), Total);
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+                    boolean isValidate = false;
 
-                }
+                    try {
 
-                if (isValidate) {
+                        isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidasPorCodigo));
 
-                    boolean varIva = this.producto.isIva();
+                    } catch (Exception ex) {
 
-                    if (varIva == true) {
-                        booIva = 1.0f;
-                    } else {
-                        booIva = 0.0f;
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+
                     }
 
-                    this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+                    if (isValidate) {
 
-                    this.unidadesVendidasPorCodigo = "";
+                        boolean varIva = this.producto.isIva();
 
-                    dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+                        if (varIva == true) {
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+                            booIva = 1.0f;
 
-                    this.calcularValorTotalServicio();
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
 
-                } else {
+                            this.nobooIva = 0.0f;
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+                            this.unidadesVendidasPorCodigo = "";
 
-                    this.unidadesVendidasPorCodigo = "";
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+
+                        } else if (varIva == false) {
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                            this.unidadesVendidasPorCodigo = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+                        }
+
+                    } else {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+
+                        this.unidadesVendidasPorCodigo = "";
+
+                    }
+
+                } else if (varIvas == false) {
+
+                    System.out.println("No TIENE IVASSSSSSSSSSSSSSSSS");
+
+                    booIva = 0.0f;
+
+                    DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidasPorCodigo), Total);
+
+                    boolean isValidate = false;
+
+                    try {
+
+                        isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidasPorCodigo));
+
+                    } catch (Exception ex) {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+
+                    }
+
+                    if (isValidate) {
+
+                        boolean varIva = this.producto.isIva();
+
+                        if (varIva == true) {
+
+                            booIva = 1.0f;
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                            this.nobooIva = 0.0f;
+
+                            this.unidadesVendidasPorCodigo = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+
+                        } else if (varIva == false) {
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                            this.unidadesVendidasPorCodigo = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+                        }
+
+                    } else {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+
+                        this.unidadesVendidasPorCodigo = "";
+
+                    }
 
                 }
             }
