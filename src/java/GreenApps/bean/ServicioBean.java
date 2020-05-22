@@ -645,11 +645,9 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidas) * this.producto.getValorVentaProducto();
 
-                boolean varIvas = this.producto.isIva();
+                boolean varIvaS = this.producto.isIva();
 
-                System.out.println("Ivasssssssssssssssssssssssssssssss" + varIvas);
-
-                if (varIvas == true) {
+                if (varIvaS == true) {
 
                     booIva = 1.0f;
 
@@ -708,9 +706,7 @@ public class ServicioBean implements Serializable {
 
                     }
 
-                } else if (varIvas == false) {
-
-                    System.out.println("No TIENE IVASSSSSSSSSSSSSSSSS");
+                } else if (varIvaS == false) {
 
                     booIva = 0.0f;
 
@@ -950,11 +946,9 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto();
 
-                boolean varIvas = this.producto.isIva();
+                boolean varIvaS = this.producto.isIva();
 
-                System.out.println("Ivasssssssssssssssssssssssssssssss" + varIvas);
-
-                if (varIvas == true) {
+                if (varIvaS == true) {
 
                     booIva = 1.0f;
 
@@ -1013,9 +1007,7 @@ public class ServicioBean implements Serializable {
 
                     }
 
-                } else if (varIvas == false) {
-
-                    System.out.println("No TIENE IVASSSSSSSSSSSSSSSSS");
+                } else if (varIvaS == false) {
 
                     booIva = 0.0f;
 
