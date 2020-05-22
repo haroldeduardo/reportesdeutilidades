@@ -629,27 +629,32 @@ public class VentaBean implements Serializable {
 
             if (isValidate) {
 
-                float bigIva = 0.0f;
-
                 boolean varIva = this.producto.isIva();
 
                 if (varIva == true) {
+
                     booIva = 1.0f;
-                } else {
-                    booIva = 0.0f;
+
+                    this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.nobooIva = 0.0f;
+
+                    this.unidadesVendidasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalVenta();
+
+                } else if (varIva == false) {
+
+                    this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.unidadesVendidasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalVenta();
                 }
-
-                this.listaDetalleVenta.add(new DetalleVenta(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje()).floatValue(), Integer.parseInt(this.unidadesVendidasPorCodigo), (Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto())));
-
-                bigIva = BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidasPorCodigo) * this.producto.getValorVentaProducto() * this.getIvaPorcentaje() * booIva).floatValue();
-
-                System.out.println("Boleanooooooooooo: " + this.producto.isIva() + " Variable Iva: " + booIva + " Total Iva: " + bigIva);
-
-                this.unidadesVendidasPorCodigo = "";
-
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
-
-                this.calcularValorTotalVenta();
 
             } else {
 
@@ -707,7 +712,7 @@ public class VentaBean implements Serializable {
         try {
             listaDetalleVenta.stream().forEach((detalleVentaTotal) -> {
                 float varIva = detalleVentaTotal.getTotalIva();
-                if (varIva>0) {
+                if (varIva > 0) {
                     booIva = 1.0f;
                     BigDecimal totalIvaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())).multiply(new BigDecimal(this.ivaPorcentaje)).multiply(new BigDecimal(booIva)));
                     BigDecimal totalVentaPorProducto = (new BigDecimal(detalleVentaTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleVentaTotal.getUnidadesVendidas())));

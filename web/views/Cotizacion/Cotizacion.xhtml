@@ -87,6 +87,11 @@
                             <p:column headerText="IVA">
                                 <h:outputText value="#{pro.iva eq '0' ? 'No' : 'Si'}"/>
                             </p:column>
+                            <p:column headerText="Valor Iva">
+                                <p:outputLabel value="#{pro.totalIva}">
+                                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="0"/>
+                                </p:outputLabel>
+                            </p:column>
                             <p:column headerText="Unidades Cotizadas">
                                 <p:cellEditor>
                                     <f:facet name="output">

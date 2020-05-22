@@ -77,6 +77,10 @@ public class CotizacionBean implements Serializable {
     private BigDecimal totalCotizacionFactura;
     private float totalCotizacionFacturaCotizacion;
 
+    private float booIva = 0.0f;
+    private float nobooIva = 0.0f;
+    private float ivaPorcentaje = 0.19f;
+
     private Empleado empleado;
     private TipoTransaccion tipoTransaccion;
 
@@ -149,7 +153,7 @@ public class CotizacionBean implements Serializable {
     public void setListaCotizaciones(List<Cotizacion> listaCotizaciones) {
         this.listaCotizaciones = listaCotizaciones;
     }
-    
+
     public void setListaDetalleCotizacion(List<DetalleCotizacion> listaDetalleCotizacion) {
         this.listaDetalleCotizacion = listaDetalleCotizacion;
     }
@@ -254,6 +258,30 @@ public class CotizacionBean implements Serializable {
         enabled = false;
     }
 
+    public float getBooIva() {
+        return booIva;
+    }
+
+    public void setBooIva(float booIva) {
+        this.booIva = booIva;
+    }
+
+    public float getNobooIva() {
+        return nobooIva;
+    }
+
+    public void setNobooIva(float nobooIva) {
+        this.nobooIva = nobooIva;
+    }
+
+    public float getIvaPorcentaje() {
+        return ivaPorcentaje;
+    }
+
+    public void setIvaPorcentaje(float ivaPorcentaje) {
+        this.ivaPorcentaje = ivaPorcentaje;
+    }
+
     public String getFechaSistema() {
 
         Calendar dateS = new GregorianCalendar();
@@ -331,6 +359,7 @@ public class CotizacionBean implements Serializable {
     }
 
     public void agregarDatosProductoPorCodigoProducto() {
+
         this.sessionCotizacion = null;
         this.transactionCotizacion = null;
 
@@ -363,13 +392,32 @@ public class CotizacionBean implements Serializable {
 
                 if (isValidate) {
 
-                    this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesCotizadas), (Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto())));
+                    boolean varIva = this.producto.isIva();
 
-                    this.unidadesCotizadas = "";
+                    if (varIva == true) {
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+                        booIva = 1.0f;
 
-                    this.calcularValorTotalCotizacion();
+                        this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesCotizadas), (Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto())));
+
+                        this.nobooIva = 0.0f;
+
+                        this.unidadesCotizadas = "";
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalCotizacion();
+
+                    } else if (varIva == false) {
+
+                        this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesCotizadas), (Float.parseFloat(this.unidadesCotizadas) * this.producto.getValorVentaProducto())));
+
+                        this.unidadesCotizadas = "";
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                        this.calcularValorTotalCotizacion();
+                    }
 
                 } else {
 
@@ -432,15 +480,16 @@ public class CotizacionBean implements Serializable {
         }
 
     }
-    
+
     public void agregarDatosProductoPorCodigoProductoRead() {
+
         this.sessionCotizacion = null;
         this.transactionCotizacion = null;
 
         this.sessionCotizacion = HibernateUtil.getSessionFactory().openSession();
         ProductoDao pDao = new ProductoImp();
 
-        if (!(this.unidadesCotizadasPorCodigo.matches("[0-9]*")) || this.unidadesCotizadasPorCodigo.equals("0") || this.unidadesCotizadasPorCodigo.equals("")) {
+            if (!(this.unidadesCotizadasPorCodigo.matches("[0-9]*")) || this.unidadesCotizadasPorCodigo.equals("0") || this.unidadesCotizadasPorCodigo.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Valor Incorrecto"));
             this.unidadesCotizadasPorCodigo = "";
 
@@ -449,24 +498,50 @@ public class CotizacionBean implements Serializable {
             boolean isValidate = false;
 
             try {
+
                 isValidate = pDao.validarStockProducto(this.sessionCotizacion, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesCotizadasPorCodigo));
+
             } catch (Exception ex) {
+
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+
             }
 
             if (isValidate) {
-                this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), Integer.parseInt(this.unidadesCotizadasPorCodigo), (Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto())));
 
-                this.unidadesCotizadasPorCodigo = "";
+                boolean varIva = this.producto.isIva();
 
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+                if (varIva == true) {
 
-                this.calcularValorTotalCotizacion();
+                    booIva = 1.0f;
+
+                    this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesCotizadasPorCodigo), (Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.nobooIva = 0.0f;
+
+                    this.unidadesCotizadasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalCotizacion();
+
+                } else if (varIva == false) {
+
+                    this.listaDetalleCotizacion.add(new DetalleCotizacion(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesCotizadasPorCodigo), (Float.parseFloat(this.unidadesCotizadasPorCodigo) * this.producto.getValorVentaProducto())));
+
+                    this.unidadesCotizadasPorCodigo = "";
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                    this.calcularValorTotalCotizacion();
+                }
 
             } else {
+
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
 
                 this.unidadesCotizadasPorCodigo = "";
+
             }
         }
 
@@ -475,13 +550,23 @@ public class CotizacionBean implements Serializable {
     public void calcularValorTotalCotizacion() {
 
         this.totalCotizacionFactura = new BigDecimal("0");
-
+        
         try {
-            for (DetalleCotizacion detalleCotizacionTotal : listaDetalleCotizacion) {
-                BigDecimal totalCotizacionPorProducto = (new BigDecimal(detalleCotizacionTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleCotizacionTotal.getUnidadesCotizadas())));
-                detalleCotizacionTotal.setTotalDetalleCotizacion(totalCotizacionPorProducto.floatValue());
-                totalCotizacionFactura = totalCotizacionFactura.add(totalCotizacionPorProducto);
-            }
+            listaDetalleCotizacion.stream().forEach((detalleCotizacionTotal) -> {
+                float varIva = detalleCotizacionTotal.getTotalIva();
+                if (varIva > 0) {
+                    booIva = 1.0f;
+                    BigDecimal totalIvaPorProducto = (new BigDecimal(detalleCotizacionTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleCotizacionTotal.getUnidadesCotizadas())).multiply(new BigDecimal(this.ivaPorcentaje)).multiply(new BigDecimal(booIva)));
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleCotizacionTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleCotizacionTotal.getUnidadesCotizadas())));
+                    detalleCotizacionTotal.setTotalDetalleCotizacion(totalVentaPorProducto.floatValue());
+                    detalleCotizacionTotal.setTotalIva(totalIvaPorProducto.floatValue());
+                    totalCotizacionFactura = totalCotizacionFactura.add(totalVentaPorProducto);
+                } else {
+                    BigDecimal totalVentaPorProducto = (new BigDecimal(detalleCotizacionTotal.getValorVentaProducto()).multiply(new BigDecimal(detalleCotizacionTotal.getUnidadesCotizadas())));
+                    detalleCotizacionTotal.setTotalDetalleCotizacion(totalVentaPorProducto.floatValue());
+                    totalCotizacionFactura = totalCotizacionFactura.add(totalVentaPorProducto);
+                }
+            });
             this.cotizacion.setTotalCotizacion(totalCotizacionFactura.floatValue());
             totalCotizacionFacturaCotizacion = (totalCotizacionFactura.floatValue());
         } catch (Exception e) {
@@ -552,7 +637,7 @@ public class CotizacionBean implements Serializable {
             if (this.sessionCotizacion != null) {
                 this.sessionCotizacion.close();
             }
-            
+
         }
     }
 
@@ -580,7 +665,7 @@ public class CotizacionBean implements Serializable {
         }
 
     }
-    
+
     public void ingresarCotizacionFULL() {
 
         this.sessionCotizacion = null;
@@ -607,7 +692,7 @@ public class CotizacionBean implements Serializable {
             vDao.ingresarCotizacion(this.sessionCotizacion, this.cotizacion);
 
             Object objCotizacion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numCotizacion");
-            
+
             long numRegistrarCotizacion = ((Number) objCotizacion).longValue();
 
             this.numeroCotizacion = numRegistrarCotizacion;
@@ -620,9 +705,9 @@ public class CotizacionBean implements Serializable {
                 detalleCotizacionTotal.setIdProducto(this.producto.getIdProducto());
 
                 dvDao.ingresarDetalleCotizacion(this.sessionCotizacion, detalleCotizacionTotal);
-                
+
             }
-            
+
             this.transactionCotizacion.commit();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cotizacion Registrada"));
 
@@ -633,7 +718,7 @@ public class CotizacionBean implements Serializable {
             if (this.transactionCotizacion != null) {
                 this.transactionCotizacion.rollback();
             }
-            
+
         } finally {
             if (this.sessionCotizacion != null) {
                 this.sessionCotizacion.close();
@@ -653,7 +738,7 @@ public class CotizacionBean implements Serializable {
         this.ingresarCotizacionFULL();
 
         Object objCotizacion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numCotizacion");
-        
+
         int numImprimirCotizacion = ((Number) objCotizacion).intValue();
 
         this.cotizacion.setIdCotizacion(numImprimirCotizacion);

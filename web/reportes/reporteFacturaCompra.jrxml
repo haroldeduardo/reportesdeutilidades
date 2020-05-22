@@ -64,8 +64,13 @@
 				<text><![CDATA[REGIMEN SIMPLIFICADO]]></text>
 			</staticText>
 			<image>
+<<<<<<< HEAD
 				<reportElement x="44" y="17" width="203" height="89" uuid="b6a68507-0450-45f7-9669-a48ed07b52c3"/>
 				<imageExpression><![CDATA["/home/harold/Escritorio/no tocar/marzo/reportesdeutilidades/web/imgs/GreenApps.jpg"]]></imageExpression>
+=======
+				<reportElement x="67" y="6" width="138" height="106" uuid="5e7623ed-f195-43fe-ae54-aa41b964d5e2"/>
+				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
+>>>>>>> 7751e044454b9e606841eb4fe1e55cfaf16f1978
 			</image>
 		</band>
 	</title>

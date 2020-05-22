@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="273" pageHeight="837" columnWidth="273" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="dbe203bd-3560-4506-ab45-3955fb6bc4d5">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="197"/>
 	<parameter name="identificacionEmpleado" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -13,8 +13,18 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT identificacionPersona, CONCAT(Persona.nombresPersona," ",Persona.apellidosPersona) AS datosPersona, CONCAT(Persona.direccionPersona," ",Persona.telefonoPersona) AS referenciasPersona, CONCAT(Empleado.nombresEmpleado," ",Empleado.apellidosEmpleado) AS datosEmpleado, detalleCotizacion.* 
-FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P{identificacionPersona} AND Empleado.identificacionEmpleado=$P{identificacionEmpleado} AND detalleCotizacion.idCotizacion=$P{idCotizacion}]]>
+		<![CDATA[SELECT
+	identificacionPersona,
+	 CONCAT(p.nombresPersona," ",p.apellidosPersona) AS datosPersona,
+	 CONCAT(p.direccionPersona," ",p.telefonoPersona) AS referenciasPersona,
+	 CONCAT(e.nombresEmpleado," ",e.apellidosEmpleado) AS datosEmpleado, 
+	dc.* 
+FROM
+	detalleCotizacion AS dc
+INNER JOIN Cotizacion AS c ON c.idCotizacion=dc.idCotizacion
+INNER JOIN Persona AS p ON p.idPersona=c.idPersona
+INNER JOIN Empleado AS e ON e.idEmpleado=c.idEmpleado
+WHERE  dc.idCotizacion=$P{idCotizacion}]]>
 	</queryString>
 	<field name="identificacionPersona" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -40,7 +50,10 @@ FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P
 	<field name="valorVentaProducto" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="IVA" class="java.lang.String">
+	<field name="IVA" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalIva" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="unidadesCotizadas" class="java.lang.Integer">
@@ -51,6 +64,12 @@ FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P
 	</field>
 	<variable name="totalCotizacion" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalDetalleCotizacion}]]></variableExpression>
+	</variable>
+	<variable name="subTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDetalleCotizacion}-$F{IVA}*$F{totalDetalleCotizacion}*0.19]]></variableExpression>
+	</variable>
+	<variable name="totalIva" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalDetalleCotizacion}*0.19*$F{IVA}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -71,6 +90,13 @@ FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P
 				</textElement>
 				<text><![CDATA[COTIZACIÓN]]></text>
 			</staticText>
+<<<<<<< HEAD
+=======
+			<image>
+				<reportElement x="63" y="3" width="145" height="106" uuid="240a30dd-b8fd-4372-8c1c-7473d272017d"/>
+				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
+			</image>
+>>>>>>> 7751e044454b9e606841eb4fe1e55cfaf16f1978
 		</band>
 	</title>
 	<columnHeader>
@@ -149,91 +175,126 @@ FROM Persona, Empleado, detalleCotizacion WHERE Persona.identificacionPersona=$P
 				<textFieldExpression><![CDATA[$F{identificacionPersona}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="89" width="53" height="15" uuid="6da3f5d6-3cf3-4925-9772-bc6ece68b546"/>
+				<reportElement x="2" y="89" width="53" height="15" uuid="6da3f5d6-3cf3-4925-9772-bc6ece68b546"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidades]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="75" y="89" width="55" height="15" uuid="7245579e-dcea-4954-8ea8-1cce9d002158"/>
+				<reportElement x="55" y="89" width="55" height="15" uuid="7245579e-dcea-4954-8ea8-1cce9d002158"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="143" y="89" width="77" height="15" uuid="916b0f8a-abd4-4f1f-8a96-a5c851335709"/>
+				<reportElement x="111" y="89" width="77" height="15" uuid="916b0f8a-abd4-4f1f-8a96-a5c851335709"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor Unitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="227" y="89" width="33" height="15" uuid="deb216b8-05d3-4f0d-9845-cd376dfc9280"/>
+				<reportElement x="237" y="89" width="33" height="15" uuid="deb216b8-05d3-4f0d-9845-cd376dfc9280"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="89" width="77" height="15" uuid="977941b2-6774-4a9b-8bb7-35f08e966d82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iva]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="37" splitType="Stretch">
 			<textField>
-				<reportElement x="19" y="1" width="36" height="20" uuid="43e162c0-ba10-45f3-ae56-0dcc0dae14c2"/>
+				<reportElement x="8" y="1" width="36" height="20" uuid="43e162c0-ba10-45f3-ae56-0dcc0dae14c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{unidadesCotizadas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="61" y="1" width="75" height="36" uuid="aaa8b033-397e-490d-b99b-f6a81e938832"/>
+				<reportElement x="41" y="1" width="75" height="36" uuid="aaa8b033-397e-490d-b99b-f6a81e938832"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="144" y="1" width="76" height="20" uuid="8a818b75-00b0-4575-aee6-04129abf3d2f"/>
+				<reportElement x="111" y="1" width="76" height="20" uuid="8a818b75-00b0-4575-aee6-04129abf3d2f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="227" y="1" width="36" height="20" uuid="293b2fb9-1daf-4a6f-89a9-cb325d8bccfe"/>
+				<reportElement x="227" y="1" width="43" height="20" uuid="293b2fb9-1daf-4a6f-89a9-cb325d8bccfe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalDetalleCotizacion}]]></textFieldExpression>
 			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="172" y="1" width="70" height="20" uuid="7781a3a9-c53d-47af-a937-d23074aafa6c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalIva}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="109" splitType="Stretch">
+		<band height="129" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="73" y="5" width="168" height="14" uuid="8e101eb7-fc01-416f-b10b-df700e5fa542"/>
+				<reportElement x="73" y="33" width="168" height="14" uuid="8e101eb7-fc01-416f-b10b-df700e5fa542"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="71" y="5" width="94" height="15" uuid="cdb62818-0fa9-4c06-8ac3-4077c0611786"/>
+				<reportElement x="77" y="33" width="94" height="15" uuid="cdb62818-0fa9-4c06-8ac3-4077c0611786"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Cotización:]]></text>
 			</staticText>
-			<line>
-				<reportElement x="12" y="26" width="252" height="1" uuid="88edc083-fa14-4b70-bf2a-313af7c945c5"/>
-			</line>
 			<staticText>
-				<reportElement x="6" y="32" width="257" height="76" uuid="6724d261-89f3-4f21-84fe-58d89b1940fa"/>
+				<reportElement x="6" y="53" width="257" height="76" uuid="6724d261-89f3-4f21-84fe-58d89b1940fa"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Es obligatorio presentar esta Factura Original para efectos de reclamos y garantías de Accesorios y Repuestos. Pasados 30 días no se aceptan devoluciones ni productos en mal estado o incompletos. La garantía en llantas es de tres meses por defectos de fabricación, no se aceptan llantas parchadas o con daños producidos por terceros. La garantía en baterías es de dos meses por descargas o defectos de fabricación. Partes electricas no tienen garantía. ]]></text>
 			</staticText>
 			<textField pattern="$ #,##0">
-				<reportElement x="147" y="2" width="100" height="20" uuid="6797811b-bec9-4b22-b656-e9d94b2e4ffe"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="129" y="31" width="100" height="20" uuid="6797811b-bec9-4b22-b656-e9d94b2e4ffe"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{totalCotizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="71" y="15" width="94" height="15" uuid="6f6118e2-9565-458e-adbe-dc8cdef9aa9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iva:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="0" width="94" height="15" uuid="0a7f9ce0-b9af-42a5-8f9b-53651be287b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal:]]></text>
+			</staticText>
+			<textField pattern="$ #,##0">
+				<reportElement x="143" y="0" width="87" height="15" uuid="3e57a6ea-7def-486b-a16f-95cea9c8a7cc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{subTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="142" y="15" width="87" height="15" uuid="d73875b9-0e4a-40b8-8d24-2a1bc5c929ab"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalIva}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
