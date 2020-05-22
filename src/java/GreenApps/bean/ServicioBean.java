@@ -537,7 +537,7 @@ public class ServicioBean implements Serializable {
         this.productoSeleccionado = codigoProducto;
     }
 
-    public void agregarDatosProductoPorCodigoProducto() { /// verificar Método de EDITAR por Valor de IVA ///
+    public void agregarDatosProductoPorCodigoProducto() {
 
         this.sessionServicio = null;
         this.transactionServicio = null;
@@ -645,61 +645,134 @@ public class ServicioBean implements Serializable {
 
                 float Total = Integer.parseInt(unidadesVendidas) * this.producto.getValorVentaProducto();
 
-                DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(unidadesVendidas), Total);
+                boolean varIvas = this.producto.isIva();
 
-                boolean isValidate = false;
+                System.out.println("Ivasssssssssssssssssssssssssssssss" + varIvas);
 
-                try {
+                if (varIvas == true) {
 
-                    isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidas));
+                    booIva = 1.0f;
 
-                } catch (Exception ex) {
+                    DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidas), Total);
+                    
+                    boolean isValidate = false;
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+                    try {
 
-                }
+                        isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidas));
 
-                if (isValidate) {
+                    } catch (Exception ex) {
 
-                    boolean varIva = this.producto.isIva();
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
 
-                    if (varIva == true) {
-
-                        booIva = 1.0f;
-
-                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
-
-                        this.nobooIva = 0.0f;
-
-                        this.unidadesVendidas = "";
-
-                        dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
-
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
-
-                        this.calcularValorTotalServicio();
-
-                    } else if (varIva == false) {
-
-                        this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
-
-                        this.unidadesVendidas = "";
-
-                        dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
-
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
-
-                        this.calcularValorTotalServicio();
                     }
 
-                } else {
+                    if (isValidate) {
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+                        boolean varIva = this.producto.isIva();
 
-                    this.unidadesVendidas = "";
+                        if (varIva == true) {
+
+                            booIva = 1.0f;
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                            this.nobooIva = 0.0f;
+
+                            this.unidadesVendidas = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+
+                        } else if (varIva == false) {
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                            this.unidadesVendidas = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+                        }
+
+                    } else {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+
+                        this.unidadesVendidas = "";
+
+                    }
 
                 }
+                
+                else if (varIvas == false){
+                
+                    System.out.println("No TIENE IVASSSSSSSSSSSSSSSSS");
+                    
+                    booIva = 0.0f;
 
+                    DetalleServicio nuevoDetalleServicio = new DetalleServicio(this.servicio.getIdServicio(), this.producto.getIdProducto(), this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue() * this.booIva, Integer.parseInt(unidadesVendidas), Total);
+                    
+                    boolean isValidate = false;
+
+                    try {
+
+                        isValidate = pDao.validarStockProducto(this.sessionServicio, this.producto.getCodigoProducto(), Integer.parseInt(this.unidadesVendidas));
+
+                    } catch (Exception ex) {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Warning"));
+
+                    }
+
+                    if (isValidate) {
+
+                        boolean varIva = this.producto.isIva();
+
+                        if (varIva == true) {
+
+                            booIva = 1.0f;
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), BigDecimal.valueOf(Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto() * this.ivaPorcentaje).floatValue(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                            this.nobooIva = 0.0f;
+
+                            this.unidadesVendidas = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+
+                        } else if (varIva == false) {
+
+                            this.listaDetalleServicio.add(new DetalleServicio(0, 0, this.producto.getCodigoProducto(), this.producto.getNombreProducto(), this.producto.getValorVentaProducto(), this.producto.isIva(), this.getNobooIva(), Integer.parseInt(this.unidadesVendidas), (Float.parseFloat(this.unidadesVendidas) * this.producto.getValorVentaProducto())));
+
+                            this.unidadesVendidas = "";
+
+                            dsDao.ingresarDetalleServicio(this.sessionServicio, nuevoDetalleServicio);
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Producto Agregado"));
+
+                            this.calcularValorTotalServicio();
+                        }
+
+                    } else {
+
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Stock Insuficiente"));
+
+                        this.unidadesVendidas = "";
+
+                    }
+                    
+                }
+                
             }
 
         } catch (Exception e) {
