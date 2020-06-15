@@ -36,7 +36,7 @@ WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 	<field name="valorVentaProducto" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="IVA" class="java.lang.Boolean">
+	<field name="IVA" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="totalIva" class="java.lang.Float">
@@ -55,13 +55,19 @@ WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 		<variableExpression><![CDATA[$F{valorCompraProducto}*$F{unidadesVendidas}]]></variableExpression>
 	</variable>
 	<variable name="utilidad" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{totalVenta}-$V{totalCompra}-$V{totalIva}]]></variableExpression>
+		<variableExpression><![CDATA[($V{totalVenta}-$V{totalIvaVenta})-($V{totalCompra}-$V{totalIvaCompra})]]></variableExpression>
 	</variable>
 	<variable name="utilidadUnitaria" class="java.lang.Float">
 		<variableExpression><![CDATA[($F{valorVentaProducto}-$F{valorCompraProducto})*$F{unidadesVendidas}-$F{totalIva}]]></variableExpression>
 	</variable>
-	<variable name="totalIva" class="java.lang.Double" calculation="Sum">
+	<variable name="totalIvaVenta" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalIva}*$F{unidadesVendidas}]]></variableExpression>
+	</variable>
+	<variable name="ivaCompra" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{valorCompraProducto}*0.19*$F{IVA}]]></variableExpression>
+	</variable>
+	<variable name="totalIvaCompra" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{ivaCompra}*$F{unidadesVendidas}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -78,7 +84,7 @@ WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<staticText>
 				<reportElement x="2" y="5" width="93" height="20" uuid="ec0293b7-81bf-4b4b-a917-37999f6dcbf8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -87,73 +93,97 @@ WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 				<text><![CDATA[Código Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="281" y="5" width="78" height="20" uuid="3a022e7b-d8c9-475d-bece-5ef0d2ef39cd"/>
+				<reportElement x="195" y="5" width="78" height="20" uuid="3a022e7b-d8c9-475d-bece-5ef0d2ef39cd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vlr Cpa Pdcto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="446" y="5" width="108" height="20" uuid="0fec8128-6419-4370-9a66-59724cee24cc"/>
+				<reportElement x="491" y="5" width="64" height="20" uuid="0fec8128-6419-4370-9a66-59724cee24cc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Utilidad Unitaria]]></text>
+				<text><![CDATA[Utilidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="5" width="77" height="20" uuid="55a8a533-718b-471c-a300-b21b999ab4cb"/>
+				<reportElement x="330" y="5" width="77" height="20" uuid="55a8a533-718b-471c-a300-b21b999ab4cb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vlr Vta Pdcto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="98" y="5" width="100" height="20" uuid="63fc591a-7072-441d-a602-52da51ce885c"/>
+				<reportElement x="95" y="5" width="100" height="20" uuid="63fc591a-7072-441d-a602-52da51ce885c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="359" y="5" width="87" height="20" uuid="d53705ef-3541-4f42-bb2e-1f26cca9ee60"/>
+				<reportElement x="258" y="5" width="87" height="20" uuid="d53705ef-3541-4f42-bb2e-1f26cca9ee60"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[IVA]]></text>
+				<text><![CDATA[IVA Cpa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="5" width="87" height="20" uuid="faee8f95-09d6-4470-a8d6-16987c1cc176"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA Vta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="5" width="64" height="20" uuid="fec7ab85-1de8-48bd-b252-46b7a3862755"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidades]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="27" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="-5" y="4" width="103" height="20" uuid="772ba271-fb96-4fed-b8ae-c0181fdb13cb"/>
+				<reportElement x="13" y="4" width="63" height="20" uuid="772ba271-fb96-4fed-b8ae-c0181fdb13cb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{codigoProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="270" y="4" width="90" height="20" uuid="519f1d5b-47ec-404f-ac00-05e16c25fdf0"/>
+				<reportElement x="187" y="4" width="90" height="20" uuid="519f1d5b-47ec-404f-ac00-05e16c25fdf0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valorCompraProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="96" y="4" width="100" height="20" uuid="85302d2a-b3af-4188-b293-0b47a9ae1484"/>
+				<reportElement x="94" y="4" width="100" height="20" uuid="85302d2a-b3af-4188-b293-0b47a9ae1484"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="183" y="4" width="97" height="20" uuid="35c4a635-453f-4b8f-adff-44a2912a6ace"/>
+				<reportElement x="313" y="4" width="97" height="20" uuid="35c4a635-453f-4b8f-adff-44a2912a6ace"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valorVentaProducto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="351" y="4" width="100" height="20" uuid="0d662ce6-f9bd-47d5-9a7b-9df4fd537329"/>
+				<reportElement x="380" y="4" width="100" height="20" uuid="0d662ce6-f9bd-47d5-9a7b-9df4fd537329"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{totalIva}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalIva}/$F{unidadesVendidas}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="449" y="4" width="100" height="20" uuid="300f414a-dc3d-4a39-a620-75905d398921"/>
+				<reportElement x="470" y="4" width="100" height="20" uuid="300f414a-dc3d-4a39-a620-75905d398921"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{utilidadUnitaria}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="252" y="4" width="100" height="20" uuid="ebe84638-9323-4dd9-9fc8-f13ffe028502"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{ivaCompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="5" width="71" height="20" uuid="aac334ee-76b4-4746-b64d-be403aab7bf4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{unidadesVendidas}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -161,54 +191,66 @@ WHERE fechaVenta BETWEEN $P{fechaInicialUtilidad} AND $P{fechaFinalUtilidad}]]>
 		<band height="25" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="85" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<staticText>
-				<reportElement x="316" y="3" width="100" height="20" uuid="cd432de5-14a2-4b97-9940-f942d3956b4f"/>
+				<reportElement x="336" y="23" width="100" height="20" uuid="cd432de5-14a2-4b97-9940-f942d3956b4f"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Venta:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="316" y="23" width="100" height="20" uuid="0338faf4-f5d5-47c6-8d76-de89244653f9"/>
+				<reportElement x="336" y="3" width="100" height="20" uuid="0338faf4-f5d5-47c6-8d76-de89244653f9"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Compra:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="316" y="61" width="100" height="20" uuid="37204436-85ce-411e-968f-d75d3bd90db1"/>
+				<reportElement x="336" y="81" width="100" height="20" uuid="37204436-85ce-411e-968f-d75d3bd90db1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Utilidad:]]></text>
 			</staticText>
 			<textField pattern="$ #,##0">
-				<reportElement x="433" y="3" width="100" height="20" uuid="df908995-307d-4243-8798-60ac48ee8304"/>
+				<reportElement x="442" y="23" width="100" height="20" uuid="df908995-307d-4243-8798-60ac48ee8304"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{totalVenta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0">
-				<reportElement x="433" y="23" width="100" height="20" uuid="ef6804a8-649a-4431-bee5-6b4829a0a5ef"/>
+				<reportElement x="442" y="3" width="100" height="20" uuid="ef6804a8-649a-4431-bee5-6b4829a0a5ef"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{totalCompra}]]></textFieldExpression>
 			</textField>
-			<textField pattern="$ #,##0">
-				<reportElement x="433" y="61" width="100" height="20" uuid="e7d8cf77-7318-43cf-8cab-2e8d7f5f4334"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{utilidad}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="316" y="43" width="100" height="20" uuid="c80595ef-cabf-4f03-95d9-c2a1bd8ce55c"/>
+				<reportElement x="336" y="61" width="100" height="20" uuid="c80595ef-cabf-4f03-95d9-c2a1bd8ce55c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Iva:]]></text>
+				<text><![CDATA[Total Iva Venta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="43" width="100" height="20" uuid="e62da604-be70-4831-a792-2656570de1ba"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Iva Compra:]]></text>
 			</staticText>
 			<textField pattern="$ #,##0">
-				<reportElement x="433" y="43" width="100" height="20" uuid="9d8ad2e9-9e3c-4630-bc4b-3cb49e1b7cb8"/>
+				<reportElement x="442" y="61" width="100" height="20" uuid="78411ca2-5eab-41c1-97a2-8758297f55a9"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{totalIva}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalIvaVenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="442" y="43" width="100" height="20" uuid="3aa0569b-edb1-4c45-b4df-7cd4575a4a4d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalIvaCompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0">
+				<reportElement x="442" y="81" width="100" height="20" uuid="28a64e7f-6d83-42a5-82b9-31acf98851fb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{utilidad}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

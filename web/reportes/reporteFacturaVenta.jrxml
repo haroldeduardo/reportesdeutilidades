@@ -87,8 +87,8 @@ WHERE  dv.idVenta=$P{idVenta}]]>
 				<text><![CDATA[REGIMEN SIMPLIFICADO]]></text>
 			</staticText>
 			<image>
-				<reportElement x="62" y="1" width="142" height="114" uuid="11f46852-14cf-479d-941c-6f569c7a4329"/>
-				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
+				<reportElement x="75" y="18" width="112" height="96" uuid="ba077c26-6c33-40e2-a903-6400ff84f8a6"/>
+				<imageExpression><![CDATA["/Users/csrsto/Documents/feed!back/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

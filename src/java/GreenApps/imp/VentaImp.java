@@ -68,7 +68,7 @@ public class VentaImp implements VentaDao{
     public long ingresarVenta(Session sessionIngresarVenta, Venta venta) throws Exception {
         
         Query q =sessionIngresarVenta.createQuery("SELECT COUNT(*) FROM Venta");
-        long num = (Long) q.uniqueResult()+1;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+        long num = (Long) q.uniqueResult()+5;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
         venta.setNumeroVenta(String.valueOf(num));
          
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("numVenta",num);
