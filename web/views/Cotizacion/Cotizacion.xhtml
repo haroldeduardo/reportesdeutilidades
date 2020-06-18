@@ -63,7 +63,7 @@
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formFacturaCotizacion:dialogProductos" disabled="#{!cotizacionBean.enabled}"/>
                         </h:panelGrid>
-                        <p:dataTable id="tableProductoFactura" editable="true" value="#{cotizacionBean.listaDetalleCotizacion}" var="pro" rowIndexVar="rowIndex">
+                        <p:dataTable id="tableProductoFactura" editable="true" value="#{cotizacionBean.listaDetalleCotizacion}" scrollable="true" scrollHeight="150" var="pro" rowIndexVar="rowIndex">
                             <p:ajax event="rowEdit" listener="#{cotizacionBean.onRowEdit}" update=":formFacturaCotizacion:tableProductoFactura :formFacturaCotizacion:gridTotalFactura"/>
                             <p:ajax event="rowEditCancel" listener="#{cotizacionBean.onRowCancel}" update=":formFacturaCotizacion:tableProductoFactura :formFacturaCotizacion:gridTotalFactura"/>
                             <p:column headerText="Código">
@@ -165,7 +165,7 @@
                         <h6></h6><p:commandButton value="Cancelar" oncomplete="PF('dialogDatosClientes').hide();"/>
                     </p:dialog>
                     <p:dialog id="dialogProductos" widgetVar="dialogDatosProductos" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="text-align:center">
-                        <p:dataTable id="tableProductos" value="#{productoBean.listaProductos}" var="pro" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" rowStyleClass="${pro.stockProducto lt pro.stockMinimo ? 'red-row' : (pro.stockProducto == pro.stockMinimo ? 'orange-row' : '')}">
+                        <p:dataTable id="tableProductos" value="#{productoBean.listaProductos}" scrollable="true" scrollHeight="150" var="pro" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" rowStyleClass="${pro.stockProducto lt pro.stockMinimo ? 'red-row' : (pro.stockProducto == pro.stockMinimo ? 'orange-row' : '')}">
                             <p:column headerText="Código" filterBy= "#{pro.codigoProducto}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width: 180px">
                                 <h:outputText value="#{pro.codigoProducto}"/>
                             </p:column>

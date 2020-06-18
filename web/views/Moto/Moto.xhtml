@@ -19,7 +19,7 @@
                 </h:form>
                 <h1></h1>
                 <h:form id="formMostrarMotos">
-                    <p:dataTable id="tableMotos" value="#{motoBean.listaMotos}" var="mot" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                    <p:dataTable id="tableMotos" value="#{motoBean.listaMotos}" scrollable="true" scrollHeight="150" var="mot" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
                         <p:column headerText="Moto" filterBy= "#{mot.nombreMoto}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width: 180px">
                             <h:outputText value="#{mot.nombreMoto}"/>
                         </p:column>

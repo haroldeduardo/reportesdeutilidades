@@ -63,7 +63,7 @@
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formFacturaCompra:dialogProductos" disabled="#{!compraBean.enabled}"/>
                         </h:panelGrid>
-                        <p:dataTable id="tableProductoFactura" editable="true" value="#{compraBean.listaDetalleCompra}" var="pro" rowIndexVar="rowIndex">
+                        <p:dataTable id="tableProductoFactura" editable="true" value="#{compraBean.listaDetalleCompra}" scrollable="true" scrollHeight="150" var="pro" rowIndexVar="rowIndex">
                             <p:ajax event="rowEdit" listener="#{compraBean.onRowEdit}" update=":formFacturaCompra:tableProductoFactura :formFacturaCompra:gridTotalFactura"/>
                             <p:ajax event="rowEditCancel" listener="#{compraBean.onRowCancel}" update=":formFacturaCompra:tableProductoFactura :formFacturaCompra:gridTotalFactura"/>
                             <p:column headerText="Código">
@@ -132,7 +132,7 @@
                         <p:commandButton value="Cancelar" style="width: 100px; height: 38px" action="#{compraBean.limpiarFacturaCompra()}" update=":formFacturaCompra" disabled="#{!compraBean.enabled}"/>
                     </p:panel>
                     <p:dialog id="dialogProveedores" widgetVar="dialogDatosProveedores" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="text-align:center">
-                        <p:dataTable id="tablePersonas" value="#{personaBean.listaPersonas}" var="per" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                        <p:dataTable id="tablePersonas" value="#{personaBean.listaPersonas}"  var="per" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
                             <p:column headerText="Documento" style="text-align:center">
                                 <h:outputText value="#{personaBean.getmostrarTipoDocumento(per.idTipoDocumento)}"/>
                             </p:column>
@@ -167,7 +167,7 @@
                         <h6></h6><p:commandButton value="Cancelar" oncomplete="PF('dialogDatosProveedores').hide();"/>
                     </p:dialog>
                     <p:dialog id="dialogProductos" widgetVar="dialogDatosProductos" modal="true" resizable="true" showEffect="explode" hideEffect="explode" style="text-align:center">
-                        <p:dataTable id="tableProductos" value="#{productoBean.listaProductos}" var="pro" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" rowStyleClass="${pro.stockProducto lt pro.stockMinimo ? 'red-row' : (pro.stockProducto == pro.stockMinimo ? 'orange-row' : '')}">
+                        <p:dataTable id="tableProductos" value="#{productoBean.listaProductos}"  scrollable="true" scrollHeight="150" var="pro" emptyMessage="Sin Registros Guardados" style="align-content:center; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" rowStyleClass="${pro.stockProducto lt pro.stockMinimo ? 'red-row' : (pro.stockProducto == pro.stockMinimo ? 'orange-row' : '')}">
                             <p:column headerText="Código" filterBy= "#{pro.codigoProducto}" filterStyle="width:150px; text-align:center" filterMatchMode="contains" style="text-align:center; width: 180px">
                                 <h:outputText value="#{pro.codigoProducto}"/>
                             </p:column>
