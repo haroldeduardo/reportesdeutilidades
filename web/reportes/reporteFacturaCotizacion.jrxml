@@ -90,10 +90,13 @@ WHERE  dc.idCotizacion=$P{idCotizacion}]]>
 				</textElement>
 				<text><![CDATA[COTIZACIÓN]]></text>
 			</staticText>
+<<<<<<< HEAD
+=======
 			<image>
 				<reportElement x="63" y="3" width="145" height="106" uuid="240a30dd-b8fd-4372-8c1c-7473d272017d"/>
 				<imageExpression><![CDATA["/Users/csrsto/Downloads/GreenApps/GreenApps/web/imgs/GreenApps.jpg"]]></imageExpression>
 			</image>
+>>>>>>> 7751e044454b9e606841eb4fe1e55cfaf16f1978
 		</band>
 	</title>
 	<columnHeader>
