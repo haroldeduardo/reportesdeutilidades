@@ -39,14 +39,27 @@ end$$
 USE `GreenAppsDemo`$$
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `GreenAppsDemo`.`actStockProductoFromDetalleDevolucion`
-BEFORE INSERT ON `GreenAppsDemo`.`detalleDevolucion`
+TRIGGER `GreenAppsDemo`.`actStockProductoFromDetalleDevolucionCliente`
+BEFORE INSERT ON `GreenAppsDemo`.`detalleDevolucionCliente`
 FOR EACH ROW
 begin
 declare stockActualDvn INT;
 set @stockActualDvn = (select stockProducto from producto where idProducto = new.idProducto);
 update Producto
 set stockProducto = @stockActualDvn+new.unidadesDevueltas where idProducto = new.idProducto;
+end$$
+
+USE `GreenAppsDemo`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `GreenAppsDemo`.`actStockProductoFromDetalleDevolucionProveedor`
+BEFORE INSERT ON `GreenAppsDemo`.`detalleDevolucionProveedor`
+FOR EACH ROW
+begin
+declare stockActualDvn INT;
+set @stockActualDvn = (select stockProducto from producto where idProducto = new.idProducto);
+update Producto
+set stockProducto = @stockActualDvn-new.unidadesDevueltas where idProducto = new.idProducto;
 end$$
 
 USE `GreenAppsDemo`$$

@@ -34,6 +34,7 @@
         </div>
         <h:form>
             <p:menubar style="align-content:center; width:1238px; margin-left:auto; margin-right:auto; font-style:initial; font-family:sans-serif; font-size:15px">
+                
                 <p:submenu label="Inicio" icon="ui-icon-home">
                     <p:menuitem value="Home" outcome="/views/HomePage/HomePage" icon="ui-icon-home" />
                     <p:menuitem value="Salir" action="#{interfaceUsuarioBean.finalizarSesion()}" icon="ui-icon-trash" />
@@ -70,7 +71,7 @@
                 </p:submenu>
 
                 <p:submenu label="Devoluciones" icon="ui-icon-gear">
-                    <p:menuitem value="Devolución" outcome="/views/Devolucion/Devolucion" icon="ui-icon-refresh" />
+                    <p:menuitem value="DevoluciónCliente" outcome="/views/DevolucionCliente/DevolucionCliente" icon="ui-icon-refresh" />
                 </p:submenu>
 
                 <p:submenu label="Servicios" icon="ui-icon-gear">

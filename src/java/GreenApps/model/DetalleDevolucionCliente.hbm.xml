@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 19, 2020 8:20:58 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 19, 2020 8:52:52 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="GreenApps.model.DetalleDevolucion" table="detalleDevolucion" catalog="GreenAppsDemo" optimistic-lock="version">
-        <id name="idDetalleDevolucion" type="java.lang.Integer">
-            <column name="idDetalleDevolucion" />
+    <class name="GreenApps.model.DetalleDevolucionCliente" table="detalleDevolucionCliente" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idDetalleDevolucionCliente" type="java.lang.Integer">
+            <column name="idDetalleDevolucionCliente" />
             <generator class="identity" />
         </id>
-        <property name="idDevolucion" type="int">
-            <column name="idDevolucion" not-null="true" />
+        <property name="idDevolucionCliente" type="int">
+            <column name="idDevolucionCliente" not-null="true" />
         </property>
         <property name="idProducto" type="int">
             <column name="idProducto" not-null="true" />
@@ -26,8 +26,8 @@
         <property name="unidadesDevueltas" type="int">
             <column name="unidadesDevueltas" not-null="true" />
         </property>
-        <property name="totalDetalleDevolucion" type="float">
-            <column name="totalDetalleDevolucion" precision="12" scale="0" not-null="true" />
+        <property name="totalDetalleDevolucionCliente" type="float">
+            <column name="totalDetalleDevolucionCliente" precision="12" scale="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

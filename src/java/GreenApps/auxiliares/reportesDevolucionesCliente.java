@@ -22,7 +22,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
  *
  * @author csrsto <csrsto | GreenApps>
  */
-public class reportesDevoluciones {
+public class reportesDevolucionesCliente {
     
     public void getReporte(String ruta, String fechaInicial, String fechaFinal) throws ClassNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         
@@ -31,8 +31,8 @@ public class reportesDevoluciones {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/greenappsdemo?zeroDateTimeBehavior=convertToNull", "root", "root");
 
         Map parameter = new HashMap();
-        parameter.put("fechaDevolucionInicial", fechaInicial);
-        parameter.put("fechaDevolucionFinal", fechaFinal);
+        parameter.put("fechaDevolucionClienteInicial", fechaInicial);
+        parameter.put("fechaDevolucionClienteFinal", fechaFinal);
 
         try {
             File file = new File(ruta);

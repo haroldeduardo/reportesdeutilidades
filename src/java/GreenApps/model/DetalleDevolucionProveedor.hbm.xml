@@ -3,13 +3,13 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 19, 2020 8:52:52 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="GreenApps.model.DetalleCotizacion" table="detalleCotizacion" catalog="GreenAppsDemo" optimistic-lock="version">
-        <id name="idDetalleCotizacion" type="java.lang.Integer">
-            <column name="idDetalleCotizacion" />
+    <class name="GreenApps.model.DetalleDevolucionProveedor" table="detalleDevolucionProveedor" catalog="GreenAppsDemo" optimistic-lock="version">
+        <id name="idDetalleDevolucionProveedor" type="java.lang.Integer">
+            <column name="idDetalleDevolucionProveedor" />
             <generator class="identity" />
         </id>
-        <property name="idCotizacion" type="int">
-            <column name="idCotizacion" not-null="true" />
+        <property name="idDevolucionProveedor" type="int">
+            <column name="idDevolucionProveedor" not-null="true" />
         </property>
         <property name="idProducto" type="int">
             <column name="idProducto" not-null="true" />
@@ -23,17 +23,11 @@
         <property name="valorVentaProducto" type="float">
             <column name="valorVentaProducto" precision="12" scale="0" not-null="true" />
         </property>
-        <property name="iva" type="boolean">
-            <column name="IVA" not-null="true" />
+        <property name="unidadesDevueltas" type="int">
+            <column name="unidadesDevueltas" not-null="true" />
         </property>
-        <property name="totalIva" type="float">
-            <column name="totalIva" precision="12" scale="0" not-null="true" />
-        </property>
-        <property name="unidadesCotizadas" type="int">
-            <column name="unidadesCotizadas" not-null="true" />
-        </property>
-        <property name="totalDetalleCotizacion" type="float">
-            <column name="totalDetalleCotizacion" precision="12" scale="0" not-null="true" />
+        <property name="totalDetalleDevolucionProveedor" type="float">
+            <column name="totalDetalleDevolucionProveedor" precision="12" scale="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
