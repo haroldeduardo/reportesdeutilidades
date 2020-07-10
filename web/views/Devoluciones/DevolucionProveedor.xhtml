@@ -31,9 +31,9 @@
                                         <p:ajax event="keyup" delay="500" listener="#{devolucionProveedorBean.agregarDatosPersonaPorIdentificacion()}" update=":formFacturaDevolucionProveedor:gridDatosAcreedor :formFacturaDevolucionProveedor:inpTexAcreedor"/>
                                     </p:inputText> 
                                     <p:commandButton value="+" oncomplete="PF('dialogDatosAcreedores').show();" update=":formFacturaDevolucionProveedor:dialogAcreedores" disabled="#{!devolucionProveedorBean.enabled}"/>
-                                    <p:outputLabel value="Pago: " style="font-size: 16px; font-weight: bold"/>
-                                    <p:inputText id="inpTexFormaPago" size="20" placeholder="Credito/Contado"  converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!devolucionProveedorBean.enabled}" style="text-align: center">
-                                        <p:ajax event="keyup" delay="500" update=":formFacturaDevolucionProveedor:gridDatosAcreedor :formFacturaDevolucionProveedor:inpTexFormaPago"/>
+                                    <p:outputLabel value="Observación: " style="font-size: 16px; font-weight: bold"/>
+                                    <p:inputText id="inpTexObservacion" size="33" placeholder="Ingrese Observación" converter="#{Integer}" converterMessage="Valor Erroneo" disabled="#{!devolucionProveedorBean.enabled}" style="text-align: center">
+                                        <p:ajax event="keyup" update=":formFacturaDevolucionProveedor:gridDatosAcreedor :formFacturaDevolucionProveedor:inpTexObservacion"/>
                                     </p:inputText> 
                                     <p:commandButton value="+" oncomplete="PF('dialogDatosAcreedores').show();" update=":formFacturaDevolucionProveedor:dialogAcreedores" disabled="#{!devolucionProveedorBean.enabled}"/>
                                     <p:outputLabel value="Fecha: " style="font-size: 16px; font-weight: bold"/>
@@ -58,7 +58,7 @@
                         </p:layout>
                         <h:panelGrid id="gridBuscarProducto" columns="3">
                             <p:outputLabel value="Código de Producto: " style="font-size: 16px; font-weight: bold"/>
-                            <p:inputText id="inpTexProducto" value="#{devolucionProveedorBean.codigoProducto}" size="27" placeholder="Digite Código Producto" disabled="#{!devolucionProveedorBean.enabled}" style="text-align: center; text-transform: uppercase">
+                            <p:inputText id="inpTexProducto" value="#{devolucionProveedorBean.codigoProducto}" size="27" placeholder="Código Producto" disabled="#{!devolucionProveedorBean.enabled}" style="text-align: center; text-transform: uppercase">
                                 <p:ajax event="keyup" delay="500" listener="#{devolucionProveedorBean.mostrarDatosCantidadProductoPorCodigo()}" update=":formFacturaDevolucionProveedor:gridBuscarProducto"/>
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formFacturaDevolucionProveedor:dialogProductos" disabled="#{!devolucionProveedorBean.enabled}"/>

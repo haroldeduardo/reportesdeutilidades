@@ -72,7 +72,7 @@
                         </p:layout>
                         <h:panelGrid id="gridBuscarProducto" columns="3">
                             <p:outputLabel value="Código de Producto: " style="font-size: 16px; font-weight: bold"/>
-                            <p:inputText id="inpTexProducto" value="#{ventaBean.codigoProducto}" size="27" placeholder="Digite Código Producto" disabled="#{!ventaBean.enabled}" style="text-align: center; text-transform: uppercase">
+                            <p:inputText id="inpTexProducto" value="#{ventaBean.codigoProducto}" size="27" placeholder="Código Producto" disabled="#{!ventaBean.enabled}" style="text-align: center; text-transform: uppercase">
                                 <p:ajax event="keyup" delay="500" listener="#{ventaBean.mostrarDatosCantidadProductoPorCodigo()}" update=":formFacturaVenta:gridBuscarProducto"/>
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formFacturaVenta:dialogProductos" disabled="#{!ventaBean.enabled}"/>

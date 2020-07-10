@@ -119,7 +119,7 @@
                             </p:inputText>
                             <p:commandButton value="" disabled="#{!servicioBean.enabled}"/>
                             <p:outputLabel value="Código de Producto" style="font-size: 16px; font-weight: bold"/>
-                            <p:inputText id="inpTexProducto" value="#{servicioBean.codigoProducto}" size="27" placeholder="Digite Código Producto" disabled="#{!servicioBean.enabled}" style="text-align: center; text-transform: uppercase">
+                            <p:inputText id="inpTexProducto" value="#{servicioBean.codigoProducto}" size="27" placeholder="Código Producto" disabled="#{!servicioBean.enabled}" style="text-align: center; text-transform: uppercase">
                                 <p:ajax event="keyup" delay="500" listener="#{servicioBean.mostrarDatosCantidadProductoPorCodigo()}" update=":formCrearServicio:gridBuscarServicio"/>
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formCrearServicio:dialogProductos" disabled="#{!servicioBean.enabled}"/>
@@ -348,7 +348,7 @@
                             </p:inputText>
                             <p:commandButton value="" disabled="#{!servicioBean.enabled}"/>
                             <p:outputLabel value="Código de Producto" style="font-size: 16px; font-weight: bold"/>
-                            <p:inputText id="inpTexProducto" value="#{servicioBean.codigoProducto}" size="27" placeholder="Digite Código Producto" disabled="#{!servicioBean.enabled}" style="text-align: center; text-transform: uppercase">
+                            <p:inputText id="inpTexProducto" value="#{servicioBean.codigoProducto}" size="27" placeholder="Código Producto" disabled="#{!servicioBean.enabled}" style="text-align: center; text-transform: uppercase">
                                 <p:ajax event="keyup" delay="500" listener="#{servicioBean.mostrarDatosCantidadProductoModificadoPorCodigo()}" update= ":formModificarServicio:gridBuscarServicio "/>
                             </p:inputText>
                             <p:commandButton value="+" oncomplete="PF('dialogDatosProductos').show();" update=":formModificarServicio:dialogProductos" disabled="#{!servicioBean.enabled}"/>
